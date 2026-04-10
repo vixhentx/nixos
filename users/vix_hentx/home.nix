@@ -11,6 +11,7 @@
     godotPackages_4_6.godot-mono
     microsoft-edge
     thunderbird
+    dotnetCorePackages.sdk_10_0_1xx-bin
   ];
 
   programs.vscode = {
