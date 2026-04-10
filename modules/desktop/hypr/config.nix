@@ -11,6 +11,7 @@
 
     # --- AUTOSTART ---
     "exec-once" = [
+      "kanshi"
       "swww init"
       "waybar"
       "dunst"
