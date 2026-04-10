@@ -2,7 +2,6 @@
 
 {
   imports = [ ../../modules/dev/default.nix ];
-
   users.users.vix_hentx = {
     isNormalUser = true;
     description = "Trihydra";

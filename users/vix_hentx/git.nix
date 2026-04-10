@@ -11,5 +11,9 @@
       };
       init.defaultBranch = "main";
     };
-  }
+  };
+
+  environment.systemPackages = [
+    pkgs.git-lfs
+  ];
 }

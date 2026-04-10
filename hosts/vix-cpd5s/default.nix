@@ -5,7 +5,6 @@
     ./hardware.nix
     ../../modules/desktop/hypr/nixos.nix
     ../../modules/dev/nvidia.nix
-    ../../users/vix_hentx/default.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -36,6 +35,7 @@
     aria2
     curl
     git
+    git-lfs
     rsync
     wget
     zsh

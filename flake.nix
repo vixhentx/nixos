@@ -17,6 +17,7 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./hosts/vix-cpd5s/default.nix
+        ./users/vix_hentx/default.nix
         
         home-manager.nixosModules.home-manager
         {
