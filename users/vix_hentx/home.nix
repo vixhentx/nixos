@@ -9,6 +9,7 @@
     microsoft-edge  # Edge 浏览器
     clash-verge-rev # 代理工具
     thunderbird     # 邮件
+    godotPackages_4_6.godot-mono #godot
   ];
 
   # 2. 配置 VSCode (带插件管理)
