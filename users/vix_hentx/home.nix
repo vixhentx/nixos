@@ -1,12 +1,16 @@
 { pkgs, ... }:
 
 {
-  imports = [ ../../modules/desktop/default.nix ];
+  imports = [
+    ./zsh.nix 
+    ../../modules/desktop/default.nix
+  ];
 
   home.username = "vix_hentx";
   home.homeDirectory = "/home/vix_hentx";
 
   home.packages = with pkgs; [
+    direnv
     clash-verge-rev
     godotPackages_4_6.godot-mono
     microsoft-edge
@@ -22,15 +26,6 @@
       ms-ceintl.vscode-language-pack-zh-hans
       jdinhlife.gruvbox
     ];
-  };
-
-  programs.zsh = {
-    enable = true;
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "sudo" "docker" ];
-      theme = "robbyrussell";
-    };
   };
 
   home.stateVersion = "25.11";
