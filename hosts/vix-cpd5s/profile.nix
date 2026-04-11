@@ -7,11 +7,12 @@ in
     m.sys "system" [ "core" ]
     ++ m.sys "desktop" [ "hypr" "sddm" "fcitx" ]
     ++ m.sys "device" [ "nvidia" ]
-    ++ m.sys "program" [ "zsh" ];
+    ++ m.sys "program" [ "zsh" ]
+    ++ [ ./apps.nix ];
 
   home-manager.users.vix_hentx.imports =
     m.home "desktop" [ "hypr" "font" ]
-    ++ m.home "program" [ "apps" ];
+    ++ m.home "program" [ "apps" "cli" ];
 
   services.printing.enable = true;
   services.libinput.enable = true;

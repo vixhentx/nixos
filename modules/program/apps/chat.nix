@@ -3,4 +3,5 @@
     qq
     wechat
     feishu
+    telegram-desktop
 ]

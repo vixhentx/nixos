@@ -20,6 +20,7 @@
     wl-clipboard
     wlogout
     kdePackages.dolphin
+    copyq
   ];
 
   home.sessionVariables = {

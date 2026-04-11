@@ -5,6 +5,8 @@ let
     "dev"
     "chat"
     "media"
+    "work"
+    "utils"
   ];
 in
 {

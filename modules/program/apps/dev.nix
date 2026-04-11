@@ -1,7 +1,10 @@
 { pkgs }: with pkgs; [
 	vscode-fhs
 	git
-	docker
-	nodejs_25
-	pnpm
+	git-lfs
+	beekeeper-studio
+	delta
+	httpie
+	insomnia
+	meld
 ]
