@@ -11,10 +11,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  let
+    my = import ./lib { inherit (nixpkgs) lib; };
+  in
+  {
     nixosConfigurations.vix-cpd5s = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs my; };
       modules = [
         ./hosts/vix-cpd5s/default.nix
         ./users/vix_hentx/default.nix
@@ -23,6 +27,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = { inherit inputs my; };
           home-manager.users.vix_hentx = import ./users/vix_hentx/home.nix;
         }
       ];
