@@ -3,7 +3,6 @@
 {
   imports = [
     ./zsh.nix 
-    ./godot.nix
     ../../modules/desktop/default.nix
   ];
 
