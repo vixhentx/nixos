@@ -3,6 +3,7 @@
 	imports = [
 		./nvim.nix
 		./zsh.nix
+		./font.nix
 	];
 
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
