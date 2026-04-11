@@ -43,6 +43,11 @@
 
     # Custom functions and complex initialization logic
     interactiveShellInit = builtins.readFile ./utils.zsh;
+
+    promptInit = ''
+      export PAGER=nvimpager
+      export MANPAGER=nvimpager
+    '';
   };
 
   programs.ssh.startAgent = true;
