@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
 {
-  imports = [ ../../modules/dev/default.nix ];
+  imports = [
+    ../../modules/dev/default.nix
+    ./git.nix
+  ];
   users.users.vix_hentx = {
     isNormalUser = true;
     description = "Trihydra";
