@@ -1,0 +1,30 @@
+#waybar {
+  background: rgba(18, 18, 18, 0.96);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.module {
+  border-radius: 14px;
+  padding: 0 10px;
+  margin: 0 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e0def4;
+}
+
+#custom-workspaces, #custom-gpu, #custom-logout {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#clock {
+  background: rgba(119, 125, 255, 0.12);
+}
+
+#tray {
+  padding-left: 6px;
+}
+
+#custom-logout:hover {
+  color: #f38ba8;
+}

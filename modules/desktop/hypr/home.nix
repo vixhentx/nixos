@@ -6,17 +6,19 @@
   home.packages = with pkgs; [
     brightnessctl
     dunst
-    grim
-    kanshi
+    gsimplecal
+    jq
     kitty
     libnotify
     networkmanagerapplet
+    pavucontrol
     playerctl
     rofi
     slurp
     awww
     waybar
     wl-clipboard
+    wlogout
     kdePackages.dolphin
   ];
 
@@ -34,6 +36,27 @@
     XDG_SESSION_TYPE = "wayland";
     XMODIFIERS = "@im=fcitx";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  };
+
+  home.file = {
+    ".config/waybar/config" = {
+      source = ./waybar/config;
+    };
+    ".config/waybar/style.css" = {
+      source = ./waybar/style.css;
+    };
+    ".config/waybar/scripts/workspaces.sh" = {
+      source = ./waybar/scripts/workspaces.sh;
+      executable = true;
+    };
+    ".config/waybar/scripts/gpu-status.sh" = {
+      source = ./waybar/scripts/gpu-status.sh;
+      executable = true;
+    };
+    ".config/waybar/scripts/gpu-prime-toggle.sh" = {
+      source = ./waybar/scripts/gpu-prime-toggle.sh;
+      executable = true;
+    };
   };
 
   wayland.windowManager.hyprland = {
