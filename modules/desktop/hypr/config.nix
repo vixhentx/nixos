@@ -1,9 +1,6 @@
 { ... }:
 {
   wayland.windowManager.hyprland.settings = {
-    # --- MONITORS ---
-    monitor = ",preferred,auto,auto";
-
     # --- PROGRAMS ---
     "$terminal" = "kitty";
     "$fileManager" = "dolphin";
@@ -11,7 +8,6 @@
 
     # --- AUTOSTART ---
     "exec-once" = [
-      "kanshi"
       "swww init"
       "waybar"
       "dunst"
