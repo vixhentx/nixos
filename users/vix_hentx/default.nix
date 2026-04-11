@@ -1,6 +1,9 @@
 { pkgs, ... }:
-
 {
+	imports = [
+		./theme/default.nix
+	];
+
 	users.users.vix_hentx = {
 		isNormalUser = true;
 		description = "Trihydra";

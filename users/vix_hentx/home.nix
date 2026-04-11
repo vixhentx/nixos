@@ -3,6 +3,7 @@
 {
   imports = [
     ./git.nix
+    ./theme/home.nix
   ];
 
   home.username = "vix_hentx";

@@ -9,9 +9,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs:
   let
     my = import ./lib { inherit (nixpkgs) lib; };
   in
@@ -23,11 +25,15 @@
         ./hosts/vix-cpd5s/default.nix
         ./users/vix_hentx/default.nix
         
+        catppuccin.nixosModules.catppuccin
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs my; };
+          home-manager.sharedModules = [
+            catppuccin.homeModules.catppuccin
+          ];
           home-manager.users.vix_hentx = import ./users/vix_hentx/home.nix;
         }
       ];
