@@ -12,7 +12,7 @@
     catppuccin.gemini-cli.enable = true;
     catppuccin.hyprland.enable = true;
     catppuccin.kitty.enable = true;
-    catppuccin.nvim.enable = true;
+    # catppuccin.nvim.enable = true;
     catppuccin.element-desktop.enable = true;
     catppuccin.qt5ct.enable = true;
     catppuccin.skim.enable = true;
