@@ -34,25 +34,6 @@
 		enable = true;
 		settings.PermitRootLogin = "prohibit-password";
 	};
-	services.gvfs.enable = true;
-	services.udisks2.enable = true;
-
-	# 基础工具集
-	environment.systemPackages = with pkgs; [
-		curl wget git aria2 rsync
-		bottom fastfetch bat fd fzf ripgrep
-		zstd gnutar unzip p7zip libarchive
-		gnupg pass
-		eza fd zoxide
-		direnv
-		delta tmux zellij
-		dnsutils lsof pciutils
-		strace usbutils lm_sensors
-		nix-tree nvd
-	];
-
-	programs.dconf.enable = true;
-	programs.nix-ld.enable = true;
 
 	environment.sessionVariables = {
 		LANG = "zh_CN.UTF-8";

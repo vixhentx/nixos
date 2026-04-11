@@ -4,7 +4,7 @@ let
 in
 {
   imports =
-    m.sys "system" [ "core" ]
+    m.sys "system" [ "core" "addition" ]
     ++ m.sys "desktop" [ "hypr" "sddm" "fcitx" ]
     ++ m.sys "device" [ "nvidia" ]
     ++ m.sys "program" [ "zsh" ]
@@ -12,7 +12,7 @@ in
 
   home-manager.users.vix_hentx.imports =
     m.home "desktop" [ "hypr" "font" ]
-    ++ m.home "program" [ "apps" "cli" ];
+    ++ m.home "program" [ "apps" "cli" "zsh" ];
 
   services.printing.enable = true;
   services.libinput.enable = true;

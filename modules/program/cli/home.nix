@@ -2,6 +2,11 @@
 
 {
   home.packages = with pkgs; [
+    aria2
+    curl
+    delta
+    fd
+    gnupg
     doggo
     dua
     duf
@@ -10,10 +15,19 @@
     lazydocker
     lazygit
     ncdu
+    fastfetch
     ouch
+    p7zip
+    pass
     procs
+    ripgrep
+    rsync
     tokei
+    unzip
+    wget
     xh
+    zellij
+    zstd
   ];
 
   programs.bat = {
@@ -93,6 +107,7 @@
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
+    shellWrapperName = "y";
   };
 
   programs.zoxide = {
