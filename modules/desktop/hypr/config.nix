@@ -1,4 +1,7 @@
-{ ... }:
+{ config, ... }:
+let
+  hyprScripts = "${config.xdg.configHome}/hypr/scripts";
+in
 {
   wayland.windowManager.hyprland.settings = {
     # --- PROGRAMS ---
@@ -24,6 +27,8 @@
       "QT_IM_MODULE,fcitx"
       "QT_QPA_PLATFORM,wayland;xcb"
       "SDL_IM_MODULE,fcitx"
+      "XDG_CURRENT_DESKTOP,Hyprland"
+      "XDG_SESSION_DESKTOP,Hyprland"
       "XMODIFIERS,@im=fcitx"
       "XCURSOR_SIZE,24"
       "HYPRCURSOR_SIZE,24"
@@ -130,6 +135,11 @@
       "$mainMod, W, exec, $winMenu"
       "$mainMod, P, pseudo,"
       "$mainMod, J, togglesplit,"
+      ", Print, exec, ${hyprScripts}/screenshot.sh region"
+      "SHIFT, Print, exec, ${hyprScripts}/screenshot.sh output"
+      "$mainMod, Print, exec, spectacle"
+      "$mainMod SHIFT, R, exec, ${hyprScripts}/screenrecord.sh"
+      "$mainMod ALT, R, exec, ${hyprScripts}/screenrecord.sh region"
 
       # Move focus
       "$mainMod, left, movefocus, l"

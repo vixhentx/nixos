@@ -7,6 +7,7 @@
     brightnessctl
     dunst
     gsimplecal
+    grim
     jq
     kitty
     libnotify
@@ -15,9 +16,11 @@
     playerctl
     rofi
     slurp
+    kdePackages.spectacle
     awww
     waybar
     wl-clipboard
+    wf-recorder
     wlogout
     kdePackages.dolphin
     copyq
@@ -34,6 +37,8 @@
     QT_QPA_PLATFORM = "wayland;xcb";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     SDL_IM_MODULE = "fcitx";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     XMODIFIERS = "@im=fcitx";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -56,6 +61,14 @@
     };
     ".config/waybar/scripts/gpu-prime-toggle.sh" = {
       source = ./waybar/scripts/gpu-prime-toggle.sh;
+      executable = true;
+    };
+    ".config/hypr/scripts/screenshot.sh" = {
+      text = builtins.readFile ./scripts/screenshot.sh;
+      executable = true;
+    };
+    ".config/hypr/scripts/screenrecord.sh" = {
+      text = builtins.readFile ./scripts/screenrecord.sh;
       executable = true;
     };
   };
