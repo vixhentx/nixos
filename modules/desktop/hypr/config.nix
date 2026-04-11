@@ -16,13 +16,25 @@
       "waybar"
       "dunst"
       "nm-applet --indicator"
+      "fcitx5 -d --replace"
     ];
 
     # --- ENV ---
     env = [
+      "ELECTRON_OZONE_PLATFORM_HINT,auto"
+      "GTK_IM_MODULE,fcitx"
+      "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+      "QT_IM_MODULE,fcitx"
+      "QT_QPA_PLATFORM,wayland;xcb"
+      "SDL_IM_MODULE,fcitx"
+      "XMODIFIERS,@im=fcitx"
       "XCURSOR_SIZE,24"
       "HYPRCURSOR_SIZE,24"
     ];
+
+    xwayland = {
+      force_zero_scaling = true;
+    };
 
     # --- LOOK AND FEEL ---
     general = {
