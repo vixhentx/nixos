@@ -55,4 +55,9 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.zsh.enable = true;
+
+  #keyboard
+  boot.extraModprobeConfig = ''
+  options hid_apple fnmode=2
+'';
 }
