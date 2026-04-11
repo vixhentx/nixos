@@ -4,7 +4,8 @@
     # --- PROGRAMS ---
     "$terminal" = "kitty";
     "$fileManager" = "dolphin";
-    "$menu" = "rofi -show drun"; # Updated to use rofi from your list
+    "$menu" = "rofi -show drun";
+    "$winMenu" = "rofi -show window";
 
     # --- AUTOSTART ---
     "exec-once" = [
@@ -126,6 +127,7 @@
       "$mainMod, E, exec, $fileManager"
       "$mainMod, V, togglefloating,"
       "$mainMod, R, exec, $menu"
+      "$mainMod, W, exec, $winMenu"
       "$mainMod, P, pseudo,"
       "$mainMod, J, togglesplit,"
 
