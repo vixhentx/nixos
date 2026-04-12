@@ -14,7 +14,6 @@ in
     "exec-once" = [
       "swww init"
       "waybar"
-      "dunst"
       "nm-applet --indicator"
       "fcitx5 -d --replace"
     ];
