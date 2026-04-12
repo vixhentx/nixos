@@ -2,5 +2,6 @@
 	microsoft-edge
 	clash-verge-rev
 	localsend
-	qbittorrent
+	motrix-next
+	thunderbird
 ]

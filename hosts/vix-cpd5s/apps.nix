@@ -4,6 +4,6 @@
     blender
     bottles
     kdePackages.kdenlive
-    krita-unwrapped
+    krita
   ];
 }
