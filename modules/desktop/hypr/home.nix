@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
-  imports = [ ./config.nix ];
+  imports = [
+    ./config.nix
+    ./workspace.nix
+  ];
 
   home.packages = with pkgs; [
     brightnessctl
@@ -45,36 +48,22 @@
   };
 
   home.file = {
-    ".config/waybar/config" = {
-      source = ./waybar/config;
+    ".config/waybar" = {
+      source = ./waybar;
+      recursive = true;
     };
-    ".config/waybar/style.css" = {
-      source = ./waybar/style.css;
-    };
-    ".config/waybar/scripts/workspaces.sh" = {
-      source = ./waybar/scripts/workspaces.sh;
-      executable = true;
-    };
-    ".config/waybar/scripts/gpu-status.sh" = {
-      source = ./waybar/scripts/gpu-status.sh;
-      executable = true;
-    };
-    ".config/waybar/scripts/gpu-prime-toggle.sh" = {
-      source = ./waybar/scripts/gpu-prime-toggle.sh;
-      executable = true;
-    };
-    ".config/hypr/scripts/screenshot.sh" = {
-      text = builtins.readFile ./scripts/screenshot.sh;
-      executable = true;
-    };
-    ".config/hypr/scripts/screenrecord.sh" = {
-      text = builtins.readFile ./scripts/screenrecord.sh;
-      executable = true;
+
+    ".config/hypr/scripts" = {
+      source = ./scripts;
+      recursive = true;
     };
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    plugins = [
+      # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+    ];
   };
 }
