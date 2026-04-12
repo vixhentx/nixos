@@ -3,6 +3,11 @@
 # 逻辑：如果当前工作区是 "godot-3"，按 1 跳转到 "godot-1"
 #       如果当前工作区是 "2"，按 1 跳转到 "1"
 
+set -euo pipefail
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+. "$SCRIPT_DIR/common.sh"
+
 ACTION=$1
 TARGET_NUM=$2
 
@@ -22,6 +27,10 @@ fi
 
 case $ACTION in
     switch)
+        summon_workspace_to_focused_monitor \
+            "$([ "$IS_NAMED" = true ] && printf 'named' || printf 'default')" \
+            "$TARGET_NAME"
+
         # 组内跳转
         if [ "$IS_NAMED" = true ]; then
             hyprctl dispatch workspace name:"$TARGET_NAME"

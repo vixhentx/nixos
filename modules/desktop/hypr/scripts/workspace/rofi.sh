@@ -6,6 +6,9 @@
 
 set -euo pipefail
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+. "$SCRIPT_DIR/common.sh"
+
 ACTION=${1:-switch}
 
 normalize_group_name() {
@@ -36,6 +39,8 @@ dispatch_target() {
             hyprctl dispatch movetoworkspace name:"$target_workspace"
         fi
     else
+        summon_workspace_to_focused_monitor "$target_kind" "$target_workspace"
+
         if [ "$target_kind" = "default" ]; then
             hyprctl dispatch workspace "$target_workspace"
         else
