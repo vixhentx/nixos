@@ -17,10 +17,20 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "lua", "python", "javascript" },
-				highlight = { enable = is_gui }, -- 后端模式禁用高亮
-				indent = { enable = true },
+			local treesitter = require("nvim-treesitter")
+			local languages = { "lua", "python", "javascript" }
+
+			treesitter.setup()
+			treesitter.install(languages)
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = languages,
+				callback = function()
+					if is_gui then
+						vim.treesitter.start()
+					end
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
 			})
 		end,
 	},
