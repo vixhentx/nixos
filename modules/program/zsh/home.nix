@@ -37,6 +37,9 @@
       gc = "git commit";
       gp = "git push";
       lg = "lazygit";
+      pager = "nvimpager";
+      less = "nvimpager";
+      more = "nvimpager";
       el = "eza -lh --git";
       ela = "eza -lah --git";
       et = "eza --tree --level=2";
