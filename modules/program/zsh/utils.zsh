@@ -9,8 +9,8 @@ typeset -A proxy_map=(
 )
 
 proxy_on() {
-    local input="''${1:-hiddify}"
-    local port="''${proxy_map[$input]:-$input}"
+    local input="${1:-hiddify}"
+    local port="${proxy_map[$input]:-$input}"
 
     if [[ ! "$port" =~ ^[0-9]+$ ]]; then
       echo -e "\033[31mError: Unknown proxy profile or invalid port '$input'\033[0m"
