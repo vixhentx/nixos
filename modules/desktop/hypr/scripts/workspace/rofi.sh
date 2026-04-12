@@ -1,24 +1,110 @@
 #!/usr/bin/env bash
-# 此脚本用于使用 Rofi 动态搜索、创建、跳转或移动窗口到特定的工作区
+# 全局工作区选择器：
+# - 输入现有工作区名，直接跳转/移动
+# - 输入组名如 godot，自动进入 godot-1
+# - 输入 godot-3，直接命中该组内编号
 
-ACTION=${1:-switch} # 支持 "switch" (跳转) 或 "move" (将当前窗口移动到目标)
+set -euo pipefail
 
-# 获取当前已经存在的命名工作区 (过滤掉 special 抽屉)
-WORKSPACES=$(hyprctl workspaces -j | jq -r '.[].name' | grep -v 'special' | sort -u)
+ACTION=${1:-switch}
 
-# 呼出 Rofi，如果输入的名称不在列表中，可以作为新工作区名返回
-CHOSEN=$(echo "$WORKSPACES" | rofi -dmenu -p "工作区 (Workspace)")
+normalize_group_name() {
+    printf '%s' "$1" | sed -E \
+        -e 's/^[[:space:]]+//' \
+        -e 's/[[:space:]]+$//' \
+        -e 's/[[:space:]]+/-/g' \
+        -e 's/-+/-/g' \
+        -e 's/^-+//' \
+        -e 's/-+$//'
+}
 
-# 如果用户按了 ESC 或者没有输入，则退出
-if [ -z "$CHOSEN" ]; then
+get_workspaces() {
+    hyprctl workspaces -j 2>/dev/null \
+        | jq -r '.[].name | select(startswith("special:") | not)' 2>/dev/null \
+        | sort -u
+}
+
+dispatch_target() {
+    local action="$1"
+    local target_kind="$2"
+    local target_workspace="$3"
+
+    if [ "$action" = "move" ]; then
+        if [ "$target_kind" = "default" ]; then
+            hyprctl dispatch movetoworkspace "$target_workspace"
+        else
+            hyprctl dispatch movetoworkspace name:"$target_workspace"
+        fi
+    else
+        if [ "$target_kind" = "default" ]; then
+            hyprctl dispatch workspace "$target_workspace"
+        else
+            hyprctl dispatch workspace name:"$target_workspace"
+        fi
+    fi
+}
+
+resolve_target() {
+    local raw_input="$1"
+    local workspaces="$2"
+    local input
+    local group_name
+    local target_num
+
+    if printf '%s\n' "$workspaces" | grep -Fxq "$raw_input"; then
+        if [[ "$raw_input" =~ ^[0-9]+$ ]]; then
+            printf 'default\t%s\n' "$raw_input"
+        else
+            printf 'named\t%s\n' "$raw_input"
+        fi
+        return
+    fi
+
+    if [[ "$raw_input" =~ ^[[:space:]]*[0-9]+[[:space:]]*$ ]]; then
+        printf 'default\t%s\n' "$(printf '%s' "$raw_input" | tr -d '[:space:]')"
+        return
+    fi
+
+    input=$(normalize_group_name "$raw_input")
+    if [ -z "$input" ]; then
+        return
+    fi
+
+    if [[ "$input" =~ ^(.+)-([0-9]+)$ ]]; then
+        group_name=$(normalize_group_name "${BASH_REMATCH[1]}")
+        target_num="${BASH_REMATCH[2]}"
+
+        if [ -n "$group_name" ]; then
+            printf 'named\t%s-%s\n' "$group_name" "$target_num"
+        fi
+        return
+    fi
+
+    printf 'named\t%s-1\n' "$input"
+}
+
+if [ "$ACTION" != "switch" ] && [ "$ACTION" != "move" ]; then
+    exit 1
+fi
+
+WORKSPACES=$(get_workspaces)
+
+RAW_INPUT=$(
+    printf '%s\n' "$WORKSPACES" | rofi -dmenu -i -matching fuzzy -sort \
+        -p "工作区 (Workspace)" \
+        -mesg "输入组名回车将进入 <组名>-1；也可直接输入 <组名>-<编号> 或现有工作区名"
+)
+
+if [ -z "${RAW_INPUT//[[:space:]]/}" ]; then
     exit 0
 fi
 
-# 根据参数执行操作
-if [ "$ACTION" == "move" ]; then
-    # 将当前焦点窗口移动到该工作区
-    hyprctl dispatch movetoworkspace name:"$CHOSEN"
-else
-    # 跳转到该工作区
-    hyprctl dispatch workspace name:"$CHOSEN"
+TARGET=$(resolve_target "$RAW_INPUT" "$WORKSPACES")
+if [ -z "$TARGET" ]; then
+    exit 0
 fi
+
+TARGET_KIND=${TARGET%%$'\t'*}
+TARGET_WORKSPACE=${TARGET#*$'\t'}
+
+dispatch_target "$ACTION" "$TARGET_KIND" "$TARGET_WORKSPACE"

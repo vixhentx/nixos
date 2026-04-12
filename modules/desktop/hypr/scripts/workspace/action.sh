@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 此脚本用于实现"基于当前组"的工作区跳转和移动
-# 逻辑：如果当前工作区是 "Dev-xxx"，按 1 跳转到 "Dev-1"
+# 逻辑：如果当前工作区是 "godot-3"，按 1 跳转到 "godot-1"
 #       如果当前工作区是 "2"，按 1 跳转到 "1"
 
 ACTION=$1
@@ -9,9 +9,9 @@ TARGET_NUM=$2
 # 获取当前工作区的名称
 CUR=$(hyprctl activeworkspace -j | jq -r '.name')
 
-# 嗅探前缀：检查当前工作区是否包含 "-"
-if [[ "$CUR" == *-* ]]; then
-    PREFIX="${CUR%%-*}" # 提取 "-" 前面的部分作为组名 (如 Dev)
+# 嗅探前缀：仅当工作区名符合 "<组名>-<编号>" 时才视为命名组
+if [[ "$CUR" =~ ^(.+)-([0-9]+)$ ]]; then
+    PREFIX="${BASH_REMATCH[1]}"
     TARGET_NAME="${PREFIX}-${TARGET_NUM}"
     IS_NAMED=true
 else
@@ -36,13 +36,5 @@ case $ACTION in
         else
             hyprctl dispatch movetoworkspace "$TARGET_NAME"
         fi
-        ;;
-    switch-default)
-        # 无视组，强制跳转到 Default 组
-        hyprctl dispatch workspace "$TARGET_NUM"
-        ;;
-    move-default)
-        # 无视组，强制将窗口移动到 Default 组
-        hyprctl dispatch movetoworkspace "$TARGET_NUM"
         ;;
 esac
