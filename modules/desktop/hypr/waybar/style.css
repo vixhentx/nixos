@@ -1,30 +1,49 @@
+/* Waybar 整体背景 */
 #waybar {
-  background: rgba(18, 18, 18, 0.96);
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
+    /* 使用 base 颜色，alpha 设置为 0.9 保持微透 */
+    background: alpha(@base, 0.9); 
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    color: @text;
 }
 
+/* 通用模块样式 */
 .module {
-  border-radius: 14px;
-  padding: 0 10px;
-  margin: 0 4px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e0def4;
+    border-radius: 14px;
+    padding: 0 10px;
+    margin: 4px 4px; /* 增加上下边距更美观 */
+    /* 使用 surface0 作为模块背景，带一点透明度 */
+    background: alpha(@surface0, 0.6);
+    color: @text;
 }
 
+/* 特定模块背景增强 */
 #custom-workspaces, #custom-gpu, #custom-logout {
-  background: rgba(255, 255, 255, 0.08);
+    background: @surface1;
+    color: @blue; /* 给这些图标模块一点颜色点缀 */
 }
 
+/* 时钟模块：使用 Mauve（淡紫色）作为主调 */
 #clock {
-  background: rgba(119, 125, 255, 0.12);
+    background: alpha(@mauve, 0.2);
+    color: @mauve;
+    font-weight: bold;
 }
 
+/* 托盘 */
 #tray {
-  padding-left: 6px;
+    padding-left: 6px;
 }
 
+/* 退出按钮悬停效果：使用主题中的红色 */
 #custom-logout:hover {
-  color: #f38ba8;
+    background: @red;
+    color: @base;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @green;
+    background: @surface2;
 }

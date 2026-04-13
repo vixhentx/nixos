@@ -7,6 +7,7 @@
     ./config.nix
     ./dunst.nix
     ./rofi.nix
+    ./waybar.nix
   ];
 
   home.packages = with pkgs; [
@@ -22,7 +23,6 @@
     slurp
     kdePackages.spectacle
     awww
-    waybar
     wl-clipboard
     wf-recorder
     wlogout
@@ -51,10 +51,6 @@
 
 
   home.file = {
-    ".config/waybar" = {
-      source = ./waybar;
-      recursive = true;
-    };
 
     ".config/hypr/scripts" = {
       source = ./scripts;
