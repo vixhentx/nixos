@@ -1,20 +1,33 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
+
+let
+  flavor = "mocha";
+  accent = "lavender";
+  gtkThemeName = "catppuccin-${flavor}-${accent}-standard";
+  gtkThemePackage = pkgs.catppuccin-gtk.override {
+    variant = flavor;
+    accents = [ accent ];
+    size = "standard";
+  };
+in
 
 lib.mkMerge [
   {
     catppuccin.enable = true;
-    catppuccin.flavor = "mocha";
-    catppuccin.accent = "lavender";
+    catppuccin.flavor = flavor;
+    catppuccin.accent = accent;
 
     catppuccin.cursors.enable = true;
     catppuccin.chromium.enable = true;
     catppuccin.fcitx5.enable = true;
     catppuccin.fzf.enable = true;
     catppuccin.gemini-cli.enable = true;
+    catppuccin.gtk.icon.enable = true;
     catppuccin.hyprland.enable = true;
     catppuccin.kitty.enable = true;
-    # catppuccin.nvim.enable = true;
+    catppuccin.kvantum.enable = false;
     catppuccin.element-desktop.enable = true;
+    catppuccin.dunst.enable = true;
     catppuccin.qt5ct.enable = true;
     catppuccin.skim.enable = true;
     catppuccin.tmux.enable = true;
@@ -24,6 +37,25 @@ lib.mkMerge [
     catppuccin.waybar.enable = true;
     catppuccin.wlogout.enable = true;
     catppuccin.zsh-syntax-highlighting.enable = true;
+
+    gtk = {
+      enable = true;
+      colorScheme = "dark";
+      theme = {
+        name = gtkThemeName;
+        package = gtkThemePackage;
+      };
+      gtk4.theme = {
+        name = gtkThemeName;
+        package = gtkThemePackage;
+      };
+    };
+
+    qt = {
+      enable = true;
+      platformTheme.name = "qtct";
+      style.name = "Fusion";
+    };
   }
 
   (lib.mkIf config.catppuccin.hyprland.enable {

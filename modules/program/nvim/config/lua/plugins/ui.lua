@@ -14,11 +14,19 @@ return {
 
     -- 颜色主题
     {
-        "folke/tokyonight.nvim",
+        "catppuccin/nvim",
+        name = "catppuccin",
         lazy = false,
         priority = 1000,
         config = function()
-            if is_gui then vim.cmd.colorscheme("tokyonight") end
+            require("catppuccin").setup({
+                flavour = "mocha",
+                integrations = {
+                    alpha = true,
+                    nvimtree = true,
+                },
+            })
+            if is_gui then vim.cmd.colorscheme("catppuccin") end
         end,
     },
 
