@@ -28,6 +28,10 @@ if is_server then
         -- VS Code 专用快捷键
         keymap("n", "<leader>ff", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
         keymap("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.commentLine')<CR>")
+        keymap("n", "gcc", "<Cmd>call VSCodeNotify('editor.action.commentLine')<CR>")
+        keymap("x", "gc", "<Cmd>call VSCodeNotify('editor.action.commentLine')<CR>")
+        keymap("n", "gbc", "<Cmd>call VSCodeNotify('editor.action.blockComment')<CR>")
+        keymap("x", "gb", "<Cmd>call VSCodeNotify('editor.action.blockComment')<CR>")
     end
 else
     -- 终端模式：使用插件命令

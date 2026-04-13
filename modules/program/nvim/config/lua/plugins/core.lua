@@ -3,7 +3,17 @@ local is_gui = not vim.g.IsServerMode
 
 return {
 	{ "kylechui/nvim-surround", version = "*", event = "VeryLazy", config = true },
-	{ "numToStr/Comment.nvim", config = true },
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup({
+				mappings = vim.g.vscode and {
+					basic = false,
+					extra = false,
+				} or nil,
+			})
+		end,
+	},
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 
 	-- Git 标记 (VS Code 模式下也可以开启，因为它在 gutter 显示，通常不冲突)
@@ -18,7 +28,7 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			local treesitter = require("nvim-treesitter")
-			local languages = { "lua", "python", "javascript" }
+			local languages = { "lua", "python", "javascript", "nix" }
 
 			treesitter.setup()
 			treesitter.install(languages)

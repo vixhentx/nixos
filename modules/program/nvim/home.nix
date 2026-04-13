@@ -9,6 +9,8 @@ in
     gcc
     git
     gnumake
+    nixd
+    nixfmt
     ripgrep
     tree-sitter
   ];
@@ -17,6 +19,7 @@ in
     "nvim/init.lua".source = "${nvimConfig}/init.lua";
     "nvim/lua/config/keymaps.lua".source = "${nvimConfig}/lua/config/keymaps.lua";
     "nvim/lua/config/lazy.lua".source = "${nvimConfig}/lua/config/lazy.lua";
+    "nvim/lua/config/lsp.lua".source = "${nvimConfig}/lua/config/lsp.lua";
     "nvim/lua/config/server_opt.lua".source = "${nvimConfig}/lua/config/server_opt.lua";
     "nvim/lua/plugins/core.lua".source = "${nvimConfig}/lua/plugins/core.lua";
     "nvim/lua/plugins/init.lua".source = "${nvimConfig}/lua/plugins/init.lua";
