@@ -10,6 +10,7 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 . "$SCRIPT_DIR/common.sh"
 
 ACTION=${1:-switch}
+CREATE_WORKSPACE_OPTION="新建工作区…"
 
 normalize_group_name() {
     printf '%s' "$1" | sed -E \
@@ -88,17 +89,40 @@ resolve_target() {
     printf 'named\t%s-1\n' "$input"
 }
 
+prompt_workspace_picker() {
+    local workspaces="$1"
+
+    {
+        printf '%s\n' "$CREATE_WORKSPACE_OPTION"
+        if [ -n "$workspaces" ]; then
+            printf '%s\n' "$workspaces"
+        fi
+    } | rofi -dmenu -i -matching fuzzy -sort \
+        -p "工作区 (Workspace)" \
+        -mesg "选择已有工作区；或选“新建工作区…”后输入组名 / <组名>-<编号>"
+}
+
+prompt_new_workspace() {
+    rofi -dmenu -i -matching fuzzy -sort \
+        -p "新建工作区" \
+        -mesg "输入组名回车将进入 <组名>-1；也可直接输入 <组名>-<编号> 或数字工作区"
+}
+
 if [ "$ACTION" != "switch" ] && [ "$ACTION" != "move" ]; then
     exit 1
 fi
 
 WORKSPACES=$(get_workspaces)
 
-RAW_INPUT=$(
-    printf '%s\n' "$WORKSPACES" | rofi -dmenu -i -matching fuzzy -sort \
-        -p "工作区 (Workspace)" \
-        -mesg "输入组名回车将进入 <组名>-1；也可直接输入 <组名>-<编号> 或现有工作区名"
-)
+RAW_INPUT=$(prompt_workspace_picker "$WORKSPACES")
+
+if [ -z "${RAW_INPUT//[[:space:]]/}" ]; then
+    exit 0
+fi
+
+if [ "$RAW_INPUT" = "$CREATE_WORKSPACE_OPTION" ]; then
+    RAW_INPUT=$(prompt_new_workspace)
+fi
 
 if [ -z "${RAW_INPUT//[[:space:]]/}" ]; then
     exit 0
