@@ -5,13 +5,13 @@ in
 {
   imports =
     m.sys "system" [ "core" "addition" ]
-    ++ m.sys "desktop" [ "hypr" "sddm" "fcitx" ]
+    ++ m.sys "desktop" [ "hypr" "sddm" ]
     ++ m.sys "device" [ "nvidia" ]
     ++ m.sys "program" [ "zsh" ]
     ++ [ ./apps.nix ];
 
   home-manager.users.vix_hentx.imports =
-    m.home "desktop" [ "hypr" "font" ]
+    m.home "desktop" [ "hypr" "font" "fcitx" ]
     ++ m.home "program" [ "apps" "cli" "nvim" "zsh" ];
 
   services.printing.enable = true;
