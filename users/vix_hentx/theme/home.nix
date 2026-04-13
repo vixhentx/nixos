@@ -1,6 +1,7 @@
-{ ... }:
+{ config, lib, ... }:
 
-{
+lib.mkMerge [
+  {
     catppuccin.enable = true;
     catppuccin.flavor = "mocha";
     catppuccin.accent = "lavender";
@@ -23,4 +24,12 @@
     catppuccin.waybar.enable = true;
     catppuccin.wlogout.enable = true;
     catppuccin.zsh-syntax-highlighting.enable = true;
-}
+  }
+
+  (lib.mkIf config.catppuccin.hyprland.enable {
+    wayland.windowManager.hyprland.settings.general = {
+      "col.active_border" = lib.mkDefault "rgba($accentAlphaff)";
+      "col.inactive_border" = lib.mkDefault "rgba($surface0Alphacc)";
+    };
+  })
+]
