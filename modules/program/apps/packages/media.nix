@@ -10,5 +10,4 @@ with pkgs;
   kdePackages.gwenview
   haruna
   mpv
-  obs-studio
 ]
