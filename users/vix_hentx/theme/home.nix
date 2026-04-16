@@ -19,6 +19,7 @@ lib.mkMerge [
 
     catppuccin.cursors.enable = true;
     catppuccin.chromium.enable = true;
+    catppuccin.firefox.enable = true;
     catppuccin.fcitx5.enable = true;
     catppuccin.fzf.enable = true;
     catppuccin.gemini-cli.enable = true;
