@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }:
+let
+	flutterDir = inputs.nixpkgs + "/pkgs/development/compilers/flutter";
+in
+{
 
 	imports = [
 		./nvim.nix
@@ -8,6 +12,39 @@
 
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 	nixpkgs.config.allowUnfree = true;
+	nixpkgs.overlays = [
+		(final: prev:
+			let
+				fixedArtifacts = prev.callPackage (flutterDir + "/host-artifacts.nix") {
+					inherit (prev.flutter329.scope)
+						artifactHashes
+						constants
+						engineVersion
+						engines
+						supportedTargetFlutterPlatforms
+						useNixpkgsEngine
+						;
+					hostPlatform = final.stdenv.hostPlatform;
+				};
+
+				fixedFlutter329 = prev.flutter329.override {
+					artifacts = fixedArtifacts;
+				};
+			in
+			{
+				# LocalSend currently builds with flutter329. This avoids nixpkgs'
+				# deprecated auto-filled `hostPlatform` argument while keeping it installed.
+				flutter329 = fixedFlutter329.overrideAttrs (old: {
+					passthru = (old.passthru or { }) // {
+						buildFlutterApplication =
+							prev.callPackage (flutterDir + "/build-support/build-flutter-application.nix")
+								{
+									flutter = fixedFlutter329;
+								};
+					};
+				});
+			})
+	];
 
 	# 基础引导与内核
 	boot.loader.systemd-boot.enable = true;
