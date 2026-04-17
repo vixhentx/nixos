@@ -20,7 +20,7 @@ in
         "tray-position" = "right";
         "tray-padding" = 10;
 
-        "modules-left" = [ "custom/workspaces" ];
+        "modules-left" = [ "custom/workspaces" "custom/pomodoro" ];
         "modules-center" = [ "clock" ];
         "modules-right" = [ 
           "pulseaudio" 
@@ -37,6 +37,16 @@ in
           "return-type" = "json";
           interval = 2;
           tooltip = false;
+        };
+
+        "custom/pomodoro" = {
+          exec = "${pkgs.tomat}/bin/tomat watch --interval 1";
+          return-type = "json";
+          "restart-interval" = 5;
+          on-click = "${pkgs.tomat}/bin/tomat toggle";
+          on-click-middle = "${pkgs.tomat}/bin/tomat start";
+          on-click-right = "${pkgs.tomat}/bin/tomat stop";
+          format = "{}";
         };
 
         clock = {

@@ -141,6 +141,9 @@ in
       "$mainMod, right, movefocus, r"
       "$mainMod, up, movefocus, u"
       "$mainMod, down, movefocus, d"
+
+      # tomat
+      "$mainMod, I, exec, tomat toggle"
     ];
 
     # Move/resize windows with mouse

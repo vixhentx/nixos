@@ -47,3 +47,27 @@
     color: @green;
     background: @surface2;
 }
+
+#custom-pomodoro.work {
+    color: @red;
+}
+
+#custom-pomodoro.work-paused {
+    color: @yellow;
+}
+
+#custom-pomodoro.break {
+    color: @blue;
+}
+
+#custom-pomodoro.break-paused {
+    color: @yellow;
+}
+
+#custom-pomodoro.long-break {
+    color: @green;
+}
+
+#custom-pomodoro.long-break-paused {
+    color: @yellow;
+}

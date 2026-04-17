@@ -8,6 +8,7 @@
     ./dunst.nix
     ./rofi.nix
     ./waybar.nix
+    ./tomat.nix
   ];
 
   home.packages = with pkgs; [
@@ -65,4 +66,5 @@
       # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
     ];
   };
+
 }
