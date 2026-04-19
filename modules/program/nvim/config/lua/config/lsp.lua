@@ -37,8 +37,6 @@ end
 
 function M.setup()
     local cmp = require("cmp")
-    local lspconfig = require("lspconfig")
-    local util = require("lspconfig.util")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     cmp.setup({
@@ -73,16 +71,18 @@ function M.setup()
         end, opts)
     end
 
-    lspconfig.nixd.setup({
+    vim.lsp.config("nixd", {
         cmd = { "nixd" },
         filetypes = { "nix" },
-        root_dir = util.root_pattern("flake.nix", ".git"),
+        root_markers = { "flake.nix", ".git" },
         capabilities = capabilities,
         on_attach = on_attach,
         before_init = function(_, config)
-            config.settings = nixd_settings(config.root_dir or vim.loop.cwd())
+            config.settings = nixd_settings(config.root_dir or vim.uv.cwd())
         end,
     })
+
+    vim.lsp.enable("nixd")
 end
 
 return M

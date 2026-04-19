@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  nvimConfig = ./config;
   inherit (config.lib.file) mkOutOfStoreSymlink;
+  nvimConfig = "${config.home.homeDirectory}/.config/nixos/modules/program/nvim/config";
+  nvimConfigFile = path: mkOutOfStoreSymlink "${nvimConfig}/${path}";
 in
 {
   home.packages = with pkgs; [
@@ -16,15 +17,15 @@ in
   ];
 
   xdg.configFile = {
-    "nvim/init.lua".source = "${nvimConfig}/init.lua";
-    "nvim/lua/config/keymaps.lua".source = "${nvimConfig}/lua/config/keymaps.lua";
-    "nvim/lua/config/lazy.lua".source = "${nvimConfig}/lua/config/lazy.lua";
-    "nvim/lua/config/lsp.lua".source = "${nvimConfig}/lua/config/lsp.lua";
-    "nvim/lua/config/server_opt.lua".source = "${nvimConfig}/lua/config/server_opt.lua";
-    "nvim/lua/plugins/core.lua".source = "${nvimConfig}/lua/plugins/core.lua";
-    "nvim/lua/plugins/init.lua".source = "${nvimConfig}/lua/plugins/init.lua";
-    "nvim/lua/plugins/tools.lua".source = "${nvimConfig}/lua/plugins/tools.lua";
-    "nvim/lua/plugins/ui.lua".source = "${nvimConfig}/lua/plugins/ui.lua";
+    "nvim/init.lua".source = nvimConfigFile "init.lua";
+    "nvim/lua/config/keymaps.lua".source = nvimConfigFile "lua/config/keymaps.lua";
+    "nvim/lua/config/lazy.lua".source = nvimConfigFile "lua/config/lazy.lua";
+    "nvim/lua/config/lsp.lua".source = nvimConfigFile "lua/config/lsp.lua";
+    "nvim/lua/config/server_opt.lua".source = nvimConfigFile "lua/config/server_opt.lua";
+    "nvim/lua/plugins/core.lua".source = nvimConfigFile "lua/plugins/core.lua";
+    "nvim/lua/plugins/init.lua".source = nvimConfigFile "lua/plugins/init.lua";
+    "nvim/lua/plugins/tools.lua".source = nvimConfigFile "lua/plugins/tools.lua";
+    "nvim/lua/plugins/ui.lua".source = nvimConfigFile "lua/plugins/ui.lua";
 
     # nvimpager defaults to ~/.config/nvimpager instead of ~/.config/nvim.
     # Point it back to the managed nvim config so both share the same setup.

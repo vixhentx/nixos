@@ -6,11 +6,33 @@ return {
 	{
 		"numToStr/Comment.nvim",
 		config = function()
+			local ft = require("Comment.ft")
+			local utils = require("Comment.utils")
+
+			ft.set("", "# %s")
+			ft.set("text", "# %s")
+
 			require("Comment").setup({
 				mappings = vim.g.vscode and {
 					basic = false,
 					extra = false,
 				} or nil,
+				pre_hook = function(ctx)
+					if ctx.ctype ~= utils.ctype.linewise then
+						return nil
+					end
+
+					if vim.bo.commentstring:find("%%s") then
+						return vim.bo.commentstring
+					end
+
+					local ok, parser = pcall(vim.treesitter.get_parser, 0)
+					if ok and parser then
+						return nil
+					end
+
+					return ft.get(vim.bo.filetype, ctx.ctype) or "# %s"
+				end,
 			})
 		end,
 	},
