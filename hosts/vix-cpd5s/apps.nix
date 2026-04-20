@@ -5,6 +5,7 @@
     bottles
     kdePackages.kdenlive
     krita
+    kicad
   ];
   programs.wireshark = 
   {
