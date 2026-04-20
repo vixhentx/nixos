@@ -11,6 +11,7 @@ with pkgs;
   kdePackages.ark
   kdePackages.okular
   kdePackages.filelight
+  kdePackages.konsole
   desktop-file-utils
   mission-center
   wl-color-picker

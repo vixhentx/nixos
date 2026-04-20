@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, pkgs, ... }:
 let
   homeDir = config.home.homeDirectory;
   browser = "firefox.desktop";
@@ -7,6 +7,34 @@ let
   mediaPlayer = "org.kde.haruna.desktop";
   pdfViewer = "org.kde.okular.desktop";
   archiveManager = "org.kde.ark.desktop";
+  konsoleProfileName = "Kitty";
+  terminalFont = "Sarasa Mono SC,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
+  kdeGlobals = lib.generators.toINI { } {
+    General = {
+      TerminalApplication = "kitty";
+      TerminalService = "kitty.desktop";
+    };
+  };
+  konsoleProfile = lib.generators.toINI { } {
+    Appearance = {
+      Font = terminalFont;
+    };
+    General = {
+      Name = konsoleProfileName;
+      Parent = "FALLBACK/";
+    };
+  };
+  konsoleRc = lib.generators.toINI { } {
+    "Desktop Entry" = {
+      DefaultProfile = "${konsoleProfileName}.profile";
+    };
+    General = {
+      ConfigVersion = 1;
+    };
+    UiSettings = {
+      ColorScheme = "";
+    };
+  };
   defaultMimeApps = {
     "inode/directory" = [ fileManager ];
     "application/x-directory" = [ fileManager ];
@@ -67,5 +95,14 @@ in
       associations.added = defaultMimeApps;
       defaultApplications = defaultMimeApps;
     };
+
+    configFile."kdeglobals".text = kdeGlobals;
+    configFile."konsolerc".text = konsoleRc;
+    dataFile."konsole/${konsoleProfileName}.profile".text = konsoleProfile;
   };
+
+  home.activation.rebuildKdeSycoca = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    rm -f "${config.xdg.cacheHome}"/ksycoca*
+    $DRY_RUN_CMD ${pkgs.kdePackages.kservice}/bin/kbuildsycoca6 --noincremental
+  '';
 }
