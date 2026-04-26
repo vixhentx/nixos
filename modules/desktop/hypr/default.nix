@@ -3,6 +3,7 @@
 {
   programs.hyprland.enable = true;
   programs.dconf.enable = true;
+  security.polkit.enable = true;
 
   # Dolphin's "Open With" integration depends on the XDG applications menu
   # being present even outside a full Plasma session.

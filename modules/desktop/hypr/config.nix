@@ -1,6 +1,7 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   hyprScripts = "${config.xdg.configHome}/hypr/scripts";
+  polkitAgent = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
 in
 {
   wayland.windowManager.hyprland.settings = {
@@ -16,6 +17,7 @@ in
       "waybar"
       "nm-applet --indicator"
       "fcitx5 -d --replace"
+      polkitAgent
     ];
 
     # --- ENV ---
