@@ -12,7 +12,7 @@ in
 
   home-manager.users.vix_hentx.imports =
     m.home "desktop" [ "hypr" "font" "fcitx" ]
-    ++ m.home "program" [ "apps" "cli" "nvim" "zsh" ];
+    ++ m.home "program" [ "apps" "cli" "kicad" "nvim" "zsh" ];
 
   services.printing.enable = true;
   services.libinput.enable = true;
