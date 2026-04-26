@@ -1,8 +1,28 @@
 { lib, pkgs, ... }:
 let
-  kicadPkg = pkgs.kicad;
-  kicadConfigVersion = lib.versions.majorMinor kicadPkg.version;
-  kicadLibs = kicadPkg.passthru.libraries;
+  kicadBasePkg = pkgs.kicad;
+  kicadPkg = pkgs.symlinkJoin {
+    name = "kicad-wrapped-${kicadBasePkg.version}";
+    paths = [ kicadBasePkg ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      for program in \
+        bitmap2component \
+        eeschema \
+        gerbview \
+        kicad \
+        pcb_calculator \
+        pcbnew \
+        pl_editor
+      do
+        rm "$out/bin/$program"
+        makeWrapper ${kicadBasePkg}/bin/$program "$out/bin/$program" \
+          --set GTK_THEME Adwaita:dark
+      done
+    '';
+  };
+  kicadConfigVersion = lib.versions.majorMinor kicadBasePkg.version;
+  kicadLibs = kicadBasePkg.passthru.libraries;
 in
 {
   home.packages = [
