@@ -7,6 +7,7 @@ let
   mediaPlayer = "org.kde.haruna.desktop";
   pdfViewer = "org.kde.okular.desktop";
   archiveManager = "org.kde.ark.desktop";
+  textEditor = "nvim.desktop";
   konsoleProfileName = "Kitty";
   terminalFont = "Sarasa Mono SC,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
   kdeGlobals = lib.generators.toINI { } {
@@ -66,6 +67,31 @@ let
     "application/zip" = [ archiveManager ];
 
     "x-scheme-handler/bitwarden" = [ "bitwarden.desktop" ];
+
+    "text/plain" = [ textEditor ];
+    "text/markdown" = [ textEditor ];
+    "text/x-shellscript" = [ textEditor ];
+    "text/x-python" = [ textEditor ];
+    "text/x-csrc" = [ textEditor ];
+    "text/x-chdr" = [ textEditor ];
+    "text/x-c++src" = [ textEditor ];
+    "text/x-c++hdr" = [ textEditor ];
+    "text/css" = [ textEditor ];
+    "text/javascript" = [ textEditor ];
+    "text/xml" = [ textEditor ];
+    "application/json" = [ textEditor ];
+    "application/xml" = [ textEditor ];
+    "application/javascript" = [ textEditor ];
+    "application/x-javascript" = [ textEditor ];
+    "application/x-php" = [ textEditor ];
+    "application/x-perl" = [ textEditor ];
+    "application/x-ruby" = [ textEditor ];
+    "application/x-shellscript" = [ textEditor ];
+    "application/x-yaml" = [ textEditor ];
+    "application/x-toml" = [ textEditor ];
+    "application/x-nix" = [ textEditor ];
+    "application/x-wine-extension-ini" = [ textEditor ];
+    "application/x-wine-extension-txt" = [ textEditor ];
   };
 in
 {
