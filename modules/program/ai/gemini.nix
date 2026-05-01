@@ -9,16 +9,19 @@ in
     context = {
       GEMINI = ai.sharedPrompt;
     };
-    # settings = {
-    #   context.fileName = [
-    #     "GEMINI.md"
-    #     "AGENTS.md"
-    #     "CONTEXT.md"
-    #   ];
-    #   general = {
-    #     preferredEditor = "nvim";
-    #     vimMode = true;
-    #   };
-    # };
+    settings = {
+      security.auth.selectedType = "oauth-personal";
+      general = {
+        vimMode = true;
+        previewFeatures = true;
+      };
+      hasSeenIdeIntegrationNudge = true;
+      ide.enabled = true;
+      context.fileName = [
+        "GEMINI.md"
+        "AGENTS.md"
+        "CONTEXT.md"
+      ];
+    };
   };
 }

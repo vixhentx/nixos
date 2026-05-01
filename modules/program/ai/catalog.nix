@@ -10,14 +10,6 @@ let
   memoryFile = "${config.xdg.dataHome}/ai/memory/knowledge-graph.jsonl";
   playwrightOutputDir = "${config.xdg.stateHome}/playwright-mcp";
 
-  # Configuration directories for AI agents
-  configDirs = {
-    gemini = "${config.xdg.configHome}/gemini-cli";
-    gemini_legacy = "${config.home.homeDirectory}/.gemini";
-    codex = "${config.xdg.configHome}/codex";
-    claude = "${config.home.homeDirectory}/.claudecode";
-  };
-
   sharedPrompt = ''
     # Shared Agent Defaults
 
@@ -33,7 +25,6 @@ in
     knowledgeBaseDir
     memoryFile
     playwrightOutputDir
-    configDirs
     sharedPrompt
     timezone
     ;
