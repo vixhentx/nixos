@@ -72,6 +72,7 @@ in
           "format-disconnected" = "󰖪 Disconnected";
           tooltip = true;
           "tooltip-format" = "{ipaddr} via {gwaddr}";
+          "on-click-right" = "mihomo-rofi";
         };
 
         cpu = {

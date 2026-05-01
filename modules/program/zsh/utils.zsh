@@ -5,7 +5,7 @@ export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/.npm-global/bin:$PA
 typeset -A proxy_map=(
     [qs]="9674"
     [hiddify]="7890"
-    [clash]="7890"
+    [mihomo]="7890"
 )
 
 proxy_on() {

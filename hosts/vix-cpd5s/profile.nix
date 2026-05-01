@@ -7,7 +7,7 @@ in
     m.sys "system" [ "core" "addition" ]
     ++ m.sys "desktop" [ "hypr" "sddm" ]
     ++ m.sys "device" [ "nvidia" ]
-    ++ m.sys "program" [ "zsh" "docker" "clash" ]
+    ++ m.sys "program" [ "zsh" "docker" "mihomo" ]
     ++ [ ./apps.nix ];
 
   home-manager.users.vix_hentx.imports =
