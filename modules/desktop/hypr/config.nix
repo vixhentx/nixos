@@ -17,6 +17,8 @@ in
       "waybar"
       "nm-applet --indicator"
       "fcitx5 -d --replace"
+      "wl-paste --type text --watch cliphist store"
+      "wl-paste --type image --watch cliphist store"
       polkitAgent
     ];
 
@@ -146,6 +148,10 @@ in
 
       # tomat
       "$mainMod, I, exec, tomat toggle"
+
+      # Clipboard & Mihomo
+      "$mainMod, D, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
+      "$mainMod, N, exec, mihomo-rofi"
     ];
 
     # Move/resize windows with mouse
