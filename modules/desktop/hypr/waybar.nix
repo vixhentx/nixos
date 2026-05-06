@@ -29,8 +29,16 @@ in
           "memory" 
           "battery" 
           "tray" 
+          "custom/clipboard"
           "custom/logout" 
         ];
+
+        "custom/clipboard" = {
+          format = "󱘖";
+          on-click = "cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy";
+          on-click-right = "cliphist wipe";
+          tooltip = false;
+        };
 
         "custom/workspaces" = {
           exec = "${workspaces_sh}";

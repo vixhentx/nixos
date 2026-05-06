@@ -19,7 +19,7 @@
 }
 
 /* 特定模块背景增强 */
-#custom-workspaces, #custom-gpu, #custom-logout {
+#custom-workspaces, #custom-gpu, #custom-clipboard, #custom-logout {
     background: @surface1;
     color: @blue; /* 给这些图标模块一点颜色点缀 */
 }
@@ -36,8 +36,8 @@
     padding-left: 6px;
 }
 
-/* 退出按钮悬停效果：使用主题中的红色 */
-#custom-logout:hover {
+/* 退出按钮和剪切板悬停效果：使用主题中的红色 */
+#custom-logout:hover, #custom-clipboard:hover {
     background: @red;
     color: @base;
 }

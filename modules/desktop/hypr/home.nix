@@ -28,8 +28,10 @@
     wf-recorder
     wlogout
     kdePackages.dolphin
-    copyq
+    cliphist
   ];
+
+  services.cliphist.enable = true;
 
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
