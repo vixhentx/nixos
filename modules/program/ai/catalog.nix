@@ -36,6 +36,9 @@ in
 
     nixos = {
       command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+      env = {
+        FASTMCP_UPDATE_CHECK = "off";
+      };
     };
 
     filesystem = {
@@ -92,6 +95,20 @@ in
         "--output-dir"
         playwrightOutputDir
       ];
+    };
+
+    sequential-thinking = {
+      command = "${pkgs.mcp-server-sequential-thinking}/bin/mcp-server-sequential-thinking";
+    };
+
+    blender = {
+      command = "${pkgs.uv}/bin/uvx";
+      args = [ "blender-mcp" ];
+    };
+
+    libreoffice = {
+      command = "${pkgs.uv}/bin/uvx";
+      args = [ "libre-office-mcp" ];
     };
   };
 

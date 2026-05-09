@@ -24,6 +24,7 @@
     rsync
     tokei
     unzip
+    uv
     wget
     xh
     zellij

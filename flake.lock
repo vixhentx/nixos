@@ -54,6 +54,22 @@
         "type": "github"
       }
     },
+    "blender-mcp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769188798,
+        "narHash": "sha256-VGilcq/ZuX5ancdUqQpc6z7LGoBpyCMIasaTIzmTbRM=",
+        "owner": "ahujasid",
+        "repo": "blender-mcp",
+        "rev": "7636d13bded82eca58eb93c3f4cd8708dfdfbe8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ahujasid",
+        "repo": "blender-mcp",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -511,6 +527,7 @@
     "root": {
       "inputs": {
         "Hyprspace": "Hyprspace",
+        "blender-mcp": "blender-mcp",
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
         "hyprland": "hyprland",

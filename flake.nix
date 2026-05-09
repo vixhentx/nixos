@@ -24,9 +24,14 @@
     };
 
     catppuccin.url = "github:catppuccin/nix";
+
+    blender-mcp = {
+      url = "github:ahujasid/blender-mcp";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, catppuccin, blender-mcp, ... }@inputs:
   let
     my = import ./lib { inherit (nixpkgs) lib; };
   in
