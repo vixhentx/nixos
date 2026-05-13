@@ -108,7 +108,13 @@ in
 
     libreoffice = {
       command = "${pkgs.uv}/bin/uvx";
-      args = [ "libre-office-mcp" ];
+      args = [
+        "--with"
+        "ooo-dev-tools"
+        "--from"
+        "iflow-mcp-waterpistolai-libreoffice-mcp"
+        "libreoffice-mcp"
+      ];
     };
   };
 
