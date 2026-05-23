@@ -21,24 +21,55 @@ mixed-port: 7890
 allow-lan: false
 mode: rule
 log-level: info
+ipv6: false
 external-controller: 0.0.0.0:9090
 secret: ""
 
+# 性能优化
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+unified-delay: true
+tcp-fast-open: true
+
 dns:
   enable: true
+  prefer-h3: true
+  ipv6: false
   enhanced-mode: fake-ip
-  nameserver: [114.114.114.114, 8.8.8.8]
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://8.8.8.8/dns-query
+    - https://1.1.1.1/dns-query
+    - tls://8.8.4.4
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+
+tun:
+  enable: true
+  stack: gvisor
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - any:53
 
 proxy-providers:
   subscription:
     type: http
     url: "$SUB_URL"
-    interval: 0
+    interval: 3600
     path: ./subscription.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: 60
+      interval: 300
 
 proxy-groups:
   - name: "Proxy"
@@ -49,8 +80,18 @@ proxy-groups:
     use: [subscription]
     url: "http://www.gstatic.com/generate_204"
     interval: 300
+    tolerance: 50
+  - name: "Nix-Speed"
+    type: url-test
+    use: [subscription]
+    url: "https://cache.nixos.org"
+    interval: 600
+    tolerance: 50
 
 rules:
+  - DOMAIN-SUFFIX,nixos.org,Nix-Speed
+  - DOMAIN-SUFFIX,cachix.org,Nix-Speed
+  - GEOSITE,github,Proxy
   - GEOIP,CN,DIRECT
   - MATCH,Proxy
 EOF
