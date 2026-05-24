@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "system": "x86_64-linux",
+  "hardware": {
+    "cpu": {
+      "cores": 1,
+      "threads": 1,
+      "vendor": "GenuineIntel",
+      "model": "Placeholder"
+    }
+  }
+}
