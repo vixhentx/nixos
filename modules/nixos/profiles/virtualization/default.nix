@@ -16,7 +16,11 @@ in
       boot.kernelParams = [ "console=tty0" "console=ttyS0,115200n8" ];
       
       # QEMU 串口重定向到标准输出
-      virtualisation.qemu.options = [ "-serial mon:stdio" ];
+      virtualisation.qemu.options = [ 
+        "-serial mon:stdio"
+        "-vga virtio"
+        "-display gtk,gl=on"
+      ];
 
       # 自动登录
       services.getty.autologinUser = config.vix.system.user.name;
