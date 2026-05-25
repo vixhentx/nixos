@@ -21,7 +21,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.sqlite ];
+    home.packages = with pkgs; [ sqlite atuin ];
 
     # Atuin 集成保持作为 Zsh 的一部分, 因为它深度依赖 Shell 历史
     programs.atuin = {

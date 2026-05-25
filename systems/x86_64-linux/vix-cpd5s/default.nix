@@ -7,6 +7,8 @@
   vix.profiles.virtualization.enable = true;
   vix.system.user.enable = true;
 
+  home-manager.useUserPackages = true;
+
   hardware.facter.reportPath = ./facter.json;
 
   boot.loader.systemd-boot.enable = true;

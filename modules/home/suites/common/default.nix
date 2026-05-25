@@ -10,5 +10,6 @@ in
   config = lib.mkIf cfg.enable {
     vix.program.zsh.enable = true;
     vix.program.cli.enable = true;
+    vix.program.nvim.enable = true;
   };
 }
