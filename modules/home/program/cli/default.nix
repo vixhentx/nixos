@@ -55,7 +55,10 @@ in
     programs.eza.enable = true;
     programs.fzf.enable = true;
     programs.zoxide.enable = true;
-    programs.yazi.enable = true;
+    programs.yazi = {
+      enable = true;
+      shellWrapperName = "y";
+    };
 
     vix.program.zsh.extraAliases = {
       cat = "bat";
