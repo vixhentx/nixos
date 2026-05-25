@@ -3,6 +3,10 @@
   # TODO: 迁移硬件配置和系统基础配置
   system.stateVersion = "24.05";
 
+  vix.suites.common.enable = true;
+  vix.profiles.virtualization.enable = true;
+  vix.system.user.enable = true;
+
   hardware.facter.reportPath = ./facter.json;
 
   boot.loader.systemd-boot.enable = true;
