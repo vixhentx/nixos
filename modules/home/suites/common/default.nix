@@ -4,10 +4,11 @@ let
 in
 {
   options.vix.suites.common = {
-    enable = lib.mkEnableOption "Common system-level configuration suite";
+    enable = lib.mkEnableOption "Common user-level configuration suite";
   };
 
   config = lib.mkIf cfg.enable {
     vix.program.zsh.enable = true;
+    vix.program.cli.enable = true;
   };
 }

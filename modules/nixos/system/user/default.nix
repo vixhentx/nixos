@@ -18,6 +18,10 @@ in
       description = "Trihydra";
       extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
       initialPassword = "vix";
+      shell = pkgs.zsh;
     };
+
+    # 必须在系统层启用 zsh, 否则无法作为默认 shell 使用
+    programs.zsh.enable = true;
   };
 }
