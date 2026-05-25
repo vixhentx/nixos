@@ -10,18 +10,32 @@ in
       default = "vix_hentx";
       description = "The primary username";
     };
+    hashedPassword = lib.mkOption {
+      type = lib.types.str;
+      description = "SHA-512 hashed password";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     users.users.${cfg.name} = {
       isNormalUser = true;
       description = "Trihydra";
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
-      initialPassword = "vix";
+      extraGroups = [ 
+        "wheel" 
+        "networkmanager" 
+        "video" 
+        "audio" 
+        "docker" 
+        "wireshark"
+        "libvirtd"
+      ];
+      
+      # 改用 hashedPassword 确保声明式的一致性
+      hashedPassword = cfg.hashedPassword;
+      
       shell = pkgs.zsh;
     };
 
-    # 必须在系统层启用 zsh, 否则无法作为默认 shell 使用
     programs.zsh.enable = true;
   };
 }

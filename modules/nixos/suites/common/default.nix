@@ -8,8 +8,28 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # 程序
     vix.program.zsh.enable = true;
+
+    # 系统基础
+    vix.system.nix.enable = true;
+    vix.system.boot.enable = true;
+    vix.system.locale.enable = true;
+    vix.system.ssh.enable = true;
+
+    # 主用户身份定义 (策略层)
+    vix.system.user = {
+      enable = true;
+      name = "vix_hentx";
+      hashedPassword = "$6$d9Gm9yC5JN1CNHBQ$EXJWlW33OT8c/64ywgFHoepsmZf9M4KejwlIFdxN.6taFOHLLYWY8Z6a0tSJQ6xAFLxlzgG9LPZqZPGKfUic71";
+    };
+
+    # 视觉与终端
     vix.system.font.enable = true;
     vix.system.kmscon.enable = true;
+
+    # 性能优化
+    vix.system.network.enable = true;
+    vix.system.performance.enable = true;
   };
 }

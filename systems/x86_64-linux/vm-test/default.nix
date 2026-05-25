@@ -2,16 +2,17 @@
 {
   system.stateVersion = "24.05";
 
-  # 启用基础套件
+  # 启用基础套件 (自动继承默认用户配置)
   vix.suites.common.enable = true;
   
-  # 启用虚拟化配置
+  # 启用虚拟化 Profile
   vix.profiles.virtualization.enable = true;
 
-  # VM 专用基础配置
-  boot.loader.systemd-boot.enable = true;
+  # VM 专用硬件配置
   fileSystems."/" = { 
     device = "/dev/vda1"; 
     fsType = "ext4";
   };
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 }
