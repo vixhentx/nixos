@@ -32,6 +32,11 @@ in
         default = "Sarasa Mono SC";
         description = "Name of the monospace font";
       };
+      size = lib.mkOption {
+        type = lib.types.int;
+        default = 12;
+        description = "Default font size for desktop components";
+      };
     };
 
     emoji = {

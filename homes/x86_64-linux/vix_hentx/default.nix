@@ -4,4 +4,5 @@
   home.stateVersion = "24.05";
 
   vix.suites.common.enable = true;
+  vix.suites.hyprland.enable = true;
 }

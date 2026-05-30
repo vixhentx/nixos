@@ -12,6 +12,7 @@ in
     vix.program.zsh.enable = true;
 
     # 系统基础
+    vix.system.core.enable = true;
     vix.system.nix.enable = true;
     vix.system.boot.enable = true;
     vix.system.locale.enable = true;

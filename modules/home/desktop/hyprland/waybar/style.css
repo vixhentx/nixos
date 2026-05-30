@@ -1,0 +1,73 @@
+/* Waybar 整体背景 */
+#waybar {
+    /* 使用 base 颜色，alpha 设置为 0.9 保持微透 */
+    background: alpha(@base, 0.9); 
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    color: @text;
+}
+
+/* 通用模块样式 */
+.module {
+    border-radius: 14px;
+    padding: 0 10px;
+    margin: 4px 4px; /* 增加上下边距更美观 */
+    /* 使用 surface0 作为模块背景，带一点透明度 */
+    background: alpha(@surface0, 0.6);
+    color: @text;
+}
+
+/* 特定模块背景增强 */
+#custom-workspaces, #custom-gpu, #custom-clipboard, #custom-logout {
+    background: @surface1;
+    color: @blue; /* 给这些图标模块一点颜色点缀 */
+}
+
+/* 时钟模块：使用 Mauve（淡紫色）作为主调 */
+#clock {
+    background: alpha(@mauve, 0.2);
+    color: @mauve;
+    font-weight: bold;
+}
+
+/* 托盘 */
+#tray {
+    padding-left: 6px;
+}
+
+/* 退出按钮和剪切板悬停效果：使用主题中的红色 */
+#custom-logout:hover, #custom-clipboard:hover {
+    background: @red;
+    color: @base;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @green;
+    background: @surface2;
+}
+
+#custom-pomodoro.work {
+    color: @red;
+}
+
+#custom-pomodoro.work-paused {
+    color: @yellow;
+}
+
+#custom-pomodoro.break {
+    color: @blue;
+}
+
+#custom-pomodoro.break-paused {
+    color: @yellow;
+}
+
+#custom-pomodoro.long-break {
+    color: @green;
+}
+
+#custom-pomodoro.long-break-paused {
+    color: @yellow;
+}
