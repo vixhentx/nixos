@@ -10,7 +10,9 @@ in
 
   config = lib.mkIf cfg.enable {
     services.dbus.enable = true;
+    services.seatd.enable = true;
     security.polkit.enable = true;
+    security.rtkit.enable = true;
     programs.dconf.enable = true;
 
     environment.systemPackages = with pkgs; [

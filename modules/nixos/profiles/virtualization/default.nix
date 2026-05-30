@@ -28,7 +28,6 @@ in
         "-display gtk,gl=on"
       ];
 
-      # 5. 自动登录 (必须确保 vix.system.user 已启用)
       services.getty.autologinUser = config.vix.system.user.name;
     };
   };

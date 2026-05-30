@@ -24,6 +24,7 @@ in
         "wheel" 
         "networkmanager" 
         "video" 
+        "render"
         "audio" 
         "docker" 
         "wireshark"

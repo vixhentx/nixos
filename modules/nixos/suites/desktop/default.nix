@@ -9,6 +9,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # 基础图形支持
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+
     # 音频支持
     services.pipewire = {
       enable = true;
@@ -24,5 +30,11 @@ in
 
     # 开启系统核心标准件 (Polkit/DBus/Dconf)
     vix.system.core.enable = true;
+
+    # 启用显示管理器
+    vix.system.sddm.enable = true;
+
+    # 输入设备支持
+    services.libinput.enable = true;
   };
 }
