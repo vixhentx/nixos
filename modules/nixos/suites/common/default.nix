@@ -29,7 +29,10 @@ in
     vix.system.kmscon.enable = true;
 
     # 性能优化
-    vix.system.network.enable = true;
     vix.system.performance.enable = true;
+
+    # 网络
+    vix.system.network.enable = true;
+    vix.system.network.proxy.enable = true;
   };
 }

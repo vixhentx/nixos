@@ -28,6 +28,7 @@ in
         "docker" 
         "wireshark"
         "libvirtd"
+        "mihomo"
       ];
       
       # 改用 hashedPassword 确保声明式的一致性

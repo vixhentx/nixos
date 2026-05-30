@@ -40,5 +40,6 @@ in
 
     # 启用 NetworkManager 并保持基础配置
     networking.networkmanager.enable = true;
+    networking.useDHCP = lib.mkDefault true;
   };
 }
