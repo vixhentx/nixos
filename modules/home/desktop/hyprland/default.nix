@@ -76,89 +76,105 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-      # Explicitly set configType to silence warning and use standard format
-      configType = "hyprlang";
-      
+      configType = "lua";
+
       settings = {
-        "$mainMod" = "SUPER";
-        "$terminal" = "kitty";
-        "$fileManager" = "dolphin";
+        # _var suffix generates `local <name> = <value>` in Lua
+        mainMod = { _var = "SUPER"; };
+        terminal = { _var = "kitty"; };
+        fileManager = { _var = "dolphin"; };
 
-        "exec-once" = [
-          "${awww_bin} init"
-          "${waybar_bin}"
-          "${nm_applet_bin} --indicator"
-          "${wl_paste_bin} --type text --watch ${cliphist_bin} store"
-          "${wl_paste_bin} --type image --watch ${cliphist_bin} store"
-          polkitAgent
-        ];
-
-        general = {
-          gaps_in = 5;
-          gaps_out = 20;
-          border_size = 2;
-          layout = "dwindle";
+        # Startup: hl.on("hyprland.start", ...) waits for compositor readiness
+        on = {
+          _args = [
+            "hyprland.start"
+            (lib.generators.mkLuaInline ''
+              function()
+                hl.exec_cmd("${awww_bin} init")
+                hl.exec_cmd("${waybar_bin}")
+                hl.exec_cmd("${nm_applet_bin} --indicator")
+                hl.exec_cmd("${wl_paste_bin} --type text --watch ${cliphist_bin} store")
+                hl.exec_cmd("${wl_paste_bin} --type image --watch ${cliphist_bin} store")
+                hl.exec_cmd("${polkitAgent}")
+              end
+            '')
+          ];
         };
 
-        decoration = {
-          rounding = 10;
-          shadow.enabled = true;
-          blur.enabled = true;
+        # Non-color settings; colors are injected by stylix.targets.hyprland
+        config = {
+          general = {
+            gaps_in = 5;
+            gaps_out = 20;
+            border_size = 2;
+            layout = "dwindle";
+          };
+          decoration = {
+            rounding = 10;
+            shadow.enabled = true;
+            blur.enabled = true;
+          };
+          misc = {
+            disable_hyprland_logo = true;
+          };
         };
 
+        # Keybinds: unified hl.bind() with _args for multi-argument calls
         bind = [
-          "$mainMod, T, exec, $terminal"
-          "$mainMod, C, killactive,"
-          "$mainMod, E, exec, $fileManager"
-          "$mainMod, V, togglefloating,"
-          "$mainMod, R, exec, rofi -show drun"
-          "$mainMod, W, exec, rofi -show window"
+          # Launch
+          { _args = [ "SUPER + T"       (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("kitty")'') ]; }
+          { _args = [ "SUPER + C"       (lib.generators.mkLuaInline "hl.dsp.window.close()") ]; }
+          { _args = [ "SUPER + E"       (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("dolphin")'') ]; }
+          { _args = [ "SUPER + V"       (lib.generators.mkLuaInline ''hl.dsp.window.float({ action = "toggle" })'') ]; }
+          { _args = [ "SUPER + R"       (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("rofi -show drun")'') ]; }
+          { _args = [ "SUPER + W"       (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("rofi -show window")'') ]; }
 
-          ", Print, exec, ${screenshot_sh} region"
-          "SHIFT, Print, exec, ${screenshot_sh} output"
-          "$mainMod SHIFT, R, exec, ${screenrecord_sh} output"
-          "$mainMod ALT, R, exec, ${screenrecord_sh} region"
+          # Screenshots
+          { _args = [ "Print"            (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${screenshot_sh} region")'') ]; }
+          { _args = [ "SHIFT + Print"    (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${screenshot_sh} output")'') ]; }
+          { _args = [ "SUPER + SHIFT + R" (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${screenrecord_sh} output")'') ]; }
+          { _args = [ "SUPER + ALT + R"   (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${screenrecord_sh} region")'') ]; }
 
-          "$mainMod, left, movefocus, l"
-          "$mainMod, right, movefocus, r"
-          "$mainMod, up, movefocus, u"
-          "$mainMod, down, movefocus, d"
+          # Focus movement (via hyprctl dispatch for guaranteed compatibility)
+          { _args = [ "SUPER + left"  (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl dispatch movefocus l")'') ]; }
+          { _args = [ "SUPER + right" (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl dispatch movefocus r")'') ]; }
+          { _args = [ "SUPER + up"    (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl dispatch movefocus u")'') ]; }
+          { _args = [ "SUPER + down"  (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl dispatch movefocus d")'') ]; }
 
-          "$mainMod, Backspace, workspace, previous"
+          # Previous workspace
+          { _args = [ "SUPER + Backspace" (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl dispatch workspace previous")'') ]; }
 
-          # 动态工作区选择
-          "$mainMod, Q, exec, ${workspace_scripts}/rofi.sh switch"
-          "$mainMod SHIFT, Q, exec, ${workspace_scripts}/rofi.sh move"
+          # Dynamic workspace selection
+          { _args = [ "SUPER + Q"        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${workspace_scripts}/rofi.sh switch")'') ]; }
+          { _args = [ "SUPER + SHIFT + Q" (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${workspace_scripts}/rofi.sh move")'') ]; }
 
           # Scratchpad
-          "$mainMod, S, togglespecialworkspace, magic"
-          "$mainMod SHIFT, S, movetoworkspace, special:magic"
-        ] 
+          { _args = [ "SUPER + S"        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl dispatch togglespecialworkspace magic")'') ]; }
+          { _args = [ "SUPER + SHIFT + S" (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl dispatch movetoworkspace special:magic")'') ]; }
+        ]
         ++ (
-          # 自动生成 1-10 的工作区绑定
+          # Workspace binds 1-10
           builtins.concatLists (builtins.genList (i:
             let
               ws = i + 1;
-              # 这里的 10 对应按键 0
               key = if ws == 10 then "0" else toString ws;
             in [
-              "$mainMod, ${key}, exec, ${workspace_scripts}/action.sh switch ${toString ws}"
-              "$mainMod SHIFT, ${key}, exec, ${workspace_scripts}/action.sh move ${toString ws}"
+              { _args = [ "SUPER + ${key}"        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${workspace_scripts}/action.sh switch ${toString ws}")'') ]; }
+              { _args = [ "SUPER + SHIFT + ${key}" (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${workspace_scripts}/action.sh move ${toString ws}")'') ]; }
             ]
           ) 10)
-        );
+        )
+        ++ [
+          # Volume/brightness: repeating + locked flag replaces bindel
+          { _args = [ "XF86AudioRaiseVolume"  (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")'')  { repeating = true; locked = true; } ]; }
+          { _args = [ "XF86AudioLowerVolume"  (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")'')  { repeating = true; locked = true; } ]; }
+          { _args = [ "XF86AudioMute"         (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")'') { repeating = true; locked = true; } ]; }
+          { _args = [ "XF86MonBrightnessUp"   (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("brightnessctl set 5%+")'')  { repeating = true; locked = true; } ]; }
+          { _args = [ "XF86MonBrightnessDown" (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("brightnessctl set 5%-")'')  { repeating = true; locked = true; } ]; }
 
-        bindm = [
-          "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, resizewindow"
-        ];
-
-        bindel = [
-          ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-          ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-          ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+          # Mouse binds: mouse flag replaces bindm
+          { _args = [ "SUPER + mouse:272" (lib.generators.mkLuaInline "hl.dsp.window.drag()")   { mouse = true; } ]; }
+          { _args = [ "SUPER + mouse:273" (lib.generators.mkLuaInline "hl.dsp.window.resize()") { mouse = true; } ]; }
         ];
       };
     };
