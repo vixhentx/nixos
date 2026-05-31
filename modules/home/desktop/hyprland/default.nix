@@ -3,14 +3,6 @@
 let
   cfg = config.vix.desktop.hyprland;
 
-  # 定义核心工具的绝对路径
-  awww_bin = lib.getExe pkgs.awww;
-  waybar_bin = lib.getExe pkgs.waybar;
-  nm_applet_bin = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-  wl_paste_bin = "${pkgs.wl-clipboard}/bin/wl-paste";
-  cliphist_bin = lib.getExe pkgs.cliphist;
-  polkitAgent = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
-  
   # 内部脚本处理（使用 substituteAll 确保路径闭环）
   scripts = pkgs.runCommand "hyprland-scripts" {
     # 定义所有可能用到的工具路径
@@ -61,20 +53,23 @@ in
 
     home.packages = with pkgs; [
       brightnessctl grim libnotify networkmanagerapplet slurp
-      awww wl-clipboard wf-recorder wlogout cliphist jq
+      wl-clipboard wf-recorder wlogout cliphist jq
     ];
 
     services.cliphist.enable = true;
+    services.hyprpaper.enable = true; # 有bug, 禁用
 
     home.sessionVariables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
       NIXOS_OZONE_WL = "1";
+      AQ_NO_MODIFIERS = "1";
     };
 
     wayland.windowManager.hyprland = {
       enable = true;
+      systemd.enable = true;
       xwayland.enable = true;
       configType = "lua";
 
@@ -84,24 +79,7 @@ in
         terminal = { _var = "kitty"; };
         fileManager = { _var = "dolphin"; };
 
-        # Startup: hl.on("hyprland.start", ...) waits for compositor readiness
-        on = {
-          _args = [
-            "hyprland.start"
-            (lib.generators.mkLuaInline ''
-              function()
-                hl.exec_cmd("${awww_bin} init")
-                hl.exec_cmd("${waybar_bin}")
-                hl.exec_cmd("${nm_applet_bin} --indicator")
-                hl.exec_cmd("${wl_paste_bin} --type text --watch ${cliphist_bin} store")
-                hl.exec_cmd("${wl_paste_bin} --type image --watch ${cliphist_bin} store")
-                hl.exec_cmd("${polkitAgent}")
-              end
-            '')
-          ];
-        };
-
-        # Non-color settings; colors are injected by stylix.targets.hyprland
+        # 颜色和壁纸由 stylix.targets.hyprland + hyprpaper 管理
         config = {
           general = {
             gaps_in = 5;

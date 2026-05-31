@@ -36,5 +36,8 @@ in
 
     # 输入设备支持
     services.libinput.enable = true;
+
+    # 开机动画
+    boot.plymouth.enable = true;
   };
 }

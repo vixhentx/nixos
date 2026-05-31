@@ -18,7 +18,5 @@ in
       };
       efi.canTouchEfiVariables = true;
     };
-
-    # 启用 Plymouth 或者其他启动美化可以在此扩展
   };
 }
