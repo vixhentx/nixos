@@ -52,13 +52,13 @@ dns:
     geosite:
       - gfw
 
-tun:
-  enable: true
-  stack: gvisor
-  auto-route: true
-  auto-detect-interface: true
-  dns-hijack:
-    - any:53
+# tun:
+#   enable: true
+#   stack: gvisor
+#   auto-route: true
+#   auto-detect-interface: true
+#   dns-hijack:
+#     - any:53
 
 proxy-providers:
   subscription:
