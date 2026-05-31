@@ -1,9 +1,8 @@
-{ config, lib, pkgs, osConfig, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.vix.desktop.hyprland.rofi;
   mkLiteral = config.lib.formats.rasi.mkLiteral;
-  fontCfg = osConfig.vix.system.font;
 in
 {
   options.vix.desktop.hyprland.rofi = {
@@ -14,7 +13,6 @@ in
     programs.rofi = {
       enable = true;
       package = pkgs.rofi;
-      font = "${fontCfg.main.monoName} ${toString fontCfg.main.size}";
       terminal = "kitty";
       location = "center";
       yoffset = -24;

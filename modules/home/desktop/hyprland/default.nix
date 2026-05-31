@@ -1,8 +1,7 @@
-{ config, lib, pkgs, osConfig, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.vix.desktop.hyprland;
-  fontCfg = osConfig.vix.system.font;
 
   # 定义核心工具的绝对路径
   awww_bin = lib.getExe pkgs.awww;

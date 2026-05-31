@@ -25,8 +25,7 @@ in
       hashedPassword = "$6$d9Gm9yC5JN1CNHBQ$EXJWlW33OT8c/64ywgFHoepsmZf9M4KejwlIFdxN.6taFOHLLYWY8Z6a0tSJQ6xAFLxlzgG9LPZqZPGKfUic71";
     };
 
-    # 视觉与终端
-    vix.system.font.enable = true;
+    # 视觉与终端 (字体由 Stylix 统一管理)
     vix.system.kmscon.enable = true;
 
     # 性能优化

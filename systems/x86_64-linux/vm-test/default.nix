@@ -4,6 +4,9 @@
 
   # 启用基础套件 (自动继承默认用户配置)
   vix.suites.common.enable = true;
+
+  # 主题 (Catppuccin Mocha)
+  vix.suites.theme-catppuccin.enable = true;
   
   # 启用虚拟化 Profile
   vix.profiles.virtualization.enable = true;

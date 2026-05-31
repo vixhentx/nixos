@@ -1,8 +1,7 @@
-{ config, lib, osConfig, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.vix.desktop.hyprland.dunst;
-  fontCfg = osConfig.vix.system.font;
 in
 {
   options.vix.desktop.hyprland.dunst = {
@@ -32,7 +31,6 @@ in
           max_icon_size = 0;
           notification_limit = 1;
           progress_bar = false;
-          font = "${fontCfg.main.monoName} ${toString fontCfg.main.size}";
           line_height = 0;
           format = "<span size='x-large'><b>%s</b></span>\\n%b";
           markup = "full";

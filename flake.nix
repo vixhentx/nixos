@@ -21,6 +21,16 @@
       # Remove follows to avoid nixpkgs source mismatch warning in nixvim
     };
 
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # 其他 inputs 将在迁移具体模块时添加
   };
 
@@ -33,7 +43,13 @@
         namespace = "vix"; # 用户要求的命名空间
       };
 
+      systems.modules.nixos = with inputs; [
+        stylix.nixosModules.stylix
+        catppuccin.nixosModules.catppuccin
+      ];
+
       homes.modules = with inputs; [
+        catppuccin.homeModules.catppuccin
         nixvim.homeModules.nixvim
       ];
 

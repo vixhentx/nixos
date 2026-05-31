@@ -1,6 +1,6 @@
 /* Waybar 整体背景 */
 #waybar {
-    background: alpha(@wb-bg, 0.9); 
+    background: alpha(@wb-bg, 0.9);
     border: 0;
     border-radius: 0;
     box-shadow: none;

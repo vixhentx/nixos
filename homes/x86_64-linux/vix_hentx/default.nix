@@ -5,4 +5,5 @@
 
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
+  vix.suites.theme-catppuccin.enable = true;
 }

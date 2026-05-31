@@ -6,6 +6,9 @@
   # 启用核心功能套件
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
+
+  # 主题 (Catppuccin Mocha + Stylix)
+  vix.suites.theme-catppuccin.enable = true;
   
   # 启用虚拟化 Profile (仅影响 build-vm)
   vix.profiles.virtualization.enable = true;

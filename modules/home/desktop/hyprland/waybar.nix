@@ -1,25 +1,24 @@
-{ config, lib, pkgs, osConfig, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.vix.desktop.hyprland.waybar;
-  fontCfg = osConfig.vix.system.font;
-  
+
   workspaces_sh = pkgs.writeShellScript "workspaces.sh" (builtins.readFile ./waybar/workspaces.sh);
 in
 {
   options.vix.desktop.hyprland.waybar = {
-    enable = lib.mkEnableOption "Waybar status bar logic and structure";
+    enable = lib.mkEnableOption "Waybar status bar";
     extraStyle = lib.mkOption {
       type = lib.types.lines;
       default = "";
-      description = "CSS variables or extra styling injected by themes or suites.";
+      description = "CSS variables injected by the theme module. Colors from Stylix base16.";
     };
   };
 
   config = lib.mkIf cfg.enable {
     programs.waybar = {
       enable = true;
-      
+
       settings = {
         mainBar = {
           layer = "top";
@@ -33,16 +32,7 @@ in
       };
 
       style = ''
-        /* Injected Theme Variables */
         ${cfg.extraStyle}
-
-        /* Global Font Settings from System */
-        * {
-            font-family: "${fontCfg.main.monoName}", "Symbols Nerd Font";
-            font-size: ${toString fontCfg.main.size}px;
-        }
-
-        /* Atomic Structure CSS */
         ${builtins.readFile ./waybar/style.css}
       '';
     };
