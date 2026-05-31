@@ -5,5 +5,10 @@
 
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
+
+  # 桌面应用
+  vix.suites.apps-light.enable = true;
+  vix.suites.apps-heavy.enable = true;
+
   vix.suites.theme-catppuccin.enable = true;
 }

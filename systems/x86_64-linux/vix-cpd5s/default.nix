@@ -7,11 +7,18 @@
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
 
+  # 桌面应用 (轻量 + 重型)
+  vix.suites.apps-light.enable = true;
+  vix.suites.apps-heavy.enable = true;
+
   # 主题 (Catppuccin Mocha + Stylix)
   vix.suites.theme-catppuccin.enable = true;
-  
+
   # 启用虚拟化 Profile (仅影响 build-vm)
   vix.profiles.virtualization.enable = true;
+
+  # NVIDIA 驱动
+  vix.profiles.nvidia.enable = true;
 
   # 硬件与引导
   hardware.facter.reportPath = ./facter.json;

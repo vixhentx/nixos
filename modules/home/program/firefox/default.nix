@@ -1,0 +1,68 @@
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.vix.program.firefox;
+
+  addons = {
+    "*" = {
+      installation_mode = "allowed";
+    };
+
+    "uBlock0@raymondhill.net" = {
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+    };
+
+    "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+    };
+  };
+in
+{
+  options.vix.program.firefox = {
+    enable = lib.mkEnableOption "Firefox browser with hardened policies";
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.firefox = {
+      enable = true;
+      package = pkgs.firefox;
+      configPath = ".mozilla/firefox";
+
+      policies = {
+        AppAutoUpdate = false;
+        DisableFeedbackCommands = true;
+        DisablePocket = true;
+        DisableTelemetry = true;
+        DontCheckDefaultBrowser = true;
+        OfferToSaveLogins = false;
+        OverrideFirstRunPage = "";
+        OverridePostUpdatePage = "";
+        ExtensionSettings = addons;
+      };
+
+      profiles.default = {
+        id = 0;
+        isDefault = true;
+        extensions.force = true;
+
+        settings = {
+          "browser.toolbars.bookmarks.visibility" = "never";
+          "extensions.autoDisableScopes" = 0;
+          "signon.rememberSignons" = false;
+        };
+      };
+    };
+
+    catppuccin.firefox.enable = true;
+
+    stylix.targets.firefox.profileNames = [ "default" ];
+
+    xdg.mimeApps.defaultApplications = {
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+    };
+  };
+}

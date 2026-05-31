@@ -31,7 +31,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # 其他 inputs 将在迁移具体模块时添加
+    blender-bin = {
+      url = "github:edolstra/nix-warez?dir=blender";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    blender-mcp = {
+      url = "github:ahujasid/blender-mcp";
+      flake = false;
+    };
   };
 
   outputs = inputs:
@@ -46,6 +54,9 @@
       systems.modules.nixos = with inputs; [
         stylix.nixosModules.stylix
         catppuccin.nixosModules.catppuccin
+        {
+          nixpkgs.config.allowUnfree = true;
+        }
       ];
 
       homes.modules = with inputs; [
