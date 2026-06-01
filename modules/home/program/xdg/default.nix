@@ -59,5 +59,12 @@ in
       rm -f "${config.xdg.cacheHome}"/ksycoca*
       $DRY_RUN_CMD ${pkgs.kdePackages.kservice}/bin/kbuildsycoca6 --noincremental
     '';
+    
+    home.packages = with pkgs;[
+      desktop-file-utils
+      shared-mime-info
+      xdg-user-dirs
+      xdg-utils
+    ];
   };
 }

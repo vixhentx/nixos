@@ -13,7 +13,5 @@ in
     vix.program.kicad.enable = true;
     vix.program.libreoffice.enable = true;
     vix.program.apps-heavy.enable = true;
-
-    vix.suites.desktop.enable = lib.mkDefault true;
   };
 }

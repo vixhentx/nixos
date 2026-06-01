@@ -9,12 +9,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    vix.program.apps-light.enable = true;
-    vix.program.firefox.enable = true;
-    vix.program.vscode.enable = true;
-    vix.program.thunderbird.enable = true;
-    vix.program.bitwarden.enable = true;
-
-    vix.suites.desktop.enable = lib.mkDefault true;
+    vix.program = {
+      apps-light.enable = true;
+      bitwarden.enable = true;
+      firefox.enable = true;
+      thunderbird.enable = true;
+      libreoffice.enable = true;
+      vscode.enable = true;
+    };
   };
 }

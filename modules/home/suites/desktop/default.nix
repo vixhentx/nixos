@@ -2,7 +2,6 @@
 
 let
   cfg = config.vix.suites.desktop;
-  kittyBin = pkgs.kitty.meta.mainProgram or "kitty";
 in
 {
   options.vix.suites.desktop = {
@@ -10,23 +9,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # XDG base: desktop infrastructure, required by all DEs
-    vix.program.xdg = {
-      enable = true;
-      terminal = {
-        application = kittyBin;
-        desktopFile = "${kittyBin}.desktop";
-      };
-    };
+    vix.program.xdg.enable = true;
 
-    # 任何桌面都会用到的 GUI 应用
+    # DE-agnostic GUI tools
     home.packages = with pkgs; [
-      kitty
-      kdePackages.dolphin
-      kdePackages.spectacle
-      gsimplecal
       pavucontrol
       playerctl
+      gsimplecal
     ];
   };
 }

@@ -3,27 +3,33 @@
   # 状态版本
   system.stateVersion = "25.11";
 
-  # 启用核心功能套件
+  # ── NixOS 层套件 ───────────────────────────────────
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
-
-  # 桌面应用 (轻量 + 重型)
+  vix.suites.apps-kde.enable = true;
   vix.suites.apps-light.enable = true;
   vix.suites.apps-heavy.enable = true;
-
-  # 主题 (Catppuccin Mocha + Stylix)
   vix.suites.theme-catppuccin.enable = true;
 
-  # 启用虚拟化 Profile (仅影响 build-vm)
+  # 设备 Profile
   vix.profiles.virtualization.enable = true;
-
-  # NVIDIA 驱动
   vix.profiles.nvidia.enable = true;
 
-  # 硬件与引导
+  # ── Home Manager ────────────────────────────────────
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+  # 设备相关的用户级套件 (vix-cpd5s 专属)
+  home-manager.users.vix_hentx = {
+    vix.suites.hyprland.enable = true;
+    vix.suites.apps-light.enable = true;
+    vix.suites.apps-heavy.enable = true;
+    vix.suites.theme-catppuccin.enable = true;
+  };
+
+  # ── 硬件 ────────────────────────────────────────────
   hardware.facter.reportPath = ./facter.json;
-  
-  # 文件系统挂载
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/42f56359-3293-41b2-9815-c4f7e9d34ba9";
     fsType = "btrfs";
@@ -55,8 +61,4 @@
   };
 
   swapDevices = [ ];
-
-  # Home Manager 全局一致性
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
 }

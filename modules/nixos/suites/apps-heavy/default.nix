@@ -9,9 +9,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    vix.program.docker.enable = true;
-    vix.program.wireshark.enable = true;
-
-    vix.suites.desktop.enable = lib.mkDefault true;
+    vix.program = {
+      docker.enable = true;
+      wireshark.enable = true;
+    };
   };
 }

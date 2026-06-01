@@ -1,7 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.vix.suites.hyprland;
+  kittyBin = pkgs.kitty.meta.mainProgram or "kitty";
 in
 {
   options.vix.suites.hyprland = {
@@ -12,7 +13,13 @@ in
     vix.desktop.hyprland.enable = true;
     vix.program.tomat.enable = true;
     vix.program.fcitx.enable = true;
+    vix.program.apps-kde.enable = true;
 
-    vix.suites.desktop.enable = lib.mkDefault true;
+    # Hyprland's default terminal
+    vix.program.xdg.terminal = {
+      application = kittyBin;
+      desktopFile = "${kittyBin}.desktop";
+    };
+    home.packages = [ pkgs.kitty ];
   };
 }
