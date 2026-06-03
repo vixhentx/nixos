@@ -1,7 +1,7 @@
-{ lib, ... }:
+{ ... }:
 {
   # 状态版本
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 
   # ── NixOS 层套件 ───────────────────────────────────
   vix.suites.common.enable = true;

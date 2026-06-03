@@ -14,11 +14,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-facter-modules.url = "github:nix-community/nixos-facter";
-
     nixvim = {
       url = "github:nix-community/nixvim";
-      # Remove follows to avoid nixpkgs source mismatch warning in nixvim
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
@@ -51,12 +49,13 @@
         namespace = "vix"; # 用户要求的命名空间
       };
 
+      channels-config = {
+        allowUnfree = true;
+      };
+
       systems.modules.nixos = with inputs; [
         stylix.nixosModules.stylix
         catppuccin.nixosModules.catppuccin
-        {
-          nixpkgs.config.allowUnfree = true;
-        }
       ];
 
       homes.modules = with inputs; [
@@ -64,6 +63,5 @@
         nixvim.homeModules.nixvim
       ];
 
-      # 这里的配置将根据后续重构进行扩展
     };
 }

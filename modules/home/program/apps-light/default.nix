@@ -35,8 +35,6 @@ in
       wl-color-picker
     ];
 
-    catppuccin.element-desktop.enable = true;
-
     # MIME: text/code → nvim (DE-agnostic default)
     # application/* types with known specific handlers are excluded.
     xdg.mimeApps.defaultApplications = {

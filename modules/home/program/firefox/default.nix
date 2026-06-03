@@ -55,8 +55,6 @@ in
       };
     };
 
-    catppuccin.firefox.enable = true;
-
     stylix.targets.firefox.profileNames = [ "default" ];
 
     xdg.mimeApps.defaultApplications = {

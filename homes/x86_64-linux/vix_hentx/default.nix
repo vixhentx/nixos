@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
 
   # 设备无关: 每个设备都有 shell + CLI + editor
   vix.suites.common.enable = true;

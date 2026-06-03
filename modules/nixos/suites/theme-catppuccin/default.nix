@@ -26,9 +26,9 @@ in
 
     catppuccin = {
       enable = true;
+      autoEnable = false;
       flavor = "mocha";
       accent = "lavender";
-      autoEnable = false;
       sddm.enable = true;
       plymouth.enable = true;
     };

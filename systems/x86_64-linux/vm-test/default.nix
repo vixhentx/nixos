@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
 
   # 启用基础套件 (自动继承默认用户配置)
   vix.suites.common.enable = true;

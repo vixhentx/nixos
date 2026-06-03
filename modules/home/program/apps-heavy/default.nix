@@ -14,7 +14,7 @@ in
       krita
       inkscape-with-extensions
       zotero
-      bottles
+      # bottles # TODO: 上游有bug, 暂时关闭
     ];
   };
 }
