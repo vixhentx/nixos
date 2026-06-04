@@ -12,9 +12,6 @@ in
     home.packages = with pkgs; [
       # Chat (universal)
       element-desktop
-      qq
-      wechat
-      feishu
       telegram-desktop
 
       # Internet (universal)
@@ -33,6 +30,14 @@ in
       # System monitor
       mission-center
       wl-color-picker
+    ];
+
+    # Flatpak
+    vix.program.flatpak.enable = true;
+    services.flatpak.packages = [
+      { appId = "com.qq.QQ";            origin = "flathub"; }
+      { appId = "cn.feishu.Feishu";     origin = "flathub"; }
+      { appId = "com.tencent.WeChat";   origin = "flathub"; }
     ];
 
     # MIME: text/code → nvim (DE-agnostic default)

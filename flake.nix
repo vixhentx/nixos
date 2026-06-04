@@ -38,6 +38,8 @@
       url = "github:ahujasid/blender-mcp";
       flake = false;
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = inputs:
@@ -61,6 +63,7 @@
       homes.modules = with inputs; [
         catppuccin.homeModules.catppuccin
         nixvim.homeModules.nixvim
+        nix-flatpak.homeManagerModules.nix-flatpak
       ];
 
     };
