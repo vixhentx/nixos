@@ -43,5 +43,5 @@ summon_workspace_to_focused_monitor() {
     fi
 
     workspace_selector=$(get_workspace_selector "$target_kind" "$target_workspace")
-    @hyprctl@ dispatch moveworkspacetomonitor "$workspace_selector" "$focused_monitor" >/dev/null
+    @hyprctl@ eval "hl.dispatch(hl.dsp.workspace.move({ workspace = \"$workspace_selector\", monitor = \"$focused_monitor\" }))" >/dev/null
 }

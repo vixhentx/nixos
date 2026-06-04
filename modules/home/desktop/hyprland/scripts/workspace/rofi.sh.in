@@ -30,17 +30,17 @@ dispatch_target() {
 
     if [ "$action" = "move" ]; then
         if [ "$target_kind" = "default" ]; then
-            @hyprctl@ dispatch movetoworkspace "$target_workspace"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.window.move({ workspace = \"$target_workspace\" }))"
         else
-            @hyprctl@ dispatch movetoworkspace name:"$target_workspace"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.window.move({ workspace = \"name:$target_workspace\" }))"
         fi
     else
         summon_workspace_to_focused_monitor "$target_kind" "$target_workspace"
 
         if [ "$target_kind" = "default" ]; then
-            @hyprctl@ dispatch workspace "$target_workspace"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.focus({ workspace = \"$target_workspace\" }))"
         else
-            @hyprctl@ dispatch workspace name:"$target_workspace"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.focus({ workspace = \"name:$target_workspace\" }))"
         fi
     fi
 }
@@ -94,7 +94,7 @@ prompt_workspace_picker() {
         fi
     } | @rofi@ -dmenu -i -matching fuzzy -sort \
         -p "工作区 (Workspace)" \
-        -mesg "选择已有工作区；或选“新建工作区…”后输入组名 / <组名>-<编号>"
+        -mesg "选择已有工作区；或选\"新建工作区…\"后输入组名 / <组名>-<编号>"
 }
 
 prompt_new_workspace() {

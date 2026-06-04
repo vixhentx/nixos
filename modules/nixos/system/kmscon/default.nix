@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     services.kmscon = {
       enable = true;
-      hwRender = false;
+      hwRender = true;
       useXkbConfig = true;
       extraConfig = ''
         vt=1,2,3,4,5,6

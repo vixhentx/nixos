@@ -25,16 +25,16 @@ case $ACTION in
             "$TARGET_NAME"
 
         if [ "$IS_NAMED" = true ]; then
-            @hyprctl@ dispatch workspace name:"$TARGET_NAME"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.focus({ workspace = \"name:$TARGET_NAME\" }))"
         else
-            @hyprctl@ dispatch workspace "$TARGET_NAME"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.focus({ workspace = \"$TARGET_NAME\" }))"
         fi
         ;;
     move)
         if [ "$IS_NAMED" = true ]; then
-            @hyprctl@ dispatch movetoworkspace name:"$TARGET_NAME"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.window.move({ workspace = \"name:$TARGET_NAME\" }))"
         else
-            @hyprctl@ dispatch movetoworkspace "$TARGET_NAME"
+            @hyprctl@ eval "hl.dispatch(hl.dsp.window.move({ workspace = \"$TARGET_NAME\" }))"
         fi
         ;;
 esac

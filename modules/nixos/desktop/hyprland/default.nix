@@ -15,7 +15,6 @@ in
     environment.etc."xdg/menus/applications.menu".source =
       "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
-    # 这里的 portal 保持在 Hyprland 模块中，因为它是强相关的界面支持
     xdg.portal = {
       enable = true;
       extraPortals = with pkgs; [
@@ -23,7 +22,7 @@ in
         xdg-desktop-portal-gtk
       ];
       config = {
-        common.default = [ "gtk" "hyprland" ];
+        common.default = [ "hyprland" "gtk" ];
         hyprland.default = [ "hyprland" "gtk" ];
       };
     };

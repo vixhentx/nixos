@@ -15,9 +15,7 @@ in
     vix.suites.desktop.enable = lib.mkDefault true;
 
     environment.sessionVariables = {
-      # 消除某些 VM 下鼠标消失的问题
       WLR_NO_HARDWARE_CURSORS = "1";
-      # 提醒：如果遇到显卡驱动问题，可以在此处添加针对性变量
     };
   };
 }
