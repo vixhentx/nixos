@@ -9,6 +9,11 @@
       }
     ];
 
+    # 字体包安装 (Nerd Font symbols 供 Waybar 等使用)
+    fonts.packages = with pkgs; [
+      nerd-fonts.symbols-only
+    ];
+
     # 字体：所有主题共享，不由单个 suite 重复定义
     stylix.fonts = {
       serif = {

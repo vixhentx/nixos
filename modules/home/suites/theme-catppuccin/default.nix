@@ -23,8 +23,9 @@ in
       autoEnable = false;
       flavor = "mocha";
       accent = "lavender";
-      hyprland.enable = true;
       cursors.enable = true;
+      gtk.icon.enable = true;
+      wlogout.enable = true;
     };
   };
 }

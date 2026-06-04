@@ -2,10 +2,6 @@
 
 let
   cfg = config.vix.suites.theme-catppuccin;
-  wallpaper = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/harilvfs/wallpapers/main/catppuccin_page_curl.png";
-    hash = "sha256-9dPFnDUm4igYcEtYvjlu1F/jbZueMmb6oO3BZ+NEy0w="; 
-  };
 in
 {
   options.vix.suites.theme-catppuccin = {
@@ -16,8 +12,8 @@ in
     stylix = {
       enable = true;
       polarity = "dark";
-      image = wallpaper;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      override.base0E = "#cba6f7";
 
       targets = {
         plymouth.enable = false;

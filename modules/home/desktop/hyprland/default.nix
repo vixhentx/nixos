@@ -52,12 +52,13 @@ in
     vix.desktop.hyprland.dunst.enable = lib.mkDefault true;
 
     home.packages = with pkgs; [
-      brightnessctl grim libnotify networkmanagerapplet slurp
-      wl-clipboard wf-recorder wlogout cliphist jq
+      brightnessctl grim libnotify slurp
+      wf-recorder wlogout jq
     ];
 
     services.cliphist.enable = true;
-    services.hyprpaper.enable = true; # 有bug, 禁用
+    services.hyprpaper.enable = true;
+    services.network-manager-applet.enable = true;
 
     home.sessionVariables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
