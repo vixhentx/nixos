@@ -25,8 +25,8 @@
     vix.suites.apps-light.enable = true;
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
+    vix.program.ai.enable = true;
 
-    # 显示器布局 (机器相关，不写入模块)
     wayland.windowManager.hyprland.settings.monitor = [
       { output = "DP-1";  mode = "1920x1080"; position = "-1280x180"; scale = 1.5; }
       { output = "eDP-1"; mode = "2560x1440"; position = "0x0";       scale = 1.6; }
@@ -37,7 +37,6 @@
   # ── 硬件 ────────────────────────────────────────────
   hardware.facter.reportPath = ./facter.json;
 
-  # SDDM HiDPI 缩放
   services.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCALE_FACTOR=1.5,QT_FONT_DPI=144";
 
   # kmscon 帧缓冲分辨率 (否则主屏幕不拉伸)

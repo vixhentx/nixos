@@ -16,7 +16,7 @@ let
 
   blender-custom = pkgs.symlinkJoin {
     name = "blender-custom";
-    paths = [ inputs.blender-bin.packages.x86_64-linux.default ];
+    paths = [ inputs.blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.default ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/blender \
@@ -26,10 +26,14 @@ let
 in
 {
   options.vix.program.blender = {
-    enable = lib.mkEnableOption "Blender 3D creation suite (binary + MCP addon)";
+    enable = lib.mkEnableOption "Blender 3D creation suite (MCP addon included when ai.mcp.blender is enabled)";
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ blender-custom ];
+    home.packages = [
+      (if (config.vix.program.ai.enable or false) && (config.vix.program.ai.mcp.blender.enable or true)
+       then blender-custom
+       else inputs.blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.default)
+    ];
   };
 }

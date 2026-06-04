@@ -17,10 +17,14 @@ let
 in
 {
   options.vix.program.libreoffice = {
-    enable = lib.mkEnableOption "LibreOffice with MCP protocol support";
+    enable = lib.mkEnableOption "LibreOffice (MCP protocol wrapper included when ai.mcp.libreoffice is enabled)";
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ libreoffice-mcp-app ];
+    home.packages = [
+      (if (config.vix.program.ai.enable or false) && (config.vix.program.ai.mcp.libreoffice.enable or true)
+       then libreoffice-mcp-app
+       else pkgs.libreoffice-fresh)
+    ];
   };
 }
