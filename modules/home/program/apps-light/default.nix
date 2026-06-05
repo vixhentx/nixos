@@ -40,6 +40,21 @@ in
       { appId = "com.tencent.WeChat";   origin = "flathub"; }
     ];
 
+    services.flatpak.overrides.settings = {
+      # QQ: Wayland native works (Electron ozone)
+      "com.qq.QQ".Context.sockets = ["wayland" "!x11" "!fallback-x11"];
+      # WeChat / Feishu: Wayland broken on NVIDIA — force X11.
+      # XWayland scaling is handled by Hyprland force_zero_scaling.
+      "com.tencent.WeChat" = {
+        Context.sockets = ["x11" "fallback-x11" "!wayland"];
+        Environment.ELECTRON_OZONE_PLATFORM_HINT = "x11";
+      };
+      "cn.feishu.Feishu" = {
+        Context.sockets = ["x11" "fallback-x11" "!wayland"];
+        Environment.ELECTRON_OZONE_PLATFORM_HINT = "x11";
+      };
+    };
+
     # MIME: text/code → nvim (DE-agnostic default)
     # application/* types with known specific handlers are excluded.
     xdg.mimeApps.defaultApplications = {

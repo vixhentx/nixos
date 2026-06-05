@@ -134,6 +134,10 @@ in
             preserve_split = true;
           };
 
+          xwayland = {
+            force_zero_scaling = true;
+          };
+
           cursor = {
             no_hardware_cursors = true;
           };
