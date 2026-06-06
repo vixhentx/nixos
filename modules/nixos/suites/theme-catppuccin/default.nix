@@ -27,6 +27,9 @@ in
       accent = "lavender";
       sddm.enable = true;
       plymouth.enable = true;
+      # SDDM runs as root before user login — cursors must be available
+      # at system level, not just in the home suite.
+      cursors.enable = true;
     };
   };
 }

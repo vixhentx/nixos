@@ -1,7 +1,24 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  # 显示器配置: 合成器、greeter 缩放等共享此来源.
+  monitors = config.vix.display.monitors;
+
+  # 为 SDDM greeter 推导缩放 — 取内置屏幕 (eDP) 的缩放值.
+  primary = builtins.head (builtins.filter (m: lib.hasPrefix "eDP" m.output) monitors);
+  sddmScale =
+    if primary != null then primary.scale
+    else if monitors != [] then (builtins.head monitors).scale
+    else 1.0;
+in
 {
-  # 状态版本
   system.stateVersion = "26.05";
+
+  # ── 显示器 (单点配置) ────────────────────────────────
+  vix.display.monitors = [
+    { output = "DP-1";  mode = "1920x1080"; position = "-1280x180"; scale = 1.5; }
+    { output = "eDP-1"; mode = "2560x1440"; position = "0x0";       scale = 1.6; }
+    { output = "DP-4";  mode = "1920x1080"; position = "1600x180";  scale = 1.5; }
+  ];
 
   # ── NixOS 层套件 ───────────────────────────────────
   vix.suites.common.enable = true;
@@ -19,27 +36,25 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
-  # 设备相关的用户级套件 (vix-cpd5s 专属)
   home-manager.users.vix_hentx = {
     vix.suites.hyprland.enable = true;
     vix.suites.apps-light.enable = true;
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.program.ai.enable = true;
+    vix.profiles.nvidia.enable = true;
 
-    wayland.windowManager.hyprland.settings.monitor = [
-      { output = "DP-1";  mode = "1920x1080"; position = "-1280x180"; scale = 1.5; }
-      { output = "eDP-1"; mode = "2560x1440"; position = "0x0";       scale = 1.6; }
-      { output = "DP-4";  mode = "1920x1080"; position = "1600x180";  scale = 1.5; }
-    ];
+    wayland.windowManager.hyprland.settings.monitor = monitors;
   };
+
+  # ── SDDM ────────────────────────────────────────────
+  services.displayManager.sddm.settings.General.GreeterEnvironment =
+    "QT_SCALE_FACTOR=${builtins.toString sddmScale},QT_FONT_DPI=${builtins.toString (builtins.floor (sddmScale * 96))}";
 
   # ── 硬件 ────────────────────────────────────────────
   hardware.facter.reportPath = ./facter.json;
 
-  services.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCALE_FACTOR=1.5,QT_FONT_DPI=144";
-
-  # kmscon 帧缓冲分辨率 (否则主屏幕不拉伸)
+  # kmscon 帧缓冲 — 仅影响早期控制台显示, 与合成器无关.
   boot.kernelParams = [ "video=eDP-1:2560x1440" ];
 
   fileSystems."/" = {
