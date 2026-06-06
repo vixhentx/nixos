@@ -52,7 +52,8 @@ in
 
       oh-my-zsh = {
         enable = true;
-        theme = "jonathan";
+        # Theme is managed by Starship (vix.program.starship).
+        # oh-my-zsh plugins are kept for functionality.
         plugins = [ "git" "extract" "python" "docker" "direnv" ];
       };
 

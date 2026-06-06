@@ -11,5 +11,6 @@ in
     vix.program.zsh.enable = true;
     vix.program.cli.enable = true;
     vix.program.nvim.enable = true;
+    vix.program.starship.enable = true;
   };
 }

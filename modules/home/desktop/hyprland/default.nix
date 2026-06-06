@@ -49,6 +49,7 @@ in
     home.packages = with pkgs; [
       brightnessctl grim libnotify slurp
       wf-recorder wlogout jq
+      wl-clipboard
     ];
 
     services.cliphist.enable = true;

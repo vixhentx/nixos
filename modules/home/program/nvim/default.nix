@@ -50,6 +50,11 @@ in
       viAlias = true;
       vimAlias = true;
 
+      # Runtime server-mode detection — runs at the very start of init.lua
+      # to override the build-time default.  Detects VSCode / Neovide /
+      # Goneovim / headless and sets vim.g.IsServerMode accordingly.
+      extraConfigLuaPre = builtins.readFile ./server-mode.lua;
+
       # Basic Options (from init.lua and server_opt.lua)
       opts = {
         number = true;
