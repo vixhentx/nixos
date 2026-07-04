@@ -1,3 +1,4 @@
+# FIXME: flatpak会导致每次rebuild都奇慢
 { config, lib, pkgs, ... }:
 
 let

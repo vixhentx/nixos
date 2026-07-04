@@ -28,9 +28,6 @@ in
     # 视觉与终端 (字体由 Stylix 统一管理)
     vix.system.kmscon.enable = true;
 
-    # 容器与沙盒
-    vix.system.flatpak.enable = true;
-
     # 性能优化
     vix.system.performance.enable = true;
 

@@ -11,7 +11,6 @@ in
   config = lib.mkIf cfg.enable {
     vix.program = {
       apps-light.enable = true;
-      flatpak.enable = true;
       # TODO: bitwarden的electron包有问题, 等待上游更新
       bitwarden.enable = false;
       firefox.enable = true;
