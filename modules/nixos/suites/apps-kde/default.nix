@@ -3,7 +3,7 @@ let
   cfg = config.vix.suites.apps-kde;
 in {
   options.vix.suites.apps-kde = {
-    enable = lib.mkEnableOption "Generic user-level desktop tools";
+    enable = lib.mkEnableOption "KDE desktop applications suite (NixOS level)";
   };
 
   config = lib.mkIf cfg.enable {

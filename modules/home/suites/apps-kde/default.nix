@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.vix.program.apps-kde;
+  cfg = config.vix.suites.apps-kde;
 
   # Konsole profile: terminal font from Stylix, colors from Stylix Qt theming
   monospaceName = config.stylix.fonts.monospace.name;
@@ -23,8 +23,8 @@ let
   };
 in
 {
-  options.vix.program.apps-kde = {
-    enable = lib.mkEnableOption "KDE desktop applications (file manager, viewers, utilities)";
+  options.vix.suites.apps-kde = {
+    enable = lib.mkEnableOption "KDE desktop applications suite (home level)";
   };
 
   config = lib.mkIf cfg.enable {

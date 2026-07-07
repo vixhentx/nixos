@@ -13,7 +13,7 @@ in
     vix.desktop.hyprland.enable = true;
     vix.program.tomat.enable = true;
     vix.program.fcitx.enable = true;
-    vix.program.apps-kde.enable = true;
+    vix.suites.apps-kde.enable = true;
 
     # Hyprland's default terminal
     vix.program.xdg.terminal = {
