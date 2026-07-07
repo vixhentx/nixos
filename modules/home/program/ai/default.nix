@@ -61,6 +61,7 @@ in
     codex.enable = mkToolEnable "OpenAI Codex CLI";
     gemini.enable = mkToolEnable "Google Gemini CLI";
     aider.enable = mkToolEnable "Aider AI pair programming";
+    cline.enable = mkToolEnable "VS Code Cline MCP integration";
   };
 
   # ── Imports ────────────────────────────────────────────
@@ -70,6 +71,7 @@ in
     ./codex.nix
     ./gemini.nix
     ./aider.nix
+    ./cline.nix
   ];
 
   # ── Config ─────────────────────────────────────────────
