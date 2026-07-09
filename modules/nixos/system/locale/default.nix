@@ -28,7 +28,6 @@ in
       LC_PAPER = "zh_CN.UTF-8";
       LC_TELEPHONE = "zh_CN.UTF-8";
       LC_TIME = "zh_CN.UTF-8";
-      LC_ALL = "zh_CN.UTF-8";
     };
 
     # 某些应用需要的环境变量
@@ -38,5 +37,12 @@ in
       LC_MESSAGES = "zh_CN.UTF-8";
       LC_ALL = "zh_CN.UTF-8";
     };
+
+    environment.etc.environment.text = ''
+      LANG=zh_CN.UTF-8
+      LANGUAGE=zh_CN:zh:en_US:en
+      LC_ALL=zh_CN.UTF-8
+      LC_MESSAGES=zh_CN.UTF-8
+    '';
   };
 }
