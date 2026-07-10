@@ -51,6 +51,11 @@ in
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCALE_FACTOR=${builtins.toString sddmScale},QT_FONT_DPI=${builtins.toString (builtins.floor (sddmScale * 96))}";
 
+  #keyboard
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+  '';
+
   # ── 硬件 ────────────────────────────────────────────
   hardware.facter.reportPath = ./facter.json;
 
