@@ -14,6 +14,7 @@ in
     security.polkit.enable = true;
     security.rtkit.enable = true;
     programs.dconf.enable = true;
+    services.udisks2.enable = true;
 
     environment.systemPackages = with pkgs; [
       git
