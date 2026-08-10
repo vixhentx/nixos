@@ -33,6 +33,6 @@ in
 
     # 网络
     vix.system.network.enable = true;
-    vix.system.network.proxy.enable = true;
+    # vix.system.network.proxy.enable = true;
   };
 }

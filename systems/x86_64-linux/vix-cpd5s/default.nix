@@ -27,6 +27,7 @@ in
   vix.suites.apps-light.enable = true;
   vix.suites.apps-heavy.enable = true;
   vix.suites.theme-catppuccin.enable = true;
+  vix.suites.gaming.enable = true;
 
   # 设备 Profile
   vix.profiles.virtualization.enable = true;
@@ -41,6 +42,7 @@ in
     vix.suites.apps-light.enable = true;
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
+    vix.suites.gaming.enable = true;
     vix.program.ai.enable = true;
     vix.profiles.nvidia.enable = true;
 
