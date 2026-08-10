@@ -28,7 +28,7 @@ in
       enable = true;
       enableZshIntegration = true;
       settings = {
-        filter_mode = "global";
+        filter_mode = "directory";
         search_mode = "fuzzy";
         style = "compact";
         inline_height = 20;
