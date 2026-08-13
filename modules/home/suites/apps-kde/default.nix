@@ -55,6 +55,7 @@ in
 
       # Connnectivity
       kdeconnect-kde
+      krdc
     ];
 
     # Konsole profile
