@@ -21,6 +21,7 @@ in
   ];
 
   # ── NixOS 层套件 ───────────────────────────────────
+  vix.system.network.proxy.enable = true;
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
   vix.suites.apps-kde.enable = true;
