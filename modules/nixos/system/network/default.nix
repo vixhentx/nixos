@@ -8,6 +8,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    vix.system.network.avahi.enable = lib.mkDefault true;
     boot.kernel.sysctl = {
       # 启用 BBR 拥塞控制
       "net.core.default_qdisc" = "fq";
