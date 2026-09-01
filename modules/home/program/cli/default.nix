@@ -48,7 +48,6 @@ in
       jq
     ];
 
-    programs.bat.enable = true;
     programs.btop.enable = true;
     programs.direnv = {
       enable = true;
@@ -63,7 +62,6 @@ in
     };
 
     vix.program.zsh.extraAliases = {
-      cat = "bat";
       g = "git";
       ga = "git add";
       gc = "git commit";
