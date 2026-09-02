@@ -13,10 +13,10 @@ in
 
     services.displayManager.defaultSession = lib.mkDefault "plasma";
 
-    # 触屏键盘: pinned nixpkgs 的 plasma6 模块不自动携带 plasma-keyboard, 显式安装
-    environment.systemPackages = with pkgs.kdePackages; [
-      plasma-keyboard
-      qtvirtualkeyboard
+    # 触屏键盘: Plasma 6 桌面 OSK 用 maliit (plasma-keyboard/qtvirtualkeyboard 不是桌面 OSK 后端).
+    environment.systemPackages = with pkgs; [
+      maliit-framework
+      maliit-keyboard
     ];
 
     # powerdevil (电源管理/电池模式) 仅在 powerManagement 开启时被 plasma6 模块拉入

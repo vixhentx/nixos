@@ -24,10 +24,20 @@ let
         --set ELECTRON_OZONE_PLATFORM_HINT x11
     '';
   };
+
+  # 仅在 NVIDIA/Hyprland (cpd5s) 强制 X11; 其余设备 (如 sp6/Plasma) 装原始包走原生 Wayland.
+  wechat = if cfg.forceElectronX11 then wechat-wrapped else pkgs.wechat;
+  feishu = if cfg.forceElectronX11 then feishu-wrapped else pkgs.feishu;
 in
 {
   options.vix.suites.apps-light = {
     enable = lib.mkEnableOption "Lightweight desktop applications suite (home level)";
+
+    forceElectronX11 = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Force WeChat/Feishu to X11 (NVIDIA/Hyprland workaround).";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -45,8 +55,8 @@ in
       element-desktop
       telegram-desktop
       qq
-      wechat-wrapped
-      feishu-wrapped
+      wechat
+      feishu
 
       # Internet (universal)
       localsend

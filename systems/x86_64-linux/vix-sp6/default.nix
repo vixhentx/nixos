@@ -1,12 +1,12 @@
 { config, lib, inputs, ... }:
+let
+  monitors = config.vix.display.monitors;
+in
 {
   imports = [
     # Surface 特殊硬件兼容: linux-surface 补丁内核 + 固件/热管理 (linux-surface 项目推荐路径)
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
   ];
-
-  # SP6 触屏为 MSSL (HID over I2C), 无 IPTS 硬件, 显式关闭
-  services.iptsd.enable = false;
 
   system.stateVersion = "26.05";
 
@@ -21,6 +21,7 @@
   vix.suites.apps-kde.enable = true;
   vix.suites.apps-light.enable = true;
   vix.suites.theme-catppuccin.enable = true;
+  vix.suites.gaming.enable = true;
 
   # ── 触控优化 ────────────────────────────────────────
   hardware.sensor.iio.enable = true; # 加速度计 → qtsensors, Plasma 屏幕自动旋转
@@ -39,11 +40,11 @@
     vix.suites.apps-light.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.suites.desktop.enable = true; # 激活 vix.program.xdg: kdeglobals 终端/MIME/xdg-user-dirs
-  };
 
-  # ── SDDM ────────────────────────────────────────────
-  services.displayManager.sddm.settings.General.GreeterEnvironment =
-    "QT_SCALE_FACTOR=2,QT_FONT_DPI=144";
+    # Plasma Wayland 缩放: 复用 monitors 单一来源, 由 kscreen-doctor 应用.
+    vix.desktop.plasma.outputs = lib.map (m: { output = m.output; scale = m.scale; }) monitors;
+    vix.suites.gaming.enable = true;
+  };
 
   # ── 硬件 ────────────────────────────────────────────
   hardware.facter.reportPath = ./facter.json;

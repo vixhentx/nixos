@@ -41,6 +41,7 @@ in
   home-manager.users.vix_hentx = {
     vix.suites.hyprland.enable = true;
     vix.suites.apps-light.enable = true;
+    vix.suites.apps-light.forceElectronX11 = true; # NVIDIA/Hyprland: WeChat/Feishu 强制 X11
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.suites.gaming.enable = true;

@@ -14,6 +14,17 @@ in
         description = "Plasma Mobile 触屏应用 (angelfish, koko, tokodon)";
       };
     };
+
+    outputs = lib.mkOption {
+      type = lib.types.listOf (lib.types.submodule {
+        options = {
+          output = lib.mkOption { type = lib.types.str; };
+          scale = lib.mkOption { type = lib.types.float; };
+        };
+      });
+      default = [];
+      description = "Plasma Wayland per-output scale (applied via kscreen-doctor).";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -43,8 +54,35 @@ in
         }
       ];
 
-      # kwin 虚拟键盘 (plasma-keyboard): plasma-manager 无专门选项, 走原始 kwinrc
+      # kwin 虚拟键盘 (maliit): plasma-manager 无专门选项, 走原始 kwinrc.
+      # InputMethod 指向 maliit-keyboard 的桌面文件, VirtualKeyboardEnabled 让 KWin 在聚焦文本框时自动弹出.
       configFile.kwinrc.Wayland.VirtualKeyboardEnabled = true;
+      configFile.kwinrc.Wayland.InputMethod =
+        "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
+    };
+
+    # Electron/Chromium 应用 (QQ/Feishu/WeChat 等) 原生 Wayland:
+    # NIXOS_OZONE_WL 让 nixpkgs 的 qq 启动器启用 wayland 参数; ozone hint 让其余 Electron 应用尝试 Wayland.
+    home.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    };
+
+    # 会话启动后按 monitors 单一来源应用每屏缩放 (kscreen-doctor).
+    systemd.user.services.kscreen-scale = {
+      Unit = {
+        Description = "Apply Plasma Wayland output scale";
+        After = [ "plasma-kwin_wayland.service" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = let
+          args = lib.concatMapStringsSep " "
+            (o: "output.${o.output}.scale.${builtins.toString o.scale}") cfg.outputs;
+        in "${pkgs.kdePackages.libkscreen}/bin/kscreen-doctor ${args}";
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
     };
 
     home.packages = lib.mkIf cfg.apps-mobile.enable (with pkgs.kdePackages; [
