@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.vix.system.ssh;
 in
@@ -12,8 +12,23 @@ in
       enable = true;
       settings = {
         PermitRootLogin = "prohibit-password";
-        PasswordAuthentication = true; # 初始建议开启, 待配置好 Key 后可关闭
+        PasswordAuthentication = true;
       };
     };
+    # Mosh support
+    programs.mosh = {
+      enable = true;
+      openFirewall = true;
+    };
+    # SSH Conf
+    programs.ssh = {
+      setXAuthLocation = true;
+      startAgent = true;
+    };
+    #TSSH Support
+    environment.systemPackages = with pkgs; [
+      tsshd
+      trzsz-ssh
+    ];
   };
 }

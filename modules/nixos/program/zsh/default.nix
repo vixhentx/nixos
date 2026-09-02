@@ -9,6 +9,5 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.zsh.enable = true;
-    programs.ssh.startAgent = true;
   };
 }
