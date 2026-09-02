@@ -40,6 +40,24 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -58,12 +76,14 @@
       systems.modules.nixos = with inputs; [
         stylix.nixosModules.stylix
         catppuccin.nixosModules.catppuccin
+        disko.nixosModules.disko
       ];
 
       homes.modules = with inputs; [
         catppuccin.homeModules.catppuccin
         nixvim.homeModules.nixvim
         nix-flatpak.homeManagerModules.nix-flatpak
+        plasma-manager.homeModules.plasma-manager
       ];
 
     };

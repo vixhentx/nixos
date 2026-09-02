@@ -19,7 +19,6 @@ in
         enable = true;
         wayland.enable = lib.mkDefault true;
       };
-      defaultSession = lib.mkDefault "hyprland";
     };
   };
 }

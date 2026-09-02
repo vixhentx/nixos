@@ -14,6 +14,10 @@ graph TD
 
     subgraph "Hyprland Ecosystem"
         hyprland["hyprland<br/>kitty + terminal config, tomat, fcitx"]
+    end
+
+    subgraph "Plasma Ecosystem"
+        plasma["plasma<br/>konsole + terminal config, fcitx,<br/>plasma-manager panels, touch keyboard"]
         apps_kde["apps-kde<br/>dolphin, gwenview, haruna, okular, ark,<br/>konsole, spectacle, elisa, filelight,<br/>KDE runtime, Konsole profile, MIME globs"]
     end
 
@@ -30,8 +34,11 @@ graph TD
 
     common --> desktop
     desktop --> hyprland
+    desktop --> plasma
     hyprland --> apps_kde
     hyprland --> apps_light
+    plasma --> apps_kde
+    plasma --> apps_light
     apps_light --> apps_heavy
     apps_heavy --> nvidia
     apps_heavy --> docker
@@ -46,30 +53,33 @@ graph LR
         cpd5s["common → desktop → hyprland → apps-kde → apps-light → apps-heavy"]
     end
 
-    subgraph "vix-sp6 (Surface Pro 6, future)"
-        sp6["common → desktop → gnome → apps-gnome → apps-light"]
+    subgraph "vix-sp6 (Surface Pro 6, touch-first)"
+        sp6["common → desktop → plasma → apps-kde → apps-light"]
     end
 ```
 
-`desktop` and `apps-light` are shared. Each DE brings its own terminal, app ecosystem, and MIME defaults via its dedicated module (`apps-kde` / `apps-gnome`).
+`desktop` and `apps-light` are shared. Each DE brings its own terminal, app ecosystem, and MIME defaults via its dedicated module (`apps-kde`), while `desktop/plasma` handles DE wiring (plasma6 module, defaultSession, touch keyboard, powerdevil) and plasma-manager owns layout/behavior (panels, kwinrc) — Stylix remains the single theme source.
+
+Host-level hardware integration (not repo modules):
+- `vix-sp6` imports `nixos-hardware.nixosModules.microsoft-surface-pro-intel` (linux-surface patched kernel, firmware, thermald, surface-control) and defines its disks declaratively via `disko.devices` — install-time partitioning is a single `disko --mode disko --flake .#vix-sp6` command.
 
 ## Module Layout
 
 ```mermaid
 graph TD
     subgraph "modules/nixos/"
-        ns["suites/ common, desktop, hyprland, apps-light, apps-heavy, theme-*"]
+        ns["suites/ common, desktop, hyprland, plasma, apps-light, apps-heavy, theme-*"]
         ns2["system/ boot, core, kmscon, locale, network, nix, performance, sddm, ssh, user"]
         ns3["program/ zsh, docker, wireshark"]
         ns4["profiles/ nvidia, virtualization"]
-        ns5["desktop/ hyprland"]
+        ns5["desktop/ hyprland, plasma"]
         ns6["theme"]
     end
 
     subgraph "modules/home/"
-        hs["suites/ common, desktop, hyprland, apps-light, apps-heavy, theme-*"]
+        hs["suites/ common, desktop, hyprland, plasma, apps-light, apps-heavy, theme-*"]
         hs2["program/ zsh, cli, nvim, tomat, fcitx, xdg, firefox, bitwarden, thunderbird, vscode, apps-light, apps-kde, apps-heavy, blender, kicad, libreoffice"]
-        hs3["desktop/ hyprland"]
+        hs3["desktop/ hyprland, plasma"]
         hs4["profiles/ nvidia"]
     end
 ```
@@ -81,6 +91,7 @@ sequenceDiagram
     participant DS as desktop suite
     participant XDG as xdg module
     participant HS as hyprland suite
+    participant PS as plasma suite
     participant AK as apps-kde
     participant AL as apps-light
     participant FF as firefox module
@@ -88,6 +99,7 @@ sequenceDiagram
     Note over DS,FF: Terminal
     DS->>XDG: enable = true
     HS->>XDG: terminal = { kitty, kitty.desktop }
+    PS->>XDG: terminal = { konsole, org.kde.konsole.desktop }
     Note over XDG: writes kdeglobals
 
     Note over DS,FF: MIME (native globs via xdg.mimeApps)
