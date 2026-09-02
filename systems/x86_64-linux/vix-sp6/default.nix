@@ -23,6 +23,9 @@ in
   vix.suites.theme-catppuccin.enable = true;
   vix.suites.gaming.enable = true;
 
+  vix.system.network.enable = true;
+  vix.system.network.proxy.enable = true;
+
   # ── 触控优化 ────────────────────────────────────────
   hardware.sensor.iio.enable = true; # 加速度计 → qtsensors, Plasma 屏幕自动旋转
   services.libinput.touchpad = {
@@ -59,8 +62,7 @@ in
     disk.main = {
       type = "disk";
       device = "/dev/nvme0n1";
-      content = {
-        type = "gpt";
+      content = { type = "gpt";
         partitions = {
           ESP = {
             size = "1G";
