@@ -56,6 +56,14 @@ in
     services.hyprpaper.enable = true;
     services.network-manager-applet.enable = true;
 
+    # KDE 应用默认终端 (dolphin F4 等): xdg 模块只提供 terminal 选项, 由 DE 模块落地
+    xdg.configFile."kdeglobals".text = lib.generators.toINI { } {
+      General = {
+        TerminalApplication = config.vix.program.xdg.terminal.application;
+        TerminalService = config.vix.program.xdg.terminal.desktopFile;
+      };
+    };
+
     home.sessionVariables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";

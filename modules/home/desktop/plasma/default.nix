@@ -19,9 +19,14 @@ in
   config = lib.mkIf cfg.enable {
     # Qt 应用主题由 stylix.targets.kde (kdeglobals) 负责, qtct 平台不支持 kde, 关闭以消除警告
     stylix.targets.qt.enable = false;
-
     programs.plasma = {
       enable = true;
+
+      # 默认终端由 plasma-manager 写真实 kdeglobals (xdg 模块不再写, 避免符号链接冲突)
+      configFile."kdeglobals" = {
+        General.TerminalApplication = config.vix.program.xdg.terminal.application;
+        General.TerminalService = config.vix.program.xdg.terminal.desktopFile;
+      };
 
       # 触屏优先的底部 dock 面板
       panels = [

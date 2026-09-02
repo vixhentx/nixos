@@ -44,15 +44,6 @@ in
       };
 
       mimeApps.enable = true;
-
-      configFile."kdeglobals" = {
-        text = lib.generators.toINI { } {
-          General = {
-            TerminalApplication = cfg.terminal.application;
-            TerminalService = cfg.terminal.desktopFile;
-          };
-        };
-      };
     };
 
     home.activation.rebuildKdeSycoca = ''
