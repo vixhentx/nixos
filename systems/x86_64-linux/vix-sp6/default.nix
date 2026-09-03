@@ -52,6 +52,10 @@ in
 
   # ── 硬件 ────────────────────────────────────────────
   hardware.facter.reportPath = ./facter.json;
+  # 
+  boot.extraModprobeConfig = ''
+    softdep soc_button_array pre: pinctrl_icelake
+  '';
 
   # kmscon 帧缓冲 — 仅影响早期控制台显示, 与合成器无关.
   boot.kernelParams = [ "video=eDP-1:2736x1824" ];
