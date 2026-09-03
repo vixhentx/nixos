@@ -4,3 +4,4 @@ result
 # 虚拟机测试相关
 *.qcow2
 *.raw
+.aider*

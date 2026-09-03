@@ -2,25 +2,6 @@
 
 let
   cfg = config.vix.suites.kde;
-
-  # Konsole profile: terminal font from Stylix, colors from Stylix Qt theming
-  monospaceName = config.stylix.fonts.monospace.name;
-  monospaceSize = config.stylix.fonts.sizes.desktop;
-  terminalFont = "${monospaceName},${builtins.toString monospaceSize},-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
-  konsoleProfileName = "Stylix";
-
-  konsoleProfile = lib.generators.toINI { } {
-    Appearance.Font = terminalFont;
-    General = {
-      Name = konsoleProfileName;
-      Parent = "FALLBACK/";
-    };
-  };
-  konsoleRc = lib.generators.toINI { } {
-    "Desktop Entry".DefaultProfile = "${konsoleProfileName}.profile";
-    General.ConfigVersion = 1;
-    UiSettings.ColorScheme = "";
-  };
 in
 {
   imports = [ ./mobile.nix ];
@@ -63,10 +44,14 @@ in
       krdc
     ];
 
-    # Konsole profile
-    xdg = {
-      configFile."konsolerc".text = konsoleRc;
-      dataFile."konsole/${konsoleProfileName}.profile".text = konsoleProfile;
+    # Konsole profile: 字体来自 Stylix, 其余走 plasma-manager 默认
+    programs.konsole = {
+      enable = true;
+      defaultProfile = "Stylix";
+      profiles.Stylix.font = {
+        name = config.stylix.fonts.monospace.name;
+        size = config.stylix.fonts.sizes.desktop;
+      };
     };
 
     # MIME: KDE apps as defaults (native glob support)
