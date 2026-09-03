@@ -46,6 +46,10 @@ in
       usbutils
       mpv
       jq
+      file
+      xxd
+      python3
+      gh
     ];
 
     programs.btop.enable = true;
