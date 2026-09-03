@@ -23,6 +23,8 @@ let
     - Preserve module boundaries. Add new logic in dedicated files instead of growing monolithic configs.
     - Reuse packaged tools and official Home Manager or NixOS modules when they exist.
     - Put reusable local notes and reference material under `${knowledgeBaseDir}`.
+    - A read-only reference directory is available at `~/reference`. You may clone repos into it and read or roll back (reset/checkout/clean) its contents, but never edit, commit, or push there.
+    - Prefer to use MCP tools rather than bare commands if avaliable.
   '';
 
   # ── Reusable mkEnableOption with default=true ──────────
