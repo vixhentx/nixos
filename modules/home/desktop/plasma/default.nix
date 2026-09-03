@@ -7,12 +7,8 @@ in
   options.vix.desktop.plasma = {
     enable = lib.mkEnableOption "KDE Plasma 6 desktop (home level)";
 
-    apps-mobile = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Plasma Mobile 触屏应用 (angelfish, koko, tokodon)";
-      };
+    mobile = {
+      enable = lib.mkEnableOption "Mobile (touchscreen) optimization for Plasma";
     };
 
     outputs = lib.mkOption {
@@ -30,6 +26,11 @@ in
   config = lib.mkIf cfg.enable {
     # Qt 应用主题由 stylix.targets.kde (kdeglobals) 负责, qtct 平台不支持 kde, 关闭以消除警告
     stylix.targets.qt.enable = false;
+
+    # 自动开启 KDE 应用套件并传递 mobile 选项
+    vix.suites.kde.enable = lib.mkDefault true;
+    vix.suites.kde.mobile.enable = cfg.mobile.enable;
+
     programs.plasma = {
       enable = true;
 
@@ -39,8 +40,8 @@ in
         General.TerminalService = config.vix.program.xdg.terminal.desktopFile;
       };
 
-      # 触屏优先的底部 dock 面板
-      panels = [
+      # 触屏优先的底部 dock 面板 (仅触屏设备)
+      panels = lib.mkIf cfg.mobile.enable [
         {
           location = "bottom";
           height = 56;
@@ -54,11 +55,18 @@ in
         }
       ];
 
-      # kwin 虚拟键盘 (maliit): plasma-manager 无专门选项, 走原始 kwinrc.
-      # InputMethod 指向 maliit-keyboard 的桌面文件, VirtualKeyboardEnabled 让 KWin 在聚焦文本框时自动弹出.
-      configFile.kwinrc.Wayland.VirtualKeyboardEnabled = true;
-      configFile.kwinrc.Wayland.InputMethod =
-        "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
+      # kwin 输入法后端: 统一指向 fcitx5 wayland launcher (所有设备键盘都是 fcitx5).
+      # 对应 KWin 虚拟键盘下拉里的 "Fcitx 5 Wayland Launcher".
+      # plasma-manager 无专门选项, 只能手写 kwinrc.
+      # 触屏设备额外启用 VirtualKeyboardEnabled 自动弹出 OSK (后续实验项).
+      configFile.kwinrc = lib.mkMerge [
+        {
+          Wayland.InputMethod = "fcitx5-wayland-launcher.desktop";
+        }
+        (lib.mkIf cfg.mobile.enable {
+          Wayland.VirtualKeyboardEnabled = true;
+        })
+      ];
     };
 
     # Electron/Chromium 应用 (QQ/Feishu/WeChat 等) 原生 Wayland:
@@ -84,11 +92,5 @@ in
       };
       Install.WantedBy = [ "graphical-session.target" ];
     };
-
-    home.packages = lib.mkIf cfg.apps-mobile.enable (with pkgs.kdePackages; [
-      angelfish # 触屏浏览器
-      koko      # 触屏图库
-      tokodon   # Mastodon
-    ]);
   };
 }

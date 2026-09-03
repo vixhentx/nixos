@@ -18,7 +18,7 @@ graph TD
 
     subgraph "Plasma Ecosystem"
         plasma["plasma<br/>konsole + terminal config, fcitx,<br/>plasma-manager panels, touch keyboard"]
-        apps_kde["apps-kde<br/>dolphin, gwenview, haruna, okular, ark,<br/>konsole, spectacle, elisa, filelight,<br/>KDE runtime, Konsole profile, MIME globs"]
+        kde["kde<br/>dolphin, gwenview, haruna, okular, ark,<br/>konsole, spectacle, elisa, filelight,<br/>KDE runtime, Konsole profile, MIME globs"]
     end
 
     subgraph "Universal Apps"
@@ -35,9 +35,9 @@ graph TD
     common --> desktop
     desktop --> hyprland
     desktop --> plasma
-    hyprland --> apps_kde
+    hyprland --> kde
     hyprland --> apps_light
-    plasma --> apps_kde
+    plasma --> kde
     plasma --> apps_light
     apps_light --> apps_heavy
     apps_heavy --> nvidia
@@ -50,15 +50,15 @@ graph TD
 ```mermaid
 graph LR
     subgraph "vix-cpd5s (Workstation)"
-        cpd5s["common → desktop → hyprland → apps-kde → apps-light → apps-heavy"]
+        cpd5s["common → desktop → hyprland → kde → apps-light → apps-heavy"]
     end
 
     subgraph "vix-sp6 (Surface Pro 6, touch-first)"
-        sp6["common → desktop → plasma → apps-kde → apps-light"]
+        sp6["common → desktop → plasma → kde → apps-light"]
     end
 ```
 
-`desktop` and `apps-light` are shared. Each DE brings its own terminal, app ecosystem, and MIME defaults via its dedicated module (`apps-kde`), while `desktop/plasma` handles DE wiring (plasma6 module, defaultSession, touch keyboard, powerdevil) and plasma-manager owns layout/behavior (panels, kwinrc) — Stylix remains the single theme source.
+`desktop`, `apps-light` and `kde` are shared across DEs. `kde` bundles the KDE app ecosystem (Dolphin, Konsole, Okular, ...) plus MIME defaults and the Konsole profile; `desktop/plasma` auto-enables `kde` and handles DE wiring (plasma6 module, defaultSession, powerdevil), while plasma-manager owns layout/behavior (panels, kwinrc). Touch-specific bits — bottom dock panel, kwinrc virtual keyboard (fcitx5 wayland launcher), and touch apps (angelfish/koko/tokodon) — are gated behind `desktop.plasma.mobile.enable` / `suites.kde.mobile.enable`. Stylix remains the single theme source.
 
 Host-level hardware integration (not repo modules):
 - `vix-sp6` imports `nixos-hardware.nixosModules.microsoft-surface-pro-intel` (linux-surface patched kernel, firmware, thermald, surface-control) and defines its disks declaratively via `disko.devices` — install-time partitioning is a single `disko --mode disko --flake .#vix-sp6` command.
@@ -77,8 +77,8 @@ graph TD
     end
 
     subgraph "modules/home/"
-        hs["suites/ common, desktop, hyprland, plasma, apps-light, apps-heavy, theme-*"]
-        hs2["program/ zsh, cli, nvim, tomat, fcitx, xdg, firefox, bitwarden, thunderbird, vscode, apps-light, apps-kde, apps-heavy, blender, kicad, libreoffice"]
+        hs["suites/ common, desktop, hyprland, plasma, kde, apps-light, apps-heavy, theme-*"]
+        hs2["program/ zsh, cli, nvim, tomat, fcitx, xdg, firefox, bitwarden, thunderbird, vscode, blender, kicad, libreoffice"]
         hs3["desktop/ hyprland, plasma"]
         hs4["profiles/ nvidia"]
     end
@@ -92,7 +92,7 @@ sequenceDiagram
     participant XDG as xdg module
     participant HS as hyprland suite
     participant PS as plasma suite
-    participant AK as apps-kde
+    participant KDE as kde
     participant AL as apps-light
     participant FF as firefox module
 
@@ -118,7 +118,7 @@ sequenceDiagram
 
 1. **DE-agnostic modules don't reference specific apps.** `xdg` exposes `terminal` option but doesn't set it. `desktop` has pavucontrol but not kitty. `apps-light` has mpv but not haruna.
 
-2. **DE-specific bundles own their ecosystem.** `apps-kde` bundles all KDE apps + MIME + Konsole config. A future `apps-gnome` would do the same with GNOME apps.
+2. **DE-specific bundles own their ecosystem.** `kde` bundles all KDE apps + MIME + Konsole config. A future `apps-gnome` would do the same with GNOME apps.
 
 3. **MIME uses native globs.** `xdg.mimeApps.defaultApplications` supports `image/*` natively, no external tool needed.
 

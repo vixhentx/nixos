@@ -24,7 +24,7 @@ in
   vix.system.network.proxy.enable = true;
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
-  vix.suites.apps-kde.enable = true;
+  vix.suites.kde.enable = true;
   vix.suites.apps-light.enable = true;
   vix.suites.apps-heavy.enable = true;
   vix.suites.theme-catppuccin.enable = true;

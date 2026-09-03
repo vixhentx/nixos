@@ -18,7 +18,7 @@ in
   # ── NixOS 层套件 ───────────────────────────────────
   vix.suites.common.enable = true;
   vix.suites.plasma.enable = true;
-  vix.suites.apps-kde.enable = true;
+  vix.desktop.plasma.mobile.enable = true;
   vix.suites.apps-light.enable = true;
   vix.suites.theme-catppuccin.enable = true;
   vix.suites.gaming.enable = true;
@@ -40,6 +40,7 @@ in
 
   home-manager.users.vix_hentx = {
     vix.suites.plasma.enable = true;
+    vix.desktop.plasma.mobile.enable = true;
     vix.suites.apps-light.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.suites.desktop.enable = true; # 激活 vix.program.xdg: kdeglobals 终端/MIME/xdg-user-dirs
