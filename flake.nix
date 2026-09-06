@@ -39,6 +39,11 @@
       flake = false;
     };
 
+    aider-mcp-server = {
+      url = "github:disler/aider-mcp-server";
+      flake = false;
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     plasma-manager = {

@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "aider-mcp-server": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747836385,
+        "narHash": "sha256-bq7P8esKLPYtq7Ie42bLyScTcLBZXBPzlgfI/3GEn4g=",
+        "owner": "disler",
+        "repo": "aider-mcp-server",
+        "rev": "b2516fa466d0d851932da92ee6d0e66946db9efc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "disler",
+        "repo": "aider-mcp-server",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -433,6 +449,7 @@
     },
     "root": {
       "inputs": {
+        "aider-mcp-server": "aider-mcp-server",
         "blender-bin": "blender-bin",
         "blender-mcp": "blender-mcp",
         "catppuccin": "catppuccin",

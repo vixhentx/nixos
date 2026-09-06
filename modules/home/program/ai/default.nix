@@ -33,7 +33,7 @@ in
 {
   # ── Options ────────────────────────────────────────────
   options.vix.program.ai = {
-    enable = lib.mkEnableOption "AI assistant tooling (Claude Code, Codex, Gemini, Aider) with MCP infrastructure";
+    enable = lib.mkEnableOption "AI assistant tooling (Claude Code, Codex, OpenCode, Aider) with MCP infrastructure";
 
     # Shared data (consumed by sub-modules)
     knowledgeBaseDir = lib.mkOption { type = lib.types.str; internal = true; };
@@ -61,7 +61,7 @@ in
     # Per-tool toggles (all default true when AI is enabled)
     claude.enable = mkToolEnable "Claude Code";
     codex.enable = mkToolEnable "OpenAI Codex CLI";
-    gemini.enable = mkToolEnable "Google Gemini CLI";
+    opencode.enable = mkToolEnable "OpenCode AI coding agent";
     aider.enable = mkToolEnable "Aider AI pair programming";
     cline.enable = mkToolEnable "VS Code Cline MCP integration";
   };
@@ -71,7 +71,7 @@ in
     ./mcp.nix
     ./claude.nix
     ./codex.nix
-    ./gemini.nix
+    ./opencode.nix
     ./aider.nix
     ./cline.nix
   ];
