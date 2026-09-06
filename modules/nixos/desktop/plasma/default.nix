@@ -13,7 +13,6 @@ in
 
   config = lib.mkIf cfg.enable {
     services.desktopManager.plasma6.enable = true;
-    services.displayManager.defaultSession = lib.mkDefault "plasma";
     # powerdevil (电源管理/电池模式) 仅在 powerManagement 开启时被 plasma6 模块拉入
     powerManagement.enable = true;
 

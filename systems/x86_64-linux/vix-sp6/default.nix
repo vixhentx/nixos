@@ -23,6 +23,10 @@ in
   vix.suites.theme-catppuccin.enable = true;
   vix.suites.gaming.enable = true;
 
+  # ── 会话管理 (显示管理器 + 默认会话在设备顶层指定) ──
+  vix.system.sddm.enable = true;
+  services.displayManager.defaultSession = "plasma";
+
   vix.system.network.enable = true;
   vix.system.network.proxy.enable = true;
 

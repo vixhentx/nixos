@@ -9,9 +9,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.hyprland.enable = true;
-
-    services.displayManager.defaultSession = lib.mkDefault "hyprland";
+    programs.hyprland = {
+      enable = true;
+      # uwsm 管理会话生命周期, 根治注销后无法登录 / tty 切换后登录管理器不出现等问题
+      withUWSM = true;
+    };
 
     # Dolphin's "Open With" integration depends on the XDG applications menu
     environment.etc."xdg/menus/applications.menu".source =

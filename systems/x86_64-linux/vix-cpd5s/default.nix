@@ -51,7 +51,9 @@ in
     wayland.windowManager.hyprland.settings.monitor = monitors;
   };
 
-  # ── SDDM ────────────────────────────────────────────
+  # ── 会话管理 (显示管理器 + 默认会话在设备顶层指定) ──
+  vix.system.sddm.enable = true;
+  services.displayManager.defaultSession = "hyprland-uwsm";
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCALE_FACTOR=${builtins.toString sddmScale},QT_FONT_DPI=${builtins.toString (builtins.floor (sddmScale * 96))}";
 

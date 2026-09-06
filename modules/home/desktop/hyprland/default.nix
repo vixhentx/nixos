@@ -77,7 +77,8 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = true;
+      # uwsm 接管会话生命周期, 关闭 Hyprland 自身 systemd 集成以免冲突
+      systemd.enable = false;
       xwayland.enable = true;
       configType = "lua";
 
