@@ -24,7 +24,7 @@ in
   vix.suites.gaming.enable = true;
 
   vix.system.network.enable = true;
-  vix.system.network.proxy.enable = true;
+  # vix.system.network.proxy.enable = true;
 
   # ── 触控优化 ────────────────────────────────────────
   hardware.sensor.iio.enable = true; # 加速度计 → qtsensors, Plasma 屏幕自动旋转
