@@ -4,14 +4,16 @@ let
   cfg = config.vix.suites.apps-light;
 
   # WeChat/Feishu: Wayland broken on NVIDIA — force X11 via wrapper.
-  # XWayland scaling is handled by Hyprland force_zero_scaling.
+  # Hyprland force_zero_scaling keeps XWayland at 1x, so Electron must render
+  # these applications at 2x before the compositor applies the monitor scale.
   wechat-wrapped = pkgs.symlinkJoin {
     name = "wechat-wrapped";
     paths = [ pkgs.wechat ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/wechat \
-        --set ELECTRON_OZONE_PLATFORM_HINT x11
+        --set ELECTRON_OZONE_PLATFORM_HINT x11 \
+        --add-flags "--force-device-scale-factor=2"
     '';
   };
 
@@ -21,7 +23,8 @@ let
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/bytedance-feishu \
-        --set ELECTRON_OZONE_PLATFORM_HINT x11
+        --set ELECTRON_OZONE_PLATFORM_HINT x11 \
+        --add-flags "--force-device-scale-factor=2"
     '';
   };
 

@@ -64,6 +64,7 @@ in
     opencode.enable = mkToolEnable "OpenCode AI coding agent";
     aider.enable = mkToolEnable "Aider AI pair programming";
     cline.enable = mkToolEnable "VS Code Cline MCP integration";
+    feishu.enable = mkToolEnable "Feishu CLI and AI skills";
   };
 
   # ── Imports ────────────────────────────────────────────
@@ -74,6 +75,7 @@ in
     ./opencode.nix
     ./aider.nix
     ./cline.nix
+    ./feishu.nix
   ];
 
   # ── Config ─────────────────────────────────────────────
