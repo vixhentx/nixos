@@ -9,6 +9,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    virtualisation.podman.enable = true;
+    virtualisation.docker.enable = true;
   };
 
 }

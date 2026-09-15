@@ -10,7 +10,6 @@ in
 
   config = lib.mkIf cfg.enable {
     vix.program = {
-      docker.enable = true;
       wireshark.enable = true;
     };
   };
