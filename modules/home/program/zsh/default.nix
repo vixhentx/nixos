@@ -68,6 +68,7 @@ in
 
       sessionVariables = {
         HISTDB_FILE = histdbFile;
+        ZSH_DISABLE_COMPFIX = "true";
       };
     };
   };
