@@ -17,7 +17,7 @@ in
       hwRender = true;
       useXkbConfig = true;
       extraConfig = ''
-        vt=1,2,3,4,5,6
+        vt=2,3,4,5,6
       '';
       fonts = [
         {
@@ -25,7 +25,7 @@ in
           package = config.stylix.fonts.monospace.package;
         }
       ];
-      extraOptions = "--term xterm-256color";
+      term = "xterm-256color";
     };
 
     # display-manager.service only Conflicts=autovt@tty1.service.
