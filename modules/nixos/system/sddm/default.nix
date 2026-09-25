@@ -9,11 +9,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot = {
-      kernelParams = [ "quiet" "splash" ];
-      plymouth.enable = true;
-    };
-
     services.displayManager = {
       sddm = {
         enable = true;

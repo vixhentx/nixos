@@ -11,6 +11,8 @@ in
   config = lib.mkIf cfg.enable {
     programs.hyprland.enable = true;
 
+    # 启用显示管理器
+    vix.system.sddm.enable = true;
     services.displayManager.defaultSession = lib.mkDefault "hyprland";
 
     # Dolphin's "Open With" integration depends on the XDG applications menu

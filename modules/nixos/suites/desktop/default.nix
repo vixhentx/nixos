@@ -31,9 +31,6 @@ in
     # 开启系统核心标准件 (Polkit/DBus/Dconf)
     vix.system.core.enable = true;
 
-    # 启用显示管理器
-    vix.system.sddm.enable = true;
-
     # 输入设备支持
     services.libinput.enable = true;
 
