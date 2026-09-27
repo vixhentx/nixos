@@ -9,29 +9,23 @@
       }
     ];
 
-    # 字体包安装 (Nerd Font symbols 供 Waybar 等使用)
-    fonts.packages = with pkgs; [
-      nerd-fonts.symbols-only
-      fira-code
-      sarasa-gothic
-    ];
 
     # 字体：所有主题共享，不由单个 suite 重复定义
-    stylix.fonts = {
+    stylix.fonts = with pkgs; {
       serif = {
-        package = pkgs.sarasa-gothic;
+        package = sarasa-gothic;
         name = "Sarasa UI SC";
       };
       sansSerif = {
-        package = pkgs.sarasa-gothic;
+        package = sarasa-gothic;
         name = "Sarasa UI SC";
       };
       monospace = {
-        package = pkgs.sarasa-gothic;
+        package = sarasa-gothic;
         name = "Sarasa Mono SC";
       };
       emoji = {
-        package = pkgs.noto-fonts-color-emoji;
+        package = noto-fonts-color-emoji;
         name = "Noto Color Emoji";
       };
       sizes = {
@@ -40,6 +34,41 @@
         popups = 12;
         terminal = 14;
       };
+    };
+
+    fonts = {
+      packages =
+        (with pkgs; [
+          nerd-fonts.symbols-only
+          fira-code
+        ]) ++
+        (with config.stylix.fonts; [
+          serif.package
+          sansSerif.package
+          monospace.package
+          emoji.package
+        ]);
+      fontconfig = {
+        enable = true;
+        defaultFonts = (
+          let
+            stylix = config.stylix.fonts;
+          in {
+            monospace = [
+              stylix.monospace.name
+            ];
+            sansSerif = [
+              stylix.sansSerif.name
+            ];
+            serif = [
+              stylix.serif.name
+            ];
+            emoji = [
+              stylix.emoji.name
+            ];
+          });
+      };
+      fontDir.enable = true;
     };
 
     # 禁用 Stylix 自动 Waybar CSS，改用自定义 style.css + @wb-* 注入

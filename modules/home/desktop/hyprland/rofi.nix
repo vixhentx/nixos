@@ -13,12 +13,10 @@ in
     programs.rofi = {
       enable = true;
       package = pkgs.rofi;
-      terminal = "kitty";
-      location = "center";
-      yoffset = -24;
-      modes = [ "drun" "window" "run" ];
-      extraConfig = {
-        modi = "drun,window,run";
+      settings = {
+        modes = [ "drun" "window" "run" ];
+        yoffset = -24;
+        terminal = "kitty";
         show-icons = true;
         drun-display-format = "{name}";
         display-drun = " Apps ";

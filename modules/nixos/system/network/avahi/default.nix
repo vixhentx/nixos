@@ -15,7 +15,8 @@ in
         workstation = true;
       };
       browseDomains = ["local"];
-      nssmdns = true;
+      nssmdns4 = true;
+      nssmdns6 = true;
     };
     services.resolved = {
       enable = true;

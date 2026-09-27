@@ -14,18 +14,14 @@ in
   config = lib.mkIf cfg.enable {
     services.kmscon = {
       enable = true;
-      hwRender = true;
       useXkbConfig = true;
-      extraConfig = ''
-        vt=2,3,4,5,6
-      '';
-      fonts = [
-        {
-          name = config.stylix.fonts.monospace.name;
-          package = config.stylix.fonts.monospace.package;
-        }
-      ];
-      term = "xterm-256color";
+      config = {
+        vt="2,3,4,5,6";
+        font-name = config.stylix.fonts.monospace.name;
+        term = "xterm-256color";
+        hwaccel = config.hardware.graphics.enable;
+        libseat = true;
+      };
     };
 
     # display-manager.service only Conflicts=autovt@tty1.service.

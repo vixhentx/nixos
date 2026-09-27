@@ -58,11 +58,14 @@ in
       nix-direnv.enable = true;
     };
     programs.eza.enable = true;
-    programs.fzf.enable = true;
     programs.zoxide.enable = true;
     programs.yazi = {
       enable = true;
       shellWrapperName = "y";
+    };
+    programs.fzf = {
+      enable = true;
+      historyWidget.command = "";
     };
 
     vix.program.zsh.extraAliases = {

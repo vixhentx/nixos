@@ -11,7 +11,6 @@ in
   config = lib.mkIf cfg.enable {
     vix.program.blender.enable = true;
     vix.program.kicad.enable = true;
-    vix.program.libreoffice.enable = true;
     vix.program.distrobox.enable = true;
 
     home.packages = with pkgs; [

@@ -5,7 +5,7 @@ let
 
   libreoffice-mcp-app = pkgs.symlinkJoin {
     name = "libreoffice-mcp";
-    paths = [ pkgs.libreoffice-fresh ];
+    paths = [ pkgs.libreoffice ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/libreoffice \
@@ -24,7 +24,7 @@ in
     home.packages = [
       (if (config.vix.program.ai.enable or false) && (config.vix.program.ai.mcp.libreoffice.enable or true)
        then libreoffice-mcp-app
-       else pkgs.libreoffice-fresh)
+       else pkgs.libreoffice)
     ];
   };
 }
