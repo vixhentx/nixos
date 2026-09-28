@@ -15,6 +15,8 @@ in
     { output = "eDP-1"; mode = "2736x1824"; position = "0x0"; scale = 2.0; }
   ];
 
+  vix.display.xwaylandScale = 2.0;
+
   # ── NixOS 层套件 ───────────────────────────────────
   vix.suites.common.enable = true;
   vix.suites.plasma.enable = true;

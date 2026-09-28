@@ -19,6 +19,7 @@ in
     { output = "eDP-1"; mode = "2560x1440"; position = "0x0";       scale = 1.6; }
     { output = "DP-4";  mode = "1920x1080"; position = "1600x180";  scale = 1.5; }
   ];
+  vix.display.xwaylandScale = 1.6;
 
   # ── NixOS 层套件 ───────────────────────────────────
   vix.system.network.proxy.enable = true;
@@ -41,7 +42,6 @@ in
   home-manager.users.vix_hentx = {
     vix.suites.hyprland.enable = true;
     vix.suites.apps-light.enable = true;
-    vix.suites.apps-light.forceElectronX11 = true; # NVIDIA/Hyprland: WeChat/Feishu 强制 X11
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.suites.gaming.enable = true;

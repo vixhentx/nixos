@@ -1,45 +1,24 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, osConfig, ... }:
 let
   cfg = config.vix.suites.apps-light;
+  displayCfg = osConfig.vix.display;
 
-  # WeChat/Feishu: Wayland broken on NVIDIA — force X11 via wrapper.
-  # Hyprland force_zero_scaling keeps XWayland at 1x, so Electron must render
-  # these applications at 2x before the compositor applies the monitor scale.
+  # 微信是x11应用, 需要wrap一个缩放参数
   wechat-wrapped = pkgs.symlinkJoin {
     name = "wechat-wrapped";
     paths = [ pkgs.wechat ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/wechat \
-        --set ELECTRON_OZONE_PLATFORM_HINT x11 \
-        --add-flags "--force-device-scale-factor=2"
+        --set QT_SCALE_FACTOR ${toString displayCfg.xwaylandScale}
     '';
   };
-
-  feishu-wrapped = pkgs.symlinkJoin {
-    name = "feishu-wrapped";
-    paths = [ pkgs.feishu ];
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/bytedance-feishu \
-        --set ELECTRON_OZONE_PLATFORM_HINT x11 \
-        --add-flags "--force-device-scale-factor=2"
-    '';
-  };
-
-  # 仅在 NVIDIA/Hyprland (cpd5s) 强制 X11; 其余设备 (如 sp6/Plasma) 装原始包走原生 Wayland.
-  wechat = if cfg.forceElectronX11 then wechat-wrapped else pkgs.wechat;
-  feishu = if cfg.forceElectronX11 then feishu-wrapped else pkgs.feishu;
+  # 飞书也是x11, 本来应该wrap但是都没有用, 不过飞书应用内部可以 `ctrl +` 来缩放
+  feishu-wrapped = pkgs.feishu;
 in
 {
   options.vix.suites.apps-light = {
     enable = lib.mkEnableOption "Lightweight desktop applications suite (home level)";
-
-    forceElectronX11 = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Force WeChat/Feishu to X11 (NVIDIA/Hyprland workaround).";
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -57,8 +36,8 @@ in
       element-desktop
       telegram-desktop
       qq
-      wechat
-      feishu
+      wechat-wrapped
+      feishu-wrapped
 
       # Internet (universal)
       localsend

@@ -32,5 +32,12 @@ in
         Consumed by: Hyprland compositor, SDDM greeter scaling.
       '';
     };
+    xwaylandScale = lib.mkOption {
+      type = lib.types.float;
+      default = 2.0;
+      description = ''
+        Scale for xwayland apps. Support fractional values.
+      '';
+    };
   };
 }
