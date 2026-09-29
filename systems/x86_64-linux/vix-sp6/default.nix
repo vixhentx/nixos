@@ -27,6 +27,7 @@ in
 
   vix.system.network.enable = true;
   vix.system.network.proxy.enable = true;
+  vix.program.waydroid.enable = true;
 
   # ── 触控优化 ────────────────────────────────────────
   hardware.sensor.iio.enable = true; # 加速度计 → qtsensors, Plasma 屏幕自动旋转
@@ -46,6 +47,7 @@ in
     vix.suites.apps-light.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.suites.desktop.enable = true; # 激活 vix.program.xdg: kdeglobals 终端/MIME/xdg-user-dirs
+    vix.program.kicad.enable = true;
 
     # Plasma Wayland 缩放: 复用 monitors 单一来源, 由 kscreen-doctor 应用.
     vix.desktop.plasma.outputs = lib.map (m: { output = m.output; scale = m.scale; }) monitors;
