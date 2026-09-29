@@ -40,8 +40,12 @@ in
     };
 
     # 启用 NetworkManager 并保持基础配置
-    networking.networkmanager.enable = true;
-    networking.useDHCP = false;
-    networking.dhcpcd.enable = false;
+    networking = {
+      networkmanager.enable = true;
+      useDHCP = false;
+      dhcpcd.enable = false;
+
+      nftables.enable = true;
+    };
   };
 }
