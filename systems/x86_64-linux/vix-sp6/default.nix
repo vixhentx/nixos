@@ -36,6 +36,20 @@ in
     naturalScrolling = true;
     disableWhileTyping = true;
   };
+  services.iptsd = {
+    enable = true;
+    config = {
+      Touchscreen = {
+        DisableOnPalm = true;
+        DisableOnStylus = true;
+      };
+      Contacts = {
+        ActivationThreshold = 24;
+        DeactivationThreshold = 20;
+        OrientationThresholdMax = 5;
+      };
+    };
+  };
 
   # ── Home Manager ────────────────────────────────────
   home-manager.useGlobalPkgs = true;
