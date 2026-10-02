@@ -10,8 +10,14 @@ in
       default = "vix_hentx";
       description = "The primary username";
     };
+    extraGroups = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "wheel" ];
+      description = "Additional groups for the primary user";
+    };
     hashedPassword = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.nullOr lib.types.str;
+      default = null;
       description = "SHA-512 hashed password";
     };
   };
@@ -20,22 +26,11 @@ in
     users.users.${cfg.name} = {
       isNormalUser = true;
       description = "Trihydra";
-      extraGroups = [ 
-        "wheel" 
-        "networkmanager" 
-        "video" 
-        "render"
-        "audio" 
-        "docker" 
-        "wireshark"
-        "libvirtd"
-        "mihomo"
-      ];
-      
-      # 改用 hashedPassword 确保声明式的一致性
-      hashedPassword = cfg.hashedPassword;
+      extraGroups = cfg.extraGroups;
       
       shell = pkgs.zsh;
+    } // lib.optionalAttrs (cfg.hashedPassword != null) {
+      hashedPassword = cfg.hashedPassword;
     };
 
     programs.zsh.enable = true;

@@ -4,6 +4,12 @@
 
   # 启用基础套件 (自动继承默认用户配置)
   vix.suites.common.enable = true;
+  vix.system.boot.enable = true;
+  vix.system.ssh.enable = true;
+  vix.system.network = {
+    enable = true;
+    backend = "networkd";
+  };
 
   # 主题 (Catppuccin Mocha)
   vix.suites.theme-catppuccin.enable = true;
