@@ -63,6 +63,16 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    age-secrets = {
+      url = "github:vixhentx/age-secrets";
+      flake = false;
+    };
   };
 
   outputs = inputs:
@@ -82,6 +92,7 @@
         stylix.nixosModules.stylix
         catppuccin.nixosModules.catppuccin
         disko.nixosModules.disko
+        agenix.nixosModules.default
       ];
 
       homes.modules = with inputs; [
@@ -89,6 +100,7 @@
         nixvim.homeModules.nixvim
         nix-flatpak.homeManagerModules.nix-flatpak
         plasma-manager.homeModules.plasma-manager
+        agenix.homeManagerModules.default
       ];
 
     };

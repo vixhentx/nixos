@@ -1,5 +1,41 @@
 {
   "nodes": {
+    "age-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790914210,
+        "narHash": "sha256-PfFgCKgicf3iG/b4qKPt3WPcaBDOf7F4diLrSq+9Hso=",
+        "owner": "vixhentx",
+        "repo": "age-secrets",
+        "rev": "a66c3e7b243320c0b3e4fcf2215d25fd8efd6399",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vixhentx",
+        "repo": "age-secrets",
+        "type": "github"
+      }
+    },
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790734419,
+        "narHash": "sha256-n7wew722m1OTBT9DOIMxNX/NF4zfsSUABAO5eW3wikE=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "3daa710894355fa2fad8243380af373a2b4046ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "aider-mcp-server": {
       "flake": false,
       "locked": {
@@ -465,6 +501,8 @@
     },
     "root": {
       "inputs": {
+        "age-secrets": "age-secrets",
+        "agenix": "agenix",
         "aider-mcp-server": "aider-mcp-server",
         "blender-bin": "blender-bin",
         "blender-mcp": "blender-mcp",
