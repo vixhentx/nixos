@@ -9,6 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    vix.suites.theme.enable = true;
     stylix = {
       enable = true;
       polarity = "dark";
