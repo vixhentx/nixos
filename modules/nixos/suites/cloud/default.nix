@@ -8,10 +8,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    vix.system.boot.enable = true;
     services.cloud-init = {
       enable = true;
     };
-
+    vix.suites.common.enable = true;
     vix.system.network = {
       enable = true;
       backend = "networkd";
