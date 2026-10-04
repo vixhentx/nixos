@@ -12,7 +12,4 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKI8uHEvN0FJe1JzKVCp6kFJ8jHFdIuo4gjsyxEkCurf vix_hentx@vix-cpd5s"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPEjjLIXU/K3yrxz8F+0s3fKifRvtuYGmpfy3cU6OWwW vix_hentx@vix-sp6"
   ];
-  home-manager.users.vix_hentx = {
-    config.vix.suites.common.enable = true;
-  };
 }

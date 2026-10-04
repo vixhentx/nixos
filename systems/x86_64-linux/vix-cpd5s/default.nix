@@ -44,6 +44,7 @@ in
   home-manager.useUserPackages = true;
 
   home-manager.users.vix_hentx = {
+    vix.suites.common.enable = true;
     vix.suites.hyprland.enable = true;
     vix.suites.apps-light.enable = true;
     vix.suites.apps-heavy.enable = true;
