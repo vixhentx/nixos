@@ -15,6 +15,7 @@ in
       instances = {
         major = {
           enable = true;
+          role = "server";
           environmentFiles = [
             secrets.frps-major-env.path
           ];
