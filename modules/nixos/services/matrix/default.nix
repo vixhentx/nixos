@@ -13,7 +13,7 @@ in
       };
       port = lib.mkOption {
         type = lib.types.int;
-        defualt = 6167;
+        default = 6167;
         description = "Port for conduit";
       };
     };
