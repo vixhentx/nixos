@@ -2,7 +2,7 @@
   networking.firewall = {
     allowedTCPPorts = [ 80 211 443 ];
     allowedTCPPortRanges = [
-      { from = 6000; to = 6999; }
+      { from = 7000; to = 7100; }
     ];
   };
   services.nginx = {
@@ -12,11 +12,6 @@
       "matrix.vixhentx.tech" = {
         enableACME = true;
         forceSSL = true;
-        listen = [
-          { addr = "0.0.0.0"; port = 8448; ssl = true; }
-          { addr = "[::]"; port = 8448; ssl = true; }
-        ];
-        
         locations."/_matrix/" = {
           proxyPass = "http://127.0.0.1:3020";
           extraConfig = ''
@@ -96,7 +91,8 @@
       port = 3000;
       allowPorts = [
         { single = 211; } # 管家婆GRASP 使用
-        { start = 6000; end = 6999; } # 通用
+        { start = 6000; end = 6999; } # 通用内部
+        { start = 7001; end = 7100; } # 通用公开
       ];
     };
   };
