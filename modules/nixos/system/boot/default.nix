@@ -4,7 +4,7 @@ let
 in
 {
   options.vix.system.boot = {
-    enable = lib.mkEnableOption "System boot configuration";
+    enable = lib.mkEnableOption "EFI System boot configuration";
   };
 
   config = lib.mkIf cfg.enable {
