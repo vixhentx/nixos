@@ -26,7 +26,6 @@ in
         server_name = cfg.settings.server;
         port = cfg.settings.port;
         address = "0.0.0.0";
-        database_path = "/var/lib/matrix-conduit";
         database_backend = "rocksdb";
         max_request_size = 200000000;
         allow_registration = false;

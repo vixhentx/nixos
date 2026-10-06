@@ -10,7 +10,7 @@ in
   config = lib.mkIf cfg.enable {
     age.secrets = {
       # FRP 主服务实例密码环境变量
-      frp-major-env = "${secrets}/frp-major-env.age";
+      frp-major-env.file = "${secrets}/frp-major-env.age";
     };
   };
 }
