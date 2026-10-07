@@ -22,6 +22,10 @@ in
   vix.display.xwaylandScale = 1.6;
 
   # ── NixOS 层套件 ───────────────────────────────────
+  vix.system.user = {
+    hashedPassword = "$6$d9Gm9yC5JN1CNHBQ$EXJWlW33OT8c/64ywgFHoepsmZf9M4KejwlIFdxN.6taFOHLLYWY8Z6a0tSJQ6xAFLxlzgG9LPZqZPGKfUic71";
+    extraGroups = [ "wheel" "networkmanager" "video" "render" "audio" "docker" "wireshark" "libvirtd" "mihomo" ];
+  };
   vix.system.network.proxy.enable = true;
   vix.suites.common.enable = true;
   vix.suites.hyprland.enable = true;
@@ -40,6 +44,7 @@ in
   home-manager.useUserPackages = true;
 
   home-manager.users.vix_hentx = {
+    vix.suites.common.enable = true;
     vix.suites.hyprland.enable = true;
     vix.suites.apps-light.enable = true;
     vix.suites.apps-heavy.enable = true;

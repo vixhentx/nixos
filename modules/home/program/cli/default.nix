@@ -44,7 +44,6 @@ in
       git
       git-lfs
       usbutils
-      mpv
       jq
       file
       xxd

@@ -12,7 +12,6 @@ in
       enable = true;
       settings = {
         PermitRootLogin = "prohibit-password";
-        PasswordAuthentication = true;
       };
     };
     # Mosh support

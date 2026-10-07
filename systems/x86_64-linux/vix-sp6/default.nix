@@ -25,7 +25,10 @@ in
   vix.suites.theme-catppuccin.enable = true;
   vix.suites.gaming.enable = true;
 
-  vix.system.network.enable = true;
+  vix.system.user = {
+    hashedPassword = "$6$d9Gm9yC5JN1CNHBQ$EXJWlW33OT8c/64ywgFHoepsmZf9M4KejwlIFdxN.6taFOHLLYWY8Z6a0tSJQ6xAFLxlzgG9LPZqZPGKfUic71";
+    extraGroups = [ "wheel" "networkmanager" "video" "render" "audio" "docker" "wireshark" "libvirtd" "mihomo" ];
+  };
   vix.system.network.proxy.enable = true;
   vix.program.waydroid.enable = true;
 
@@ -56,6 +59,7 @@ in
   home-manager.useUserPackages = true;
 
   home-manager.users.vix_hentx = {
+    vix.suites.common.enable = true;
     vix.suites.plasma.enable = true;
     vix.desktop.plasma.mobile.enable = true;
     vix.suites.apps-light.enable = true;

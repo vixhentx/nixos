@@ -9,6 +9,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    vix.system.boot.enable = true;
+    vix.system.ssh.enable = true;
+    vix.system.kmscon.enable = true;
+    vix.system.performance.enable = true;
+
+    vix.system.network = {
+      enable = true;
+      backend = "networkmanager";
+      avahi.enable = true;
+      tuning.enable = true;
+    };
+
     # 基础图形支持
     hardware.graphics = {
       enable = true;

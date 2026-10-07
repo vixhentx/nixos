@@ -1,15 +1,11 @@
 { config, lib, pkgs, ... }:
+let cfg = config.vix.suites.theme;
+in
 {
-  config = {
-    assertions = [
-      {
-        assertion = config.vix.suites.theme-catppuccin.enable
-          || config.vix.suites.theme-tokyo-night.enable;
-        message = "vix.theme: You must enable at least one theme suite (vix.suites.theme-catppuccin or vix.suites.theme-tokyo-night).";
-      }
-    ];
-
-
+  options.vix.suites.theme = {
+    enable = lib.mkEnableOption "Enable the desktop theme module";
+  };
+  config = lib.mkIf cfg.enable {
     # 字体：所有主题共享，不由单个 suite 重复定义
     stylix.fonts = with pkgs; {
       serif = {
