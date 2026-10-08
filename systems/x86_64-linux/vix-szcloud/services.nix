@@ -52,25 +52,6 @@
           '';
         };
       };
-
-      # 吴宇盟老师的秘密空间整活
-      "wym9191.xyz" = {
-        enableACME = true;
-        forceSSL = true;
-        locations."/" = {
-          proxyPass = "https://wuyumeng.cn/";
-          extraConfig = ''
-            proxy_ssl_server_name on;
-            proxy_ssl_name wuyumeng.cn;
-            proxy_set_header Host wuyumeng.cn;
-
-            proxy_set_header Accept-Encoding "";
-
-            sub_filter '<title>' '<title>[吴宇盟老师的秘密空间♥️喵] ';
-            sub_filter_once off;
-          '';
-        };
-      };
     };
   };
 
@@ -88,7 +69,7 @@
     };
     tunnel = {
       enable = true; 
-      port = 3000;
+      port = 7000;
       allowPorts = [
         { single = 211; } # 管家婆GRASP 使用
         { start = 6000; end = 6999; } # 通用内部
