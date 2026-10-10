@@ -96,7 +96,6 @@
       ];
 
       homes.modules = with inputs; [
-        stylix.homeModules.stylix
         catppuccin.homeModules.catppuccin
         nixvim.homeModules.nixvim
         nix-flatpak.homeManagerModules.nix-flatpak
