@@ -34,6 +34,7 @@ in
   vix.suites.apps-heavy.enable = true;
   vix.suites.theme-catppuccin.enable = true;
   vix.suites.gaming.enable = true;
+  vix.suites.connection.enable = true;
 
   # 设备 Profile
   vix.profiles.virtualization.enable = true;

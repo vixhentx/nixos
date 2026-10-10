@@ -40,7 +40,6 @@ in
       kservice
 
       # Connnectivity
-      kdeconnect-kde
       krdc
     ];
 

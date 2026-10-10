@@ -8,8 +8,4 @@ in {
       enable = lib.mkEnableOption "Mobile (touchscreen) optimization for KDE apps";
     };
   };
-
-  config = lib.mkIf cfg.enable {
-    programs.kdeconnect.enable = true;
-  };
 }

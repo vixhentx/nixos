@@ -24,6 +24,7 @@ in
   vix.suites.apps-light.enable = true;
   vix.suites.theme-catppuccin.enable = true;
   vix.suites.gaming.enable = true;
+  vix.suites.connection.enable = true;
 
   vix.system.user = {
     hashedPassword = "$6$d9Gm9yC5JN1CNHBQ$EXJWlW33OT8c/64ywgFHoepsmZf9M4KejwlIFdxN.6taFOHLLYWY8Z6a0tSJQ6xAFLxlzgG9LPZqZPGKfUic71";
