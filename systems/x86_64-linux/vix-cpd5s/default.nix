@@ -58,6 +58,7 @@ in
     wayland.windowManager.hyprland.settings.monitor = monitors;
   };
 
+  users.users.vix_hentx.openssh.authorizedKeys.keys = config.vix.keys.desktopKeys;
   # ── SDDM ────────────────────────────────────────────
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCALE_FACTOR=${builtins.toString sddmScale},QT_FONT_DPI=${builtins.toString (builtins.floor (sddmScale * 96))}";

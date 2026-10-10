@@ -1,4 +1,4 @@
-{ modulesPath, ...}:{
+{ config, modulesPath, ...}:{
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
     ./services.nix
@@ -12,12 +12,8 @@
     enable = true;
     efi = false;
   };
-  users.users.vix_hentx.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKI8uHEvN0FJe1JzKVCp6kFJ8jHFdIuo4gjsyxEkCurf vix_hentx@vix-cpd5s"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPEjjLIXU/K3yrxz8F+0s3fKifRvtuYGmpfy3cU6OWwW vix_hentx@vix-sp6"
-  ];
-
   vix.secrets.enable = true;
+  users.users.vix_hentx.openssh.authorizedKeys.keys = config.vix.keys.desktopKeys;
 
   # Workaround for https://github.com/NixOS/nix/issues/8502
   services.logrotate.checkConfig = false;
