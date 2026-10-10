@@ -34,9 +34,7 @@ in
       procs
       ripgrep
       rsync
-      tokei
       unzip
-      uv
       wget
       xh
       zellij

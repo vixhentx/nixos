@@ -17,7 +17,7 @@ in
       kdePackages.kdenlive
       krita
       inkscape-with-extensions
-      zotero
+      # zotero # TODO: 上游有bug
       # bottles # TODO: 上游有bug, 暂时关闭
     ];
   };

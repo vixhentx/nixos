@@ -1,5 +1,7 @@
 # Architecture
 
+**This document is AI-generated, and out of date**
+
 ## Suite Dependency Graph
 
 ```mermaid
