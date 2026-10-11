@@ -54,6 +54,7 @@ in
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.suites.gaming.enable = true;
+    vix.suites.connection.enable = true;
     vix.program.ai.enable = true;
     vix.program.distrobox.enable = true;
     vix.profiles.nvidia.enable = true;
