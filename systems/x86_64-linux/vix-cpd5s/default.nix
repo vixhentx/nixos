@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   # 显示器配置: 合成器、greeter 缩放等共享此来源.
   monitors = config.vix.display.monitors;
@@ -40,6 +40,9 @@ in
   vix.profiles.virtualization.enable = true;
   vix.profiles.nvidia.enable = true;
 
+  users.users.vix_hentx.openssh.authorizedKeys.keys = config.vix.keys.desktopKeys;
+  services.udev.packages = [ pkgs.openocd ];
+
   # ── Home Manager ────────────────────────────────────
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -58,7 +61,6 @@ in
     wayland.windowManager.hyprland.settings.monitor = monitors;
   };
 
-  users.users.vix_hentx.openssh.authorizedKeys.keys = config.vix.keys.desktopKeys;
   # ── SDDM ────────────────────────────────────────────
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCALE_FACTOR=${builtins.toString sddmScale},QT_FONT_DPI=${builtins.toString (builtins.floor (sddmScale * 96))}";

@@ -1,4 +1,4 @@
-{ self, config, lib, inputs, ... }:
+{ pkgs, config, lib, inputs, ... }:
 let
   monitors = config.vix.display.monitors;
 in
@@ -33,6 +33,7 @@ in
   vix.system.network.proxy.enable = true;
   vix.program.waydroid.enable = true;
   users.users.vix_hentx.openssh.authorizedKeys.keys = config.vix.keys.desktopKeys;
+  services.udev.packages = [ pkgs.openocd ];
 
   # ── 触控优化 ────────────────────────────────────────
   hardware.sensor.iio.enable = true; # 加速度计 → qtsensors, Plasma 屏幕自动旋转
