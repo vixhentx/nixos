@@ -28,12 +28,13 @@ in
 
   vix.system.user = {
     hashedPassword = "$6$d9Gm9yC5JN1CNHBQ$EXJWlW33OT8c/64ywgFHoepsmZf9M4KejwlIFdxN.6taFOHLLYWY8Z6a0tSJQ6xAFLxlzgG9LPZqZPGKfUic71";
-    extraGroups = [ "wheel" "networkmanager" "video" "render" "audio" "docker" "wireshark" "libvirtd" "mihomo" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "render" "audio" "docker" "wireshark" "libvirtd" "mihomo" "plugdev"];
   };
   vix.system.network.proxy.enable = true;
   vix.program.waydroid.enable = true;
   users.users.vix_hentx.openssh.authorizedKeys.keys = config.vix.keys.desktopKeys;
   services.udev.packages = [ pkgs.openocd ];
+  users.groups.plugdev = {};
 
   # ── 触控优化 ────────────────────────────────────────
   hardware.sensor.iio.enable = true; # 加速度计 → qtsensors, Plasma 屏幕自动旋转
