@@ -73,6 +73,11 @@
       url = "github:vixhentx/age-secrets";
       flake = false;
     };
+
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -101,6 +106,7 @@
         nix-flatpak.homeManagerModules.nix-flatpak
         plasma-manager.homeModules.plasma-manager
         agenix.homeManagerModules.default
+        vscode-server.homeModules.default
       ];
 
     };
