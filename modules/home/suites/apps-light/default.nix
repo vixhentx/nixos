@@ -55,6 +55,9 @@ in
       # System monitor
       mission-center
       wl-color-picker
+
+      # Text Processor
+      typst
     ];
 
     # MIME: text/code → nvim (DE-agnostic default)
