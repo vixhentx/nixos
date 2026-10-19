@@ -549,6 +549,7 @@
         "plasma-manager": "plasma-manager",
         "snowfall-lib": "snowfall-lib",
         "stylix": "stylix",
+        "typst-skills": "typst-skills",
         "vscode-server": "vscode-server"
       }
     },
@@ -716,6 +717,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "typst-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788841120,
+        "narHash": "sha256-jomshjWf/0rPzxP/P99NB9jpMOkx/iv4unnime+DnDI=",
+        "owner": "apcamargo",
+        "repo": "typst-skills",
+        "rev": "433372acabe4764020632317fe1ca914ce27a945",
+        "type": "github"
+      },
+      "original": {
+        "owner": "apcamargo",
+        "repo": "typst-skills",
         "type": "github"
       }
     },

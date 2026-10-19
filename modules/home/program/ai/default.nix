@@ -65,6 +65,7 @@ in
     aider.enable = mkToolEnable "Aider AI pair programming";
     cline.enable = mkToolEnable "VS Code Cline MCP integration";
     feishu.enable = mkToolEnable "Feishu CLI and AI skills";
+    typst.enable = mkToolEnable "Typst and Touying AI skills";
   };
 
   # ── Imports ────────────────────────────────────────────
@@ -76,6 +77,7 @@ in
     ./aider.nix
     ./cline.nix
     ./feishu.nix
+    ./typst.nix
   ];
 
   # ── Config ─────────────────────────────────────────────

@@ -44,6 +44,11 @@
       flake = false;
     };
 
+    typst-skills = {
+      url = "github:apcamargo/typst-skills";
+      flake = false;
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     plasma-manager = {
