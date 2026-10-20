@@ -5,8 +5,10 @@ let
 in
 {
   imports = [
+    ./applications.nix
     ./panels.nix
     ./kwin.nix
+    ./shortcuts.nix
     ./scale.nix
   ];
 
