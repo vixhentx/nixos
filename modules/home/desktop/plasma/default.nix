@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.vix.desktop.plasma;
@@ -54,5 +54,9 @@ in
       NIXOS_OZONE_WL = "1";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
     };
+
+    home.packages = with pkgs; [
+      wl-clipboard
+    ];
   };
 }
