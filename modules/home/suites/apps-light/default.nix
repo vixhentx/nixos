@@ -19,6 +19,7 @@ in
 {
   options.vix.suites.apps-light = {
     enable = lib.mkEnableOption "Lightweight desktop applications suite (home level)";
+    mobile = lib.mkEnableOption "Mobile Specific Apps";
   };
 
   config = lib.mkIf cfg.enable {
@@ -31,7 +32,7 @@ in
       vscode.enable = true;
     };
 
-    home.packages = with pkgs; [
+    home.packages = with pkgs; ([
       # Chat (universal)
       element-desktop
       telegram-desktop
@@ -58,7 +59,11 @@ in
 
       # Text Processor
       typst
-    ];
+      pandoc
+    ] ++ (if cfg.mobile then [
+      xournalpp
+    ] else [])
+    );
 
     # MIME: text/code → nvim (DE-agnostic default)
     # application/* types with known specific handlers are excluded.

@@ -47,6 +47,7 @@ in
     vix.suites.plasma.enable = true;
     vix.desktop.plasma.mobile.enable = true;
     vix.suites.apps-light.enable = true;
+    vix.suites.apps-light.mobile = true;
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
     vix.suites.desktop.enable = true; # 激活 vix.program.xdg: kdeglobals 终端/MIME/xdg-user-dirs
