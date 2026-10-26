@@ -37,7 +37,6 @@ in
       unzip
       wget
       xh
-      zellij
       zstd
       usbutils
       jq
@@ -52,8 +51,14 @@ in
       enable = true;
       nix-direnv.enable = true;
     };
-    programs.eza.enable = true;
-    programs.zoxide.enable = true;
+    programs.eza = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     programs.yazi = {
       enable = true;
       shellWrapperName = "y";
@@ -62,6 +67,9 @@ in
       enable = true;
       historyWidget.command = "";
     };
+    programs.zellij.enableZshIntegration = true;
+    programs.zellij.exitShellOnExit = true;
+    programs.zellij.attachExistingSession = true;
 
     vix.program.zsh.extraAliases = {
       g = "git";
@@ -73,5 +81,7 @@ in
       ela = "eza -lah --git";
       et = "eza --tree --level=2";
     };
+    vix.program.git.enable = true;
+    vix.program.zellij.enable = true;
   };
 }

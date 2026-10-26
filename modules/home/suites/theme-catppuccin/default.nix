@@ -26,6 +26,7 @@ in
       cursors.enable = true;
       gtk.icon.enable = true;
       wlogout.enable = true;
+      zellij.enable = true;
     };
     home.pointerCursor.enable = true;
   };
