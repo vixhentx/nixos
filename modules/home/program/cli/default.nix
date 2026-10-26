@@ -39,8 +39,6 @@ in
       xh
       zellij
       zstd
-      git
-      git-lfs
       usbutils
       jq
       file

@@ -2,6 +2,15 @@
 {
   home.stateVersion = "26.05";
 
+  programs.git.settings = [
+    {
+      user = {
+        name = "vix_hentx";
+        email = "w1084349470@outlook.com";
+      };
+    }
+  ];
+
   # 设备无关: 每个设备都有 shell + CLI + editor
   # vix.suites.common.enable = true;
 
