@@ -69,7 +69,6 @@ in
     };
     programs.zellij.enableZshIntegration = true;
     programs.zellij.exitShellOnExit = true;
-    programs.zellij.attachExistingSession = true;
 
     vix.program.zsh.extraAliases = {
       g = "git";
