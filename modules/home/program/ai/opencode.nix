@@ -25,8 +25,8 @@ in
       enableMcpIntegration = true;
       context = cfg.sharedPrompt;
       settings = {
-        model = "{env:OPENCODE_MODEL}";
-        small_model = "{env:OPENCODE_SMALL_MODEL}";
+        model = "openai/gpt-6-astra";
+        small_model = "openai/gpt-5.6-terra";
         permission = {
           edit = "allow";
           bash = bashRules;
@@ -42,6 +42,18 @@ in
             options = {
               apiKey = "{env:OPENAI_API_KEY}";
               baseURL = "{env:OPENAI_API_BASE}";
+            };
+          };
+          anthropic = {
+            options = {
+              apiKey = "{env:ANTHROPIC_API_KEY}";
+              baseURL = "{env:ANTHROPIC_API_BASE}";
+            };
+          };
+          google = {
+            options = {
+              apiKey = "{env:GOOGLE_API_KEY}";
+              baseURL = "{env:GOOGLE_API_BASE}";
             };
           };
         };

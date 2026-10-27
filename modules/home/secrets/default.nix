@@ -15,6 +15,8 @@ in
       rp-git.file = "${secrets}/rp-git.age";
       # 坚果云 WebDAV 密码
       nutstore.file = "${secrets}/nutstore.age";
+      # AI 密钥 环境变量
+      ai-keys-env.file = "${secrets}/ai-keys-env.age";
     };
   };
 }

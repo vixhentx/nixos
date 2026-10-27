@@ -2,6 +2,28 @@
 let
   cfg = config.vix.program.ai;
 
+  # Load the decrypted zsh exports only when an AI application starts.
+  wrapAiPackage = package: executable:
+    let
+      launcher = pkgs.writeScript "${executable}-with-ai-env" ''
+        #!${pkgs.bash}/bin/bash -f
+        . "${config.age.secrets.ai-keys-env.path}" || exit $?
+        exec ${lib.escapeShellArg (lib.getExe' package executable)} "$@"
+      '';
+    in
+    pkgs.symlinkJoin {
+      name = "${lib.getName package}-with-ai-env-${lib.getVersion package}";
+      version = lib.getVersion package;
+      inherit (package) meta;
+
+      paths = [ package ];
+
+      postBuild = ''
+        rm "$out/bin/${executable}"
+        ln -s ${launcher} "$out/bin/${executable}"
+      '';
+    };
+
   # ── Shared paths ──────────────────────────────────────
   knowledgeBaseDir = "${config.xdg.dataHome}/ai/knowledge-base";
   memoryFile = "${config.xdg.dataHome}/ai/memory/knowledge-graph.jsonl";
@@ -96,6 +118,25 @@ in
       AI_KNOWLEDGE_BASE_DIR = knowledgeBaseDir;
       AI_MCP_MEMORY_FILE = memoryFile;
       AI_PLAYWRIGHT_OUTPUT_DIR = playwrightOutputDir;
+    };
+
+    # Secret 加载
+    programs = lib.mkIf config.vix.secrets.enable {
+      claude-code.package = lib.mkIf cfg.claude.enable (
+        wrapAiPackage pkgs.claude-code "claude"
+      );
+
+      codex.package = lib.mkIf cfg.codex.enable (
+        wrapAiPackage pkgs.codex "codex"
+      );
+
+      opencode.package = lib.mkIf cfg.opencode.enable (
+        wrapAiPackage pkgs.opencode "opencode"
+      );
+
+      aider-chat.package = lib.mkIf cfg.aider.enable (
+        wrapAiPackage pkgs.aider-chat "aider"
+      );
     };
 
     # Knowledge base README (co-located with this module)

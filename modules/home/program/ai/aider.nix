@@ -9,6 +9,7 @@ in
       settings = {
         yes-always = true;
         auto-commits = false;
+        model = "openai/gpt-5.6-terra";
       };
     };
 
