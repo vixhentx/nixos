@@ -13,8 +13,9 @@ in
       settings = [
         {
           core = {
-            autocrlf = true;
+            autocrlf = "input";
             whitespace = "tab-in-indent";
+            eol = "lf";
           };
           init.defaultBranch = "main";
           credential.helper = "store";
