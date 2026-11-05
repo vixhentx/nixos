@@ -11,7 +11,6 @@ in
   config = lib.mkIf cfg.enable {
     vix.system.boot.enable = true;
     vix.system.ssh.enable = true;
-    vix.system.kmscon.enable = true;
     vix.system.performance.enable = true;
 
     vix.system.network = {
