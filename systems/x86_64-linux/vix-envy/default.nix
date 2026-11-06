@@ -55,6 +55,7 @@ in
     vix.program.kicad.enable = true;
     vix.program.distrobox.enable = true;
     vix.program.ai.enable = true;
+    vix.secrets.enable = true;
 
     vix.desktop.plasma.outputs = lib.map (m: { output = m.output; scale = m.scale; }) monitors;
     vix.suites.gaming.enable = true;
