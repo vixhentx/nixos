@@ -35,6 +35,7 @@ in
     ./waybar.nix
     ./rofi.nix
     ./dunst.nix
+    ./idle.nix
   ];
 
   options.vix.desktop.hyprland = {
