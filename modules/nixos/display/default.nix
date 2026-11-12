@@ -24,6 +24,11 @@ in
             type = lib.types.float;
             description = "Fractional scale factor.";
           };
+          transform = lib.mkOption {
+            type = lib.types.ints.between 0 7;
+            default = 0;
+            description = "Hyprland output transform (0 is landscape, 1 is 90-degree rotation).";
+          };
         };
       });
       default = [ ];

@@ -19,7 +19,7 @@ in
     { output = "eDP-1"; mode = "2560x1440"; position = "0x0";       scale = 1.6; }
     { output = "DP-4";  mode = "1920x1080"; position = "1600x180";  scale = 1.5; }
   ];
-  vix.display.xwaylandScale = 1.6;
+  vix.display.xwaylandScale = 1.25;
 
   # ── NixOS 层套件 ───────────────────────────────────
   vix.system.user = {
@@ -63,11 +63,48 @@ in
     vix.profiles.nvidia.enable = true;
 
     wayland.windowManager.hyprland.settings.monitor = monitors;
+    wayland.windowManager.hyprland.extraConfig = lib.mkAfter ''
+      local function has_monitor(name)
+        for _, monitor in ipairs(hl.get_monitors()) do
+          if monitor.name == name then return true end
+        end
+        return false
+      end
+
+      local function apply_display_layout()
+        if has_monitor("HDMI-A-3") then
+          hl.monitor({ output = "DP-1", mode = "1920x1080@60", position = "0x80", scale = 1.5, transform = 1 })
+          hl.monitor({ output = "HDMI-A-3", mode = "3840x2160@60", position = "720x0", scale = 1.5 })
+          hl.monitor({ output = "DP-4", mode = "1920x1080@60", position = "3280x80", scale = 1.5, transform = 3 })
+          hl.monitor({ output = "eDP-1", disabled = true })
+        else
+          hl.monitor({ output = "DP-1", mode = "1920x1080@60", position = "-1280x180", scale = 1.5, transform = 0 })
+          hl.monitor({ output = "eDP-1", mode = "2560x1440@60", position = "0x0", scale = 1.6, transform = 0, disabled = false })
+          hl.monitor({ output = "DP-4", mode = "1920x1080@60", position = "1600x180", scale = 1.5, transform = 0 })
+        end
+      end
+
+      hl.on("hyprland.start", apply_display_layout)
+      hl.on("monitor.added", apply_display_layout)
+      hl.on("monitor.removed", apply_display_layout)
+    '';
   };
 
   # ── SDDM ────────────────────────────────────────────
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCALE_FACTOR=${builtins.toString sddmScale},QT_FONT_DPI=${builtins.toString (builtins.floor (sddmScale * 96))}";
+  services.xserver.displayManager.setupCommands = ''
+    outputs="$(${pkgs.xrandr}/bin/xrandr --query)"
+    case "$outputs" in
+      *"HDMI-A-3 connected"*)
+        ${pkgs.xrandr}/bin/xrandr \
+          --output HDMI-A-3 --mode 3840x2160 --primary --pos 0x0 \
+          --output eDP-1 --off \
+          --output DP-1 --off \
+          --output DP-4 --off
+        ;;
+    esac
+  '';
 
   #keyboard
   boot.extraModprobeConfig = ''
