@@ -2,6 +2,7 @@
 
 let
   cfg = config.vix.desktop.hyprland;
+  swaync_client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
 
   scripts = pkgs.runCommand "hyprland-scripts" {
     grim = "${pkgs.grim}/bin/grim";
@@ -34,7 +35,7 @@ in
   imports = [
     ./waybar.nix
     ./rofi.nix
-    ./dunst.nix
+    ./swaync.nix
     ./idle.nix
   ];
 
@@ -45,7 +46,7 @@ in
   config = lib.mkIf cfg.enable {
     vix.desktop.hyprland.waybar.enable = lib.mkDefault true;
     vix.desktop.hyprland.rofi.enable = lib.mkDefault true;
-    vix.desktop.hyprland.dunst.enable = lib.mkDefault true;
+    vix.desktop.hyprland.swaync.enable = lib.mkDefault true;
 
     home.packages = with pkgs; [
       brightnessctl grim libnotify slurp
@@ -210,6 +211,7 @@ in
           { _args = [ "SUPER + V"       (lib.generators.mkLuaInline ''hl.dsp.window.float({ action = "toggle" })'') ]; }
           { _args = [ "SUPER + R"       (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("rofi -show drun")'') ]; }
           { _args = [ "SUPER + W"       (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("rofi -show window")'') ]; }
+          { _args = [ "SUPER + N"       (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${swaync_client} -t -sw")'') ]; }
 
           # Screenshots
           { _args = [ "Print"            (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${screenshot_sh} region")'') ]; }

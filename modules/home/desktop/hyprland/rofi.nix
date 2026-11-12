@@ -28,21 +28,21 @@ in
       };
       theme = {
         window = {
-          width = mkLiteral "760px";
+          width = mkLiteral "90%";
           border = mkLiteral "2px";
-          border-radius = mkLiteral "24px";
+          border-radius = mkLiteral "18px";
           children = map mkLiteral [ "mainbox" ];
         };
         mainbox = {
           children = map mkLiteral [ "inputbar" "message" "listview" ];
-          spacing = mkLiteral "18px";
-          padding = mkLiteral "24px";
+          spacing = mkLiteral "12px";
+          padding = mkLiteral "16px";
         };
         inputbar = {
-          border-radius = mkLiteral "18px";
+          border-radius = mkLiteral "14px";
           children = map mkLiteral [ "prompt" "entry" ];
-          padding = mkLiteral "14px 18px";
-          spacing = mkLiteral "14px";
+          padding = mkLiteral "12px 14px";
+          spacing = mkLiteral "10px";
         };
         entry = {
           placeholder = "Launch, search, switch";
@@ -52,13 +52,13 @@ in
           columns = 1;
           lines = 8;
           scrollbar = false;
-          spacing = mkLiteral "10px";
+          spacing = mkLiteral "8px";
         };
         element = {
           border = 0;
-          border-radius = mkLiteral "16px";
+          border-radius = mkLiteral "12px";
           orientation = mkLiteral "vertical";
-          padding = mkLiteral "14px 18px";
+          padding = mkLiteral "10px 12px";
           spacing = mkLiteral "6px";
         };
         "element selected.normal" = {

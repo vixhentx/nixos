@@ -5,6 +5,7 @@ let
   displayCfg = osConfig.vix.display;
 
   workspaces_sh = pkgs.writeShellScript "workspaces.sh" (builtins.readFile ./waybar/workspaces.sh);
+  swayncClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
 
   moduleConfig = {
     "custom/workspaces" = {
@@ -28,6 +29,24 @@ let
       format = "󱘖";
       on-click = "cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy";
       on-click-right = "cliphist wipe";
+      tooltip = false;
+    };
+
+    "custom/notification" = {
+      exec = "${swayncClient} -swb";
+      "return-type" = "json";
+      format = "{icon} {0}";
+      "format-icons" = {
+        notification = "󱅫";
+        none = "󰂜";
+        "dnd-notification" = "󰂠";
+        "dnd-none" = "󰪓";
+        "inhibited-notification" = "󰂛";
+        "inhibited-none" = "󰪑";
+      };
+      "on-click" = "${swayncClient} -t -sw";
+      "on-click-right" = "${swayncClient} -d -sw";
+      escape = true;
       tooltip = false;
     };
 
@@ -93,9 +112,9 @@ let
       "modules-center" = [ "clock" ];
       "modules-right" =
         if narrow then
-          [ "custom/logout" ]
+          [ "custom/notification" "custom/logout" ]
         else
-          [ "pulseaudio" "cpu" "memory" "battery" "tray" ]
+          [ "pulseaudio" "cpu" "memory" "battery" "tray" "custom/notification" ]
             ++ lib.optional cfg.clipboard.enable "custom/clipboard"
             ++ [ "custom/logout" ];
     } // lib.optionalAttrs (output != null) { inherit output; }

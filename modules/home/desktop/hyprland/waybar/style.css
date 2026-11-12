@@ -17,7 +17,7 @@
 }
 
 /* 特定模块颜色点缀 */
-#custom-workspaces, #custom-gpu, #custom-clipboard, #custom-logout {
+#custom-workspaces, #custom-gpu, #custom-clipboard, #custom-notification, #custom-logout {
     background: @wb-accent-bg;
     color: @wb-accent-fg;
 }
@@ -33,7 +33,8 @@
 }
 
 #custom-logout:hover,
-#custom-clipboard:hover {
+#custom-clipboard:hover,
+#custom-notification:hover {
     background: @wb-urgent;
     color: @wb-bg;
 }
