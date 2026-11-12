@@ -12,7 +12,7 @@ in
     services.swaync = {
       enable = true;
       settings = {
-        positionX = "right";
+        positionX = "center";
         positionY = "top";
         layer = "overlay";
         layer-shell-cover-screen = false;
@@ -55,9 +55,26 @@ in
         }
 
         .notification {
-          border: 2px solid @theme_selected_bg_color;
+          background: @theme_bg_color;
+          border: 3px solid @theme_selected_bg_color;
           border-radius: 14px;
-          padding: 8px;
+          box-shadow: 0 4px 18px alpha(@theme_fg_color, 0.28);
+          padding: 10px;
+        }
+
+        .notification.low {
+          border-color: @theme_unfocused_fg_color;
+          opacity: 0.86;
+        }
+
+        .notification.normal {
+          border-color: @theme_selected_bg_color;
+        }
+
+        .notification.critical {
+          background: alpha(@error_color, 0.16);
+          border-color: @error_color;
+          box-shadow: 0 4px 22px alpha(@error_color, 0.42);
         }
 
         .notification-content {
@@ -72,6 +89,11 @@ in
 
         .summary {
           -gtk-font-weight: bold;
+        }
+
+        .critical .summary {
+          color: @error_color;
+          -gtk-font-weight: 800;
         }
 
         .control-center {
