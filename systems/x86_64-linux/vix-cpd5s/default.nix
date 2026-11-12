@@ -62,6 +62,10 @@ in
     vix.program.distrobox.enable = true;
     vix.profiles.nvidia.enable = true;
 
+    # 竖屏的有效宽度较窄，只显示工作区、计时器、时钟和退出入口。
+    vix.desktop.hyprland.waybar.narrowOutputs = [ "DP-1" "DP-4" ];
+    vix.desktop.hyprland.waybar.wideOutputs = [ "eDP-1" "HDMI-A-3" ];
+
     wayland.windowManager.hyprland.settings.monitor = monitors;
     wayland.windowManager.hyprland.extraConfig = lib.mkAfter ''
       local function has_monitor(name)
