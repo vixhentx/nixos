@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   cfg = config.vix.program.ai;
   mcp = cfg.mcp;
@@ -54,6 +54,14 @@ let
     libreoffice = lib.mkIf mcp.libreoffice.enable (mkServer
       "${pkgs.uv}/bin/uvx"
       [ "--with" "ooo-dev-tools" "--from" "iflow-mcp-waterpistolai-libreoffice-mcp" "libreoffice-mcp" ]
+      null);
+
+    kicad = lib.mkIf ((config.vix.program.kicad.enable or false) && mcp.kicad.enable) (mkServer
+      "${pkgs.writeShellScript "kicad-mcp-server" ''
+        export PATH="${pkgs.kicad}/bin:$PATH"
+        exec ${pkgs.uv}/bin/uvx --from ${inputs.kicad-mcp-server} kicad-mcp-server "$@"
+      ''}"
+      [ ]
       null);
   };
 in

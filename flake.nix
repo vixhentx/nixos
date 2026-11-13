@@ -44,6 +44,16 @@
       flake = false;
     };
 
+    kicad-mcp-server = {
+      url = "github:Seeed-Studio/kicad-mcp-server";
+      flake = false;
+    };
+
+    kicad-cli-extended = {
+      url = "github:Hybirdss/kicad-cli-extended";
+      flake = false;
+    };
+
     typst-skills = {
       url = "github:apcamargo/typst-skills";
       flake = false;

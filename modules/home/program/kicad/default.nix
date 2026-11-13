@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   cfg = config.vix.program.kicad;
@@ -35,10 +41,13 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [
       kicadPkg
+      pkgs.vix.kicad-cli-extended
       kicadLibs.symbols
       kicadLibs.footprints
       kicadLibs.packages3d
       kicadLibs.templates
+      pkgs.python3Packages.kicadcliwrapper
+      pkgs.python3Packages.kicad-python
     ];
 
     home.sessionVariables = {
@@ -46,6 +55,15 @@ in
       KICAD10_FOOTPRINT_DIR = "${kicadLibs.footprints}/share/kicad/footprints";
       KICAD10_SYMBOL_DIR = "${kicadLibs.symbols}/share/kicad/symbols";
       KICAD10_TEMPLATE_DIR = "${kicadLibs.templates}/share/kicad/template";
+    };
+
+    home.file = lib.mkIf (config.vix.program.ai.enable or false) {
+      ".agents/skills/kicad-cli-extended".source =
+        "${inputs.kicad-cli-extended}/skills/kicad-cli-extended";
+      ".claude/skills/kicad-cli-extended".source =
+        "${inputs.kicad-cli-extended}/skills/kicad-cli-extended";
+      ".config/opencode/skills/kicad-cli-extended".source =
+        "${inputs.kicad-cli-extended}/skills/kicad-cli-extended";
     };
 
     home.activation.fixKicadStockTables = ''

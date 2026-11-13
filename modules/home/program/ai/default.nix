@@ -78,6 +78,7 @@ in
       sequential-thinking.enable = mkToolEnable "Sequential thinking MCP server";
       blender.enable = mkToolEnable "Blender MCP server";
       libreoffice.enable = mkToolEnable "LibreOffice MCP server";
+      kicad.enable = mkToolEnable "KiCad MCP server";
     };
 
     # Per-tool toggles (all default true when AI is enabled)

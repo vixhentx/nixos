@@ -382,6 +382,38 @@
         "type": "github"
       }
     },
+    "kicad-cli-extended": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793333963,
+        "narHash": "sha256-vNceXRf+h26A2HOjX2u5O71EIRXe85gaSiq94lh1V6k=",
+        "owner": "Hybirdss",
+        "repo": "kicad-cli-extended",
+        "rev": "696ce1921f3ba24266a6132b90f7265ad9153310",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Hybirdss",
+        "repo": "kicad-cli-extended",
+        "type": "github"
+      }
+    },
+    "kicad-mcp-server": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792634952,
+        "narHash": "sha256-l2rCoy9GdR6fahFYADGisqGtt8OfIg21XXtgG/2UX6c=",
+        "owner": "Seeed-Studio",
+        "repo": "kicad-mcp-server",
+        "rev": "0b445be8668c00b0d71315e74fa2f180bca686c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Seeed-Studio",
+        "repo": "kicad-mcp-server",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1790428548,
@@ -542,6 +574,8 @@
         "catppuccin": "catppuccin",
         "disko": "disko",
         "home-manager": "home-manager",
+        "kicad-cli-extended": "kicad-cli-extended",
+        "kicad-mcp-server": "kicad-mcp-server",
         "nix-flatpak": "nix-flatpak",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
