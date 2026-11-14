@@ -1,7 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
-let
-  monitors = config.vix.display.monitors;
-in
+{ pkgs, config, ... }:
 {
   system.stateVersion = "26.05";
 
@@ -14,8 +11,8 @@ in
 
   # ── NixOS 层套件 ───────────────────────────────────
   vix.suites.common.enable = true;
-  vix.suites.plasma.enable = true;
-  vix.desktop.plasma.mobile.enable = true;
+  vix.suites.gnome.enable = true;
+  vix.desktop.gnome.mobile.enable = true;
   vix.suites.apps-light.enable = true;
   vix.suites.theme-catppuccin.enable = true;
   vix.suites.gaming.enable = true;
@@ -31,7 +28,6 @@ in
   services.udev.packages = [ pkgs.openocd ];
   users.groups.plugdev = {};
 
-  hardware.sensor.iio.enable = true; # 加速度计 → qtsensors, Plasma 屏幕自动旋转
   services.libinput.touchpad = {
     tapping = true;
     naturalScrolling = true;
@@ -44,8 +40,8 @@ in
 
   home-manager.users.vix_hentx = {
     vix.suites.common.enable = true;
-    vix.suites.plasma.enable = true;
-    vix.desktop.plasma.mobile.enable = true;
+    vix.suites.gnome.enable = true;
+    vix.desktop.gnome.mobile.enable = true;
     vix.suites.apps-light.enable = true;
     vix.suites.apps-light.mobile = true;
     vix.suites.apps-heavy.enable = true;
@@ -57,7 +53,6 @@ in
     vix.program.ai.enable = true;
     vix.secrets.enable = true;
 
-    vix.desktop.plasma.outputs = lib.map (m: { output = m.output; scale = m.scale; }) monitors;
     vix.suites.gaming.enable = true;
   };
 

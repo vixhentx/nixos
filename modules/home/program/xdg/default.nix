@@ -6,7 +6,8 @@ let
 in
 {
   options.vix.program.xdg = {
-    enable = lib.mkEnableOption "XDG base directories, MIME associations, and KDE config";
+    enable = lib.mkEnableOption "XDG base directories and MIME associations";
+    kde.enable = (lib.mkEnableOption "KDE XDG integration") // { default = true; };
 
     # Required: set by the module that provides the terminal (e.g. desktop suite)
     terminal = {
@@ -46,7 +47,7 @@ in
       mimeApps.enable = true;
     };
 
-    home.activation.rebuildKdeSycoca = ''
+    home.activation.rebuildKdeSycoca = lib.mkIf cfg.kde.enable ''
       rm -f "${config.xdg.cacheHome}"/ksycoca*
       $DRY_RUN_CMD ${pkgs.kdePackages.kservice}/bin/kbuildsycoca6 --noincremental
     '';
