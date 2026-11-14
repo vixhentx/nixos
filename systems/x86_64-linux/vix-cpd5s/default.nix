@@ -66,6 +66,14 @@ in
     vix.desktop.hyprland.waybar.narrowOutputs = [ "DP-1" "DP-4" ];
     vix.desktop.hyprland.waybar.wideOutputs = [ "eDP-1" "HDMI-A-3" ];
 
+    # 启动时初始化各屏幕的命名工作区，后续仍可自由跨屏移动。
+    vix.desktop.hyprland.initialWorkspaces = {
+      "DP-1" = "left-1";
+      "HDMI-A-3" = "main-1";
+      "DP-4" = "right-1";
+      "eDP-1" = "laptop-1";
+    };
+
     # 多显示器特调配置
     wayland.windowManager.hyprland.settings.monitor = monitors;
     wayland.windowManager.hyprland.extraConfig = lib.mkAfter ''

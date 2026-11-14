@@ -37,6 +37,7 @@ in
     ./rofi.nix
     ./swaync.nix
     ./idle.nix
+    ./workspaces.nix
   ];
 
   options.vix.desktop.hyprland = {
