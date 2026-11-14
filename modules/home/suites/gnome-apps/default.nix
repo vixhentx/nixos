@@ -18,7 +18,6 @@ in
       file-roller
       baobab
       gnome-connections
-      gnome-console
     ];
 
     xdg.mimeApps.defaultApplications = {
@@ -32,5 +31,8 @@ in
       "application/zip" = [ "org.gnome.FileRoller.desktop" ];
       "application/gzip" = [ "org.gnome.FileRoller.desktop" ];
     };
+
+    # kde connect
+    services.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
   };
 }

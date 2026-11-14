@@ -4,6 +4,12 @@ let
   cfg = config.vix.desktop.gnome;
 in
 {
+  imports = [
+    ./appearance.nix
+    ./input.nix
+    ./terminal.nix
+  ];
+
   options.vix.desktop.gnome = {
     enable = lib.mkEnableOption "GNOME desktop (home level)";
 
@@ -15,20 +21,17 @@ in
   config = lib.mkIf cfg.enable {
     stylix.targets.gtk.enable = true;
 
-    programs.gnome-shell.extensions = [
-      {
-        package = pkgs.gnomeExtensions.gsconnect;
-        id = "gsconnect@andyholmes.github.io";
-      }
-    ];
+    programs.gnome-shell = {
+      enable = true;
+      extensions = [
+        { package = pkgs.gnomeExtensions.gsconnect; }
+        { package = pkgs.gnomeExtensions.hide-top-bar; }
+      ];
+    };
 
     dconf.settings = {
-      "org/gnome/shell" = {
-        enabled-extensions = [ "gsconnect@andyholmes.github.io" ];
-      };
-
+      "org/gnome/mutter".dynamic-workspaces = false;
       "org/gnome/desktop/wm/preferences" = {
-        dynamic-workspaces = false;
         num-workspaces = 4;
       };
 
@@ -54,11 +57,6 @@ in
         switch-to-application-9 = [ ];
       };
 
-      "org/gnome/desktop/input-sources" = {
-        sources = [ "('xkb', 'us')" "('ibus', 'rime')" ];
-        xkb-options = [ ];
-      };
-
       "org/gnome/settings-daemon/plugins/media-keys" = {
         custom-keybindings = [
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal/"
@@ -67,7 +65,7 @@ in
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal" = {
         name = "Open terminal";
-        command = "kgx";
+        command = config.vix.program.xdg.terminal.application;
         binding = "<Super>t";
       };
     } // lib.optionalAttrs cfg.mobile.enable {
@@ -76,20 +74,11 @@ in
 
     vix.suites.connection.kdeconnect.enable = false;
     vix.program.xdg.kde.enable = false;
-    vix.program.xdg.terminal = {
-      application = "kgx";
-      desktopFile = "org.gnome.Console.desktop";
-    };
-
     home.sessionVariables = {
-      GTK_IM_MODULE = "ibus";
-      QT_IM_MODULE = "ibus";
-      XMODIFIERS = "@im=ibus";
-      SDL_IM_MODULE = "ibus";
       NIXOS_OZONE_WL = "1";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
     };
 
-    home.packages = [ pkgs.gnome-console pkgs.wl-clipboard ];
+    home.packages = [ pkgs.wl-clipboard ];
   };
 }

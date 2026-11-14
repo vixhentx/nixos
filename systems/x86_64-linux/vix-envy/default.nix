@@ -37,6 +37,8 @@
   # ── Home Manager ────────────────────────────────────
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  # Preserve files rewritten by desktop applications instead of aborting activation.
+  home-manager.backupFileExtension = "before-gnome";
 
   home-manager.users.vix_hentx = {
     vix.suites.common.enable = true;
@@ -46,7 +48,7 @@
     vix.suites.apps-light.mobile = true;
     vix.suites.apps-heavy.enable = true;
     vix.suites.theme-catppuccin.enable = true;
-    vix.suites.desktop.enable = true; # 激活 vix.program.xdg: kdeglobals 终端/MIME/xdg-user-dirs
+    vix.suites.desktop.enable = true; # XDG MIME / user directories
     vix.suites.connection.enable = true;
     vix.program.kicad.enable = true;
     vix.program.distrobox.enable = true;
