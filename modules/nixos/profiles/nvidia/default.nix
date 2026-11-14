@@ -21,13 +21,15 @@ in
       open = true;
 
       prime = {
-        offload.enable = true;
-        offload.enableOffloadCmd = true;
+        sync.enable = true;
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
 
-      powerManagement.enable = false;
+      powerManagement = {
+        enable = true;
+        kernelSuspendNotifier = true;
+      };
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };

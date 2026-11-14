@@ -106,18 +106,42 @@ in
   # ── SDDM ────────────────────────────────────────────
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCALE_FACTOR=${toString sddmScale},QT_FONT_DPI=${toString (builtins.floor (sddmScale * 96))}";
+  services.xserver.enable = true;
+  services.displayManager.sddm.wayland.enable = false;
   services.xserver.displayManager.setupCommands = ''
-    outputs="$(${pkgs.xrandr}/bin/xrandr --query)"
-    case "$outputs" in
-      *"HDMI-A-3 connected"*)
-        ${pkgs.xrandr}/bin/xrandr \
-          --output HDMI-A-3 --mode 3840x2160 --primary --pos 0x0 \
-          --output eDP-1 --off \
-          --output DP-1 --off \
-          --output DP-4 --off
-        ;;
-    esac
+    xrandr="${pkgs.xrandr}/bin/xrandr"
+    connected="$($xrandr --query | ${pkgs.gawk}/bin/awk '$2 == "connected" { print $1 }')"
+
+    for output in $connected; do
+      "$xrandr" --output "$output" --off
+    done
+
+    hdmi="$(printf '%s\n' "$connected" | ${pkgs.gawk}/bin/awk '/^HDMI-/ { print; exit }')"
+    edp="$(printf '%s\n' "$connected" | ${pkgs.gawk}/bin/awk '/^eDP-/ { print; exit }')"
+    dps="$(printf '%s\n' "$connected" | ${pkgs.gawk}/bin/awk '/^DP-/ { print }')"
+
+    if [ -n "$hdmi" ]; then
+      "$xrandr" --output "$hdmi" --mode 3840x2160 --primary --pos 0x0 --rotate normal
+    fi
+
+    if [ -n "$edp" ]; then
+      if [ -n "$hdmi" ]; then
+        "$xrandr" --output "$edp" --auto --pos 3840x0 --rotate normal
+      else
+        "$xrandr" --output "$edp" --auto --primary --pos 0x0 --rotate normal
+      fi
+    fi
+
+    set -- $dps
+    if [ -n "$1" ]; then
+      "$xrandr" --output "$1" --auto --pos -900x80 --rotate left
+    fi
+    if [ -n "$2" ]; then
+      "$xrandr" --output "$2" --auto --pos 2560x80 --rotate right
+    fi
   '';
+
+  vix.system.kmscon.enable = false;
 
   #keyboard
   boot.extraModprobeConfig = ''
@@ -127,8 +151,7 @@ in
   # ── 硬件 ────────────────────────────────────────────
   hardware.facter.reportPath = ./facter.json;
 
-  # kmscon 帧缓冲 — 仅影响早期控制台显示, 与合成器无关.
-  boot.kernelParams = [ "video=eDP-1:2560x1440" ];
+  boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/42f56359-3293-41b2-9815-c4f7e9d34ba9";
