@@ -68,8 +68,10 @@ in
         command = config.vix.program.xdg.terminal.application;
         binding = "<Super>t";
       };
-    } // lib.optionalAttrs cfg.mobile.enable {
-      "org/gnome/desktop/a11y/applications".screen-keyboard-enabled = true;
+
+      # GNOME's OSK preference is global, not tablet-mode-aware. Keep it off
+      # so a convertible does not show it whenever a text field gets focus.
+      "org/gnome/desktop/a11y/applications".screen-keyboard-enabled = false;
     };
 
     vix.suites.connection.kdeconnect.enable = false;
