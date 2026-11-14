@@ -13,9 +13,8 @@ in
 
     # DE-agnostic GUI tools
     home.packages = with pkgs; [
-      pavucontrol
       playerctl
       gsimplecal
-    ];
+    ] ++ lib.optional (!config.vix.desktop.gnome.enable) pavucontrol;
   };
 }

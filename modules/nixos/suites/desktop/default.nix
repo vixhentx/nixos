@@ -37,7 +37,8 @@ in
 
     # 蓝牙支持
     hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
+    # GNOME provides Bluetooth management in Settings.
+    services.blueman.enable = lib.mkDefault (!config.vix.desktop.gnome.enable);
 
     # 开启系统核心标准件 (Polkit/DBus/Dconf)
     vix.system.core.enable = true;

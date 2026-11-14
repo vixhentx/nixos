@@ -4,6 +4,8 @@ let
   cfg = config.vix.desktop.gnome;
 in
 {
+  imports = [ ./applications.nix ];
+
   options.vix.desktop.gnome = {
     enable = lib.mkEnableOption "GNOME desktop environment";
 
