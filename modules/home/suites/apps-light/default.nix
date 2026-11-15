@@ -4,15 +4,16 @@ let
   displayCfg = osConfig.vix.display;
 
   # 微信是x11应用, 需要wrap一个缩放参数
-  wechat-wrapped = pkgs.symlinkJoin {
-    name = "wechat-wrapped";
-    paths = [ pkgs.wechat ];
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/wechat \
-        --set QT_SCALE_FACTOR ${toString displayCfg.xwaylandScale}
-    '';
-  };
+  wechat-wrapped =
+    if displayCfg.xwaylandScale == null then pkgs.wechat else pkgs.symlinkJoin {
+      name = "wechat-wrapped";
+      paths = [ pkgs.wechat ];
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/wechat \
+          --set QT_SCALE_FACTOR ${toString displayCfg.xwaylandScale}
+      '';
+    };
   # 飞书也是x11, 本来应该wrap但是都没有用, 不过飞书应用内部可以 `ctrl +` 来缩放
   feishu-wrapped = pkgs.feishu;
 in

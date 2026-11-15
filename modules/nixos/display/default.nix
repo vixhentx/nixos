@@ -38,7 +38,7 @@ in
       '';
     };
     xwaylandScale = lib.mkOption {
-      type = lib.types.float;
+      type = lib.types.nullOr lib.types.float;
       default = 2.0;
       description = ''
         Scale for xwayland apps. Support fractional values.

@@ -11,5 +11,6 @@ in
   config = lib.mkIf cfg.enable {
     vix.desktop.gnome.enable = true;
     vix.suites.desktop.enable = lib.mkDefault true;
+    vix.display.xwaylandScale = lib.mkForce null;
   };
 }
