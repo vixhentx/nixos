@@ -2,6 +2,13 @@
 
 let
   cfg = config.vix.desktop.gnome;
+  oskLanguagePopupPatch = pkgs.writeText "gnome-shell-fix-osk-language-popup.patch" ''
+    --- a/js/ui/keyboard.js
+    +++ b/js/ui/keyboard.js
+    @@ -1582 +1582 @@
+    -        this._languagePopup.open(BoxPointer.AnimationMode.FULL);
+    +        this._languagePopup.open({});
+'';
 in
 {
   imports = [ ./applications.nix ];
@@ -15,6 +22,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    nixpkgs.overlays = [
+      (final: prev: {
+        gnome-shell = prev.gnome-shell.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ oskLanguagePopupPatch ];
+        });
+      })
+    ];
+
     services.desktopManager.gnome.enable = true;
     services.displayManager.gdm.enable = true;
     services.displayManager.defaultSession = lib.mkDefault "gnome";
