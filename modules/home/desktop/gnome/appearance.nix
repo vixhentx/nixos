@@ -24,12 +24,6 @@ in
 
     dconf.settings = {
       "org/gnome/shell/extensions/user-theme".name = lib.mkForce "Vix-Gnome";
-      "org/gnome/shell/extensions/hidetopbar" = {
-        enable-intellihide = true;
-        enable-active-window = false;
-        mouse-sensitive = true;
-        show-in-overview = true;
-      };
       "org/gnome/desktop/interface" = {
         cursor-theme = config.home.pointerCursor.name;
         cursor-size = config.home.pointerCursor.size;

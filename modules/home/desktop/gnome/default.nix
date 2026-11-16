@@ -25,7 +25,7 @@ in
       enable = true;
       extensions = [
         { package = pkgs.gnomeExtensions.gsconnect; }
-        { package = pkgs.gnomeExtensions.hide-top-bar; }
+        { package = pkgs.gnomeExtensions.oled-panel-shift; }
       ];
     };
 
