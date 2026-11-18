@@ -36,6 +36,22 @@
         };
       };
 
+      # LibreChat
+      "chat.vixhentx.tech" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:3080";
+          proxyWebsockets = true;
+          extraConfig = ''
+            client_max_body_size 50m;
+            proxy_buffering off;
+            proxy_read_timeout 3600s;
+            proxy_send_timeout 3600s;
+          '';
+        };
+      };
+
       # JZM FRPS
       "server.jzm2018.com" = {
         enableACME = true;
@@ -75,6 +91,24 @@
         { start = 6000; end = 6999; } # 通用内部
         { start = 7001; end = 7100; } # 通用公开
       ];
+    };
+    librechat = {
+      enable = true;
+      port = 3080;
+      publicUrl = "https://chat.vixhentx.tech";
+      endpoint = {
+        name = "AI Gateway";
+        models = {
+          fetch = true;
+          default = [
+            "gpt-6-astra"
+            "gpt-5.6-terra"
+            "gpt-5.6-sol"
+          ];
+        };
+        titleConvo = true;
+        titleModel = "gpt-5.4-mini";
+      };
     };
   };
 }
