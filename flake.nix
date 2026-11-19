@@ -99,6 +99,11 @@
       };
 
       systems.modules.nixos = with inputs; [
+        ({ config, lib, ... }: {
+          home-manager.sharedModules = lib.optionals (!config.stylix.enable) [
+            stylix.homeModules.stylix
+          ];
+        })
         stylix.nixosModules.stylix
         catppuccin.nixosModules.catppuccin
         disko.nixosModules.disko
