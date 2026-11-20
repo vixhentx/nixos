@@ -3,11 +3,11 @@
     "age-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1793092950,
-        "narHash": "sha256-gFdxfkGNrU7HDvNBURX2AtW4toGEYtgH6WXVukeN+No=",
+        "lastModified": 1793341573,
+        "narHash": "sha256-IBG23LQE6+ck8DWCU5cFzcEVsOXfgeIl4m9QJ5nePc0=",
         "owner": "vixhentx",
         "repo": "age-secrets",
-        "rev": "bd95edd4adbfba8a0673aa1729bca84a821cdd55",
+        "rev": "6e0765fd9e6cd25e914f0ab63a2f938db395f864",
         "type": "github"
       },
       "original": {
